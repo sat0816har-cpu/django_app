@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>
+    記事を削除しますか？
+</h2>
+
+<p>
+    {{ article.title }}
+</p>
+
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <button type="submit">
+        削除する
+    </button>
+
+</form>
+
+
+<p>
+
+    <a href="/articles/{{ article.id }}/">
+        キャンセル
+    </a>
+
+</p>
+
+{% endblock %}
