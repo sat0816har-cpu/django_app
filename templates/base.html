@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Djangoブログ</title>
+
+</head>
+
+<body>
+
+<header>
+
+    <h1>
+        <a href="/">
+            Djangoブログ
+        </a>
+    </h1>
+
+    {% if user.is_authenticated %}
+
+        <p>
+            {{ user.username }}さん
+        </p>
+
+        <p>
+            <a href="/articles/new/">
+                新しい記事を書く
+            </a>
+        </p>
+
+        <p>
+            <a href="/logout/">
+                ログアウト
+            </a>
+        </p>
+
+    {% else %}
+
+        <p>
+            <a href="/register/">
+                ユーザー登録
+            </a>
+        </p>
+
+        <p>
+            <a href="/login/">
+                ログイン
+            </a>
+        </p>
+
+    {% endif %}
+
+</header>
+
+<hr>
+
+<main>
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+</body>
+
+</html>
