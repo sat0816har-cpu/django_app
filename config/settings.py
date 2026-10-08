@@ -10,7 +10,9 @@ SECRET_KEY = "django-insecure-change-this-later"
 DEBUG = True
 
 # 開発中は空でOK
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "django-app-crtr.onrender.com",
+]
 
 
 # アプリケーション
