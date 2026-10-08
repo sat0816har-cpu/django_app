@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if article %}
+
+    <h2>
+        記事を編集する
+    </h2>
+
+{% else %}
+
+    <h2>
+        新しい記事を書く
+    </h2>
+
+{% endif %}
+
+
+<form
+    method="post"
+    enctype="multipart/form-data"
+>
+
+    {% csrf_token %}
+
+
+    <p>
+
+        <label>
+            タイトル
+        </label>
+
+    </p>
+
+    <p>
+
+        <input
+            type="text"
+            name="title"
+            value="{{ article.title|default:'' }}"
+        >
+
+    </p>
+
+
+    <p>
+
+        <label>
+            本文
+        </label>
+
+    </p>
+
+    <p>
+
+        <textarea
+            name="content"
+            rows="10"
+            cols="50"
+        >{{ article.content|default:'' }}</textarea>
+
+    </p>
+
+
+    <p>
+
+        <label>
+            画像
+        </label>
+
+    </p>
+
+    <p>
+
+        <input
+            type="file"
+            name="image"
+        >
+
+    </p>
+
+
+    <button type="submit">
+        保存する
+    </button>
+
+</form>
+
+
+<p>
+
+    <a href="/">
+        記事一覧に戻る
+    </a>
+
+</p>
+
+{% endblock %}
