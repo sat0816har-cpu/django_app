@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>
+    {{ article.title }}
+</h2>
+
+<p>
+    投稿者：
+    {{ article.author.username }}
+</p>
+
+<p>
+    {{ article.created_at }}
+</p>
+
+
+{% if article.image %}
+
+    <p>
+        <img
+            src="{{ article.image.url }}"
+            alt="{{ article.title }}"
+            width="500"
+        >
+    </p>
+
+{% endif %}
+
+
+<div>
+
+    {{ article.content }}
+
+</div>
+
+
+{% if user == article.author %}
+
+    <p>
+        <a href="/articles/{{ article.id }}/edit/">
+            編集
+        </a>
+    </p>
+
+    <p>
+        <a href="/articles/{{ article.id }}/delete/">
+            削除
+        </a>
+    </p>
+
+{% endif %}
+
+
+<p>
+    <a href="/">
+        記事一覧に戻る
+    </a>
+</p>
+
+{% endblock %}
