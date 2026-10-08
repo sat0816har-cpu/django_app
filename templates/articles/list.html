@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>記事一覧</h2>
+
+{% if user.is_authenticated %}
+
+    <p>
+        <a href="/articles/new/">
+            新しい記事を書く
+        </a>
+    </p>
+
+{% endif %}
+
+
+{% for article in articles %}
+
+    <article>
+
+        <h3>
+            <a href="/articles/{{ article.id }}/">
+                {{ article.title }}
+            </a>
+        </h3>
+
+        <p>
+            投稿者：
+            {{ article.author.username }}
+        </p>
+
+        <p>
+            {{ article.created_at }}
+        </p>
+
+        {% if article.image %}
+
+            <p>
+                <img
+                    src="{{ article.image.url }}"
+                    alt="{{ article.title }}"
+                    width="300"
+                >
+            </p>
+
+        {% endif %}
+
+    </article>
+
+    <hr>
+
+{% empty %}
+
+    <p>
+        まだ記事がありません。
+    </p>
+
+{% endfor %}
+
+{% endblock %}
