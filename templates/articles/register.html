@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>
+    ユーザー登録
+</h2>
+
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <p>
+
+        <label>
+            ユーザー名
+        </label>
+
+    </p>
+
+    <p>
+
+        <input
+            type="text"
+            name="username"
+        >
+
+    </p>
+
+
+    <p>
+
+        <label>
+            パスワード
+        </label>
+
+    </p>
+
+    <p>
+
+        <input
+            type="password"
+            name="password"
+        >
+
+    </p>
+
+
+    <button type="submit">
+        登録する
+    </button>
+
+</form>
+
+{% endblock %}
