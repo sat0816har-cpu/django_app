@@ -117,3 +117,11 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # デフォルトの主キー
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# css設定
+STATIC_URL = "/static/"
+
+STATICFILES_DIRS = [BASE_DIR / "static"]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
