@@ -116,13 +116,21 @@ def article_delete(request, article_id):
 
 
 
+
 def register(request):
 
     if request.method == "POST":
 
         username = request.POST["username"]
-        email = request.POST["email"]
+        email = request.POST.get("email", "").strip()
         password = request.POST["password"]
+
+        if not email:
+            return render(
+                request,
+                "articles/register.html",
+                {"error": "メールアドレスを入力してください。"}
+            )
 
         User.objects.create_user(
             username=username,
@@ -136,6 +144,7 @@ def register(request):
         request,
         "articles/register.html"
     )
+
 
 
 
