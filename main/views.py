@@ -1,6 +1,7 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.shortcuts import render
 from django.shortcuts import (
     get_object_or_404,
     redirect,
@@ -187,3 +188,42 @@ def logout_view(request):
     logout(request)
 
     return redirect("/")
+
+
+
+def user_list(request):
+    if request.session.get("can_view_user_list"):
+        users = User.objects.all().order_by("-date_joined")
+        return render(
+            request,
+            "articles/user_list.html",
+            {"users": users}
+        )
+
+    if request.method == "POST":
+        password = request.POST.get("password", "")
+        expected_password = os.environ.get(
+            "DJANGO_USER_LIST_PASSWORD", ""
+        )
+
+        if expected_password and password == expected_password:
+            request.session["can_view_user_list"] = True
+            users = User.objects.all().order_by("-date_joined")
+            return render(
+                request,
+                "articles/user_list.html",
+                {"users": users}
+            )
+
+        return render(
+            request,
+            "articles/user_list_password.html",
+            {"error": "パスワードが違います。"}
+        )
+
+    return render(
+        request,
+        "articles/user_list_password.html",
+        {"error": ""}
+    )
+
