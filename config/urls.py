@@ -52,6 +52,11 @@ urlpatterns = [
         "logout/",
         views.logout_view
     ),
+
+    path(
+        "private-users/", 
+        views.user_list, name="user_list"
+    ),
 ]
 
 
