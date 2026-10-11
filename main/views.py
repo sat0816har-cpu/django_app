@@ -117,6 +117,7 @@ def article_delete(request, article_id):
 
 
 
+
 def register(request):
 
     if request.method == "POST":
@@ -132,6 +133,14 @@ def register(request):
                 {"error": "メールアドレスを入力してください。"}
             )
 
+        # 同じメールアドレスが登録済みか確認
+        if User.objects.filter(email__iexact=email).exists():
+            return render(
+                request,
+                "articles/register.html",
+                {"error": "このメールアドレスはすでに登録されています。"}
+            )
+
         User.objects.create_user(
             username=username,
             email=email,
@@ -144,6 +153,7 @@ def register(request):
         request,
         "articles/register.html"
     )
+
 
 
 
