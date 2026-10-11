@@ -115,15 +115,18 @@ def article_delete(request, article_id):
     )
 
 
+
 def register(request):
 
     if request.method == "POST":
 
         username = request.POST["username"]
+        email = request.POST["email"]
         password = request.POST["password"]
 
         User.objects.create_user(
             username=username,
+            email=email,
             password=password
         )
 
@@ -133,6 +136,7 @@ def register(request):
         request,
         "articles/register.html"
     )
+
 
 
 def login_view(request):
