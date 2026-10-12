@@ -1,4 +1,5 @@
 import os
+import resend
 import logging
 
 from django.conf import settings
@@ -293,3 +294,28 @@ def user_list(request):
         "articles/user_list_password.html",
         {"error": ""}
     )
+
+from django.http import HttpResponse
+
+
+def test_resend(request):
+    try:
+        resend.api_key = os.environ["RESEND_API_KEY"]
+
+        result = resend.Emails.send({
+            "from": "onboarding@resend.dev",
+            "to": ["sat0816har@gmail.com"],
+            "subject": "Djangoメール送信テスト",
+            "text": "Resendからのテストメールです。",
+        })
+
+        return HttpResponse(
+            f"送信リクエスト成功: {result}"
+        )
+
+    except Exception:
+        logger.exception("Resendテスト送信に失敗しました")
+        return HttpResponse(
+            "送信に失敗しました。RenderのLogsを確認してください。",
+            status=500,
+        )
