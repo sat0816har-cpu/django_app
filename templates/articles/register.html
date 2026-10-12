@@ -44,9 +44,15 @@
 </form>
 
 {% if error %}
-    <p style="color: red; font-weight: bold;">
-        {{ error }}
-    </p>
+    <div style="color: red; font-weight: bold;">
+        {% if error|length > 1 and error.0 %}
+            {% for message in error %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% else %}
+            <p>{{ error }}</p>
+        {% endif %}
+    </div>
 {% endif %}
 
 {% endblock %}
