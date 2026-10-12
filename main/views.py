@@ -125,10 +125,19 @@ def register(request):
 
     if request.method == "POST":
 
-        username = request.POST["username"]
+        username = request.POST.get("username", "").strip()
         email = request.POST.get("email", "").strip()
-        password = request.POST["password"]
+        password = request.POST.get("password", "")
 
+        # ユーザー名の未入力チェック
+        if not username:
+            return render(
+                request,
+                "articles/register.html",
+                {"error": "ユーザー名を入力してください。"}
+            )
+
+        # メールアドレスの未入力チェック
         if not email:
             return render(
                 request,
@@ -136,14 +145,31 @@ def register(request):
                 {"error": "メールアドレスを入力してください。"}
             )
 
+        # パスワードの未入力チェック
+        if not password:
+            return render(
+                request,
+                "articles/register.html",
+                {"error": "パスワードを入力してください。"}
+            )
+
+        # 同じユーザー名が登録済みか確認
+        if User.objects.filter(username=username).exists():
+            return render(
+                request,
+                "articles/register.html",
+                {"error": "このユーザー名はすでに使用されています。別のユーザー名を入力してください。"}
+            )
+
         # 同じメールアドレスが登録済みか確認
         if User.objects.filter(email__iexact=email).exists():
             return render(
                 request,
                 "articles/register.html",
-                {"error": "このメールアドレスはすでに登録されています。"}
+                {"error": "このメールアドレスはすでに登録されています。別のメールアドレスを入力してください。"}
             )
 
+        # ユーザーを登録
         User.objects.create_user(
             username=username,
             email=email,
