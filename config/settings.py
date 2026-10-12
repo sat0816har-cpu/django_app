@@ -147,3 +147,6 @@ DEFAULT_FROM_EMAIL = os.environ.get(
     "DEFAULT_FROM_EMAIL",
     EMAIL_HOST_USER
 )
+
+# メール送信のタイムアウトを10秒に設定
+EMAIL_TIMEOUT = 10
