@@ -1,18 +1,22 @@
 import os
-from django.shortcuts import render, redirect
+import logging
+
+from django.conf import settings
+from django.shortcuts import (
+    render,
+    redirect,
+    get_object_or_404,
+)
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import render
-from django.shortcuts import (
-    get_object_or_404,
-    redirect,
-    render
-)
-
-from .models import Article
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
+
+from .models import Article
+
+logger = logging.getLogger(__name__)
 
 
 def article_list(request):
@@ -130,7 +134,7 @@ def register(request):
         email = request.POST.get("email", "").strip()
         password = request.POST.get("password", "")
 
-        # ユーザー名の未入力チェック
+        # 入力チェック
         if not username:
             return render(
                 request,
@@ -138,7 +142,6 @@ def register(request):
                 {"error": "ユーザー名を入力してください。"}
             )
 
-        # メールアドレスの未入力チェック
         if not email:
             return render(
                 request,
@@ -146,7 +149,6 @@ def register(request):
                 {"error": "メールアドレスを入力してください。"}
             )
 
-        # パスワードの未入力チェック
         if not password:
             return render(
                 request,
@@ -171,10 +173,7 @@ def register(request):
             )
 
         # パスワードの強度チェック
-        new_user = User(
-            username=username,
-            email=email
-        )
+        new_user = User(username=username, email=email)
 
         try:
             validate_password(password, user=new_user)
@@ -185,13 +184,33 @@ def register(request):
                 {"error": e.messages}
             )
 
-        # すべてのチェックに合格したら登録
+        # ユーザー登録
         User.objects.create_user(
             username=username,
             email=email,
             password=password
         )
 
+        # 登録完了メールの送信
+        try:
+            send_mail(
+                subject="ご登録ありがとうございます",
+                message=(
+                    f"{username} 様\n\n"
+                    "ご登録ありがとうございます。\n"
+                    "会員登録が正常に完了しました。\n\n"
+                    "今後ともよろしくお願いいたします。"
+                ),
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                recipient_list=[email],
+                fail_silently=False,
+            )
+
+        except Exception:
+            # メール送信エラーをRenderのログに記録
+            logger.exception("登録完了メールの送信に失敗しました")
+
+        # ログイン画面へ移動
         return redirect("/login/")
 
     return render(
