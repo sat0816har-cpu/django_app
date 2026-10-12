@@ -54,6 +54,11 @@ urlpatterns = [
     ),
 
     path(
+    "test-resend/",
+    views.test_resend
+    ),
+
+    path(
         "private-users/", 
         views.user_list, name="user_list"
     ),
