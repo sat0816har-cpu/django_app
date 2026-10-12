@@ -122,7 +122,6 @@ def article_delete(request, article_id):
 
 
 
-
 def register(request):
 
     if request.method == "POST":
@@ -155,23 +154,38 @@ def register(request):
                 {"error": "パスワードを入力してください。"}
             )
 
-        # 同じユーザー名が登録済みか確認
+        # ユーザー名の重複チェック
         if User.objects.filter(username=username).exists():
             return render(
                 request,
                 "articles/register.html",
-                {"error": "このユーザー名はすでに使用されています。別のユーザー名を入力してください。"}
+                {"error": "このユーザー名はすでに使用されています。"}
             )
 
-        # 同じメールアドレスが登録済みか確認
+        # メールアドレスの重複チェック
         if User.objects.filter(email__iexact=email).exists():
             return render(
                 request,
                 "articles/register.html",
-                {"error": "このメールアドレスはすでに登録されています。別のメールアドレスを入力してください。"}
+                {"error": "このメールアドレスはすでに登録されています。"}
             )
 
-        # ユーザーを登録
+        # パスワードの強度チェック
+        new_user = User(
+            username=username,
+            email=email
+        )
+
+        try:
+            validate_password(password, user=new_user)
+        except ValidationError as e:
+            return render(
+                request,
+                "articles/register.html",
+                {"error": e.messages}
+            )
+
+        # すべてのチェックに合格したら登録
         User.objects.create_user(
             username=username,
             email=email,
@@ -184,7 +198,6 @@ def register(request):
         request,
         "articles/register.html"
     )
-
 
 
 
