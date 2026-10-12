@@ -11,6 +11,8 @@ from django.shortcuts import (
 )
 
 from .models import Article
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 
 
 def article_list(request):
