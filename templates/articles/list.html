@@ -1,63 +1,73 @@
+
 {% extends "base.html" %}
 
 {% load static %}
 
 {% block content %}
 
-<h2>記事一覧</h2>
+<div class="feed-header">
+    <h2 class="feed-title">みんなの投稿</h2>
+    <p class="feed-description">
+        好きなことを見つけて、つながろう。
+    </p>
+</div>
 
 {% if user.is_authenticated %}
-
-    <p>
-        <a href="/articles/new/">
-            新しい記事を書く
+    <div class="feed-actions">
+        <a href="/articles/new/" class="new-article-button">
+            ＋ 投稿する
         </a>
-    </p>
-
+    </div>
 {% endif %}
 
+<div class="post-grid">
 
-{% for article in articles %}
+    {% for article in articles %}
 
-    <article>
+        <article class="post-card">
 
-        <h3>
-            <a href="/articles/{{ article.id }}/">
-                {{ article.title }}
+            <a href="/articles/{{ article.id }}/"
+               class="post-card-link">
+
+                {% if article.image %}
+                    <img
+                        class="post-image"
+                        src="{{ article.image.url }}"
+                        alt="{{ article.title }}"
+                        loading="lazy"
+                    >
+                {% else %}
+                    <div class="post-no-image">
+                        <span>写真はありません</span>
+                    </div>
+                {% endif %}
+
+                <div class="post-card-body">
+                    <h3 class="post-card-title">
+                        {{ article.title }}
+                    </h3>
+
+                    <p class="post-author">
+                        {{ article.author.username }}
+                    </p>
+
+                    <p class="post-date">
+                        {{ article.created_at|date:"Y年n月j日" }}
+                    </p>
+                </div>
+
             </a>
-        </h3>
 
-        <p>
-            投稿者：
-            {{ article.author.username }}
+        </article>
+
+    {% empty %}
+
+        <p class="empty-message">
+            まだ投稿がありません。最初の記事を投稿してみましょう！
         </p>
 
-        <p>
-            {{ article.created_at }}
-        </p>
+    {% endfor %}
 
-        {% if article.image %}
-
-            <p>
-                <img
-                    src="{{ article.image.url }}"
-                    alt="{{ article.title }}"
-                    width="300"
-                >
-            </p>
-
-        {% endif %}
-
-    </article>
-
-    <hr>
-
-{% empty %}
-
-    <p>
-        まだ記事がありません。
-    </p>
-
-{% endfor %}
+</div>
 
 {% endblock %}
