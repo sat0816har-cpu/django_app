@@ -198,4 +198,9 @@ article {
     .sidebar hr {
         display: none;
     }
+
+    .travel-icon {
+    filter: grayscale(1);
+    -webkit-filter: grayscale(1);
+    color: #222222;
 }
