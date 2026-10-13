@@ -10,9 +10,10 @@ body {
 
 /* ページの基本幅 */
 .container {
-    max-width: 1200px;
+    width: 100%;
+    max-width: none;
     margin: 0 auto;
-    padding: 20px;
+    padding: 24px;
     background-color: #ffffff;
     min-height: 100vh;
     box-sizing: border-box;
