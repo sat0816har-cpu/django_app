@@ -26,7 +26,7 @@ def article_list(request):
 
     return render(
         request,
-        "articles/list.html",
+        "articles/index.html",
         {"articles": articles}
     )
 
