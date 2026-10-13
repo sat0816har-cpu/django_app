@@ -1,31 +1,113 @@
+
+/* ページ全体 */
 body {
     font-family: sans-serif;
-    background-color: #f5f7fa;
-    color: #333;
+    background-color: #ffffff;
+    color: #333333;
     margin: 0;
-    padding: 30px;
+    padding: 0;
 }
 
-
+/* ページの基本幅 */
 .container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    background-color: white;
+    background-color: #ffffff;
     min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* ヘッダー */
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 10px 0 20px;
+    background-color: #ffffff;
+}
+
+/* サイト名とキャッチコピー */
+.site-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.site-title {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
 }
 
 .site-title a {
-text-decoration: none;
+    color: #111111;
+    text-decoration: none;
 }
 
-h1 {
-    color: #2457a7;
+.site-tagline {
+    margin: 0;
+    color: #555555;
+    font-size: 12px;
 }
 
+/* ログインなどのメニュー */
+.user-menu {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.user-menu a {
+    color: #333333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.user-menu a:hover {
+    text-decoration: underline;
+}
+
+/* ヘッダー下の区切り線 */
+hr {
+    border: 0;
+    border-top: 1px solid #eeeeee;
+    margin: 0 0 24px;
+}
+
+/* 投稿カード */
 article {
-    background-color: white;
+    background-color: #ffffff;
     padding: 20px;
     margin-bottom: 20px;
+    border: 1px solid #eeeeee;
     border-radius: 8px;
+}
+
+/* 見出し */
+h1 {
+    color: #111111;
+}
+
+/* スマートフォン対応 */
+@media (max-width: 600px) {
+    .container {
+        padding: 14px;
+    }
+
+    .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .site-title {
+        font-size: 28px;
+    }
+
+    .user-menu {
+        gap: 12px;
+    }
 }
