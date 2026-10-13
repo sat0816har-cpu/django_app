@@ -190,6 +190,9 @@ article {
     .menu-icon {
         width: auto;
         font-size: 18px;
+        color: #222222;
+        font-family: sans-serif;
+        font-variant-emoji: text;
     }
 
     .sidebar hr {
