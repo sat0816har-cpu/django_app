@@ -199,8 +199,19 @@ article {
         display: none;
     }
 
-    .travel-icon {
-    filter: grayscale(1);
-    -webkit-filter: grayscale(1);
+    
+/* 旅行の飛行機アイコン */
+.travel-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     color: #222222;
+    flex-shrink: 0;
 }
+
+.travel-icon svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
