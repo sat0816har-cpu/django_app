@@ -363,8 +363,9 @@ article {
 
 
 /* フッター */
+
 .site-footer {
-    margin-top: 48px;
+    margin-top: 32px;
     border-top: 1px solid #eeeeee;
     background: #ffffff;
 }
@@ -374,9 +375,10 @@ article {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
-    padding: 28px;
+    gap: 12px;
+    padding: 14px 28px;
 }
+
 
 .footer-brand {
     display: flex;
