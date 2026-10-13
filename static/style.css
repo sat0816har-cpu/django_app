@@ -375,8 +375,9 @@ article {
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 12px;
-    padding: 14px 28px;
+    gap: 10px;
+    padding: 10px 28px;
+    min-height: 60px;
 }
 
 
