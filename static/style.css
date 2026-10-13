@@ -365,10 +365,10 @@ article {
 /* フッター */
 
 .site-footer {
-    margin-top: 100px;
+    margin-top: 30px;
     border-top: 1px solid #eeeeee;
     background: #ffffff;
-    height: 200px;
+    height: 100px;
   
 }
 
