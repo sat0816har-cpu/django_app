@@ -53,10 +53,6 @@ urlpatterns = [
         views.logout_view
     ),
 
-    path(
-    "test-resend/",
-    views.test_resend
-    ),
 
     path(
         "private-users/", 
