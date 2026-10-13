@@ -1,78 +1,61 @@
+
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Djangoブログ</title>
+    <title>すきつな｜好きでつながる。世界が広がる。</title>
 
     <link rel="stylesheet" href="{% static 'style.css' %}">
-
 </head>
 
 <body>
 
 <div class="container">
 
-<header>
+    <header class="site-header">
 
-    <h1 class="site-title">
-        <a href="/">
-            Djangoブログ
-        </a>
-    </h1>
+        <div class="site-brand">
+            <h1 class="site-title">
+                <a href="/">すきつな</a>
+            </h1>
 
-    {% if user.is_authenticated %}
+            <p class="site-tagline">
+                好きでつながる。世界が広がる。
+            </p>
+        </div>
 
-        <p>
-            {{ user.username }}さん
-        </p>
+        <nav class="user-menu">
 
-        <p>
-            <a href="/logout/">
-                ログアウト
-            </a>
-        </p>
+            {% if user.is_authenticated %}
 
-    {% else %}
+                <span>{{ user.username }}さん</span>
+                <a href="/logout/">ログアウト</a>
 
-        <p>
-            <a href="/register/">
-                ユーザー登録
-            </a>
-        </p>
+            {% else %}
 
-        <p>
-            <a href="/login/">
-                ログイン
-            </a>
-        </p>
+                <a href="/register/">ユーザー登録</a>
+                <a href="/login/">ログイン</a>
 
-    
-　　　　　<p>
-    　　　　 <a href="/private-users/">
-            登録ユーザー一覧
-       　　 </a>
-　　　　　</p>
+            {% endif %}
 
+            <a href="/private-users/">登録ユーザー一覧</a>
 
-    {% endif %}
+        </nav>
 
-</header>
+    </header>
 
-<hr>
+    <hr>
 
-<main>
-
-    {% block content %}
-    {% endblock %}
-
-</main>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
 
 </div>
 
 </body>
-
 </html>
