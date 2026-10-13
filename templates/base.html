@@ -2,55 +2,84 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>すきつな｜好きでつながる。世界が広がる。</title>
-
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
-
 <body>
 
-<div class="container">
+<header class="site-header">
+    <div class="site-brand">
+        <h1 class="site-title">
+            <a href="/">すきつな</a>
+        </h1>
+        <p class="site-tagline">好きでつながる。世界が広がる。</p>
+    </div>
 
-    <header class="site-header">
+    <nav class="user-menu">
+        {% if user.is_authenticated %}
+            <span>{{ user.username }}さん</span>
+            <a href="/logout/">ログアウト</a>
+        {% else %}
+            <a href="/register/">ユーザー登録</a>
+            <a href="/login/">ログイン</a>
+        {% endif %}
+        <a href="/private-users/">登録ユーザー一覧</a>
+    </nav>
+</header>
 
-        <div class="site-brand">
-            <h1 class="site-title">
-                <a href="/">すきつな</a>
-            </h1>
+<div class="page-layout">
 
-            <p class="site-tagline">
-                好きでつながる。世界が広がる。
-            </p>
-        </div>
+    <aside class="sidebar">
+        <h2>メニュー</h2>
 
-        <nav class="user-menu">
+        <a href="/" class="menu-item">
+            <span class="menu-icon">⌂</span>
+            <span>ホーム</span>
+        </a>
 
-            {% if user.is_authenticated %}
+        <a href="/category/music/" class="menu-item">
+            <span class="menu-icon">♫</span>
+            <span>音楽</span>
+        </a>
 
-                <span>{{ user.username }}さん</span>
-                <a href="/logout/">ログアウト</a>
+        <a href="/category/movie/" class="menu-item">
+            <span class="menu-icon">▣</span>
+            <span>映画</span>
+        </a>
 
-            {% else %}
+        <a href="/category/book/" class="menu-item">
+            <span class="menu-icon">▤</span>
+            <span>読書</span>
+        </a>
 
-                <a href="/register/">ユーザー登録</a>
-                <a href="/login/">ログイン</a>
+        <a href="/category/photo/" class="menu-item">
+            <span class="menu-icon">▧</span>
+            <span>写真</span>
+        </a>
 
-            {% endif %}
+        <a href="/category/travel/" class="menu-item">
+            <span class="menu-icon">✈</span>
+            <span>旅行</span>
+        </a>
 
-            <a href="/private-users/">登録ユーザー一覧</a>
+        <a href="/category/other/" class="menu-item">
+            <span class="menu-icon">•••</span>
+            <span>その他</span>
+        </a>
 
-        </nav>
+        {% if user.is_authenticated %}
+            <hr>
+            <a href="/post/new/" class="menu-item post-menu">
+                <span class="menu-icon">✎</span>
+                <span>投稿する</span>
+            </a>
+        {% endif %}
+    </aside>
 
-    </header>
-
-    <hr>
-
-    <main>
+    <main class="main-content">
         {% block content %}
         {% endblock %}
     </main>
