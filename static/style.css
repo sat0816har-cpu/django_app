@@ -73,7 +73,6 @@ body {
     padding: 24px;
 }
 
-/* 左側のサイドメニュー */
 .sidebar {
     position: sticky;
     top: 20px;
@@ -115,6 +114,20 @@ body {
     line-height: 1;
 }
 
+.travel-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #222222;
+    flex-shrink: 0;
+}
+
+.travel-icon svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
 .sidebar hr {
     margin: 18px 8px;
     border: 0;
@@ -132,6 +145,126 @@ body {
     min-width: 0;
 }
 
+/* トップページの見出し */
+.feed-header {
+    margin-bottom: 20px;
+}
+
+.feed-title {
+    margin: 0 0 8px;
+    color: #222222;
+    font-size: 26px;
+}
+
+.feed-description {
+    margin: 0;
+    color: #777777;
+    font-size: 14px;
+}
+
+/* 投稿ボタン */
+.feed-actions {
+    margin-bottom: 22px;
+}
+
+.new-article-button {
+    display: inline-block;
+    padding: 10px 18px;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    color: #222222;
+    background: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.new-article-button:hover {
+    background: #f5f5f5;
+}
+
+/* 投稿カード一覧：パソコンでは4列 */
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    align-items: start;
+}
+
+/* カード本体 */
+.post-card {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    background: #ffffff;
+    transition: box-shadow 0.2s ease;
+}
+
+.post-card:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.post-card-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* 写真 */
+.post-image,
+.post-no-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+}
+
+.post-image {
+    object-fit: cover;
+    background: #f3f3f3;
+}
+
+.post-no-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f2f2f2;
+    color: #777777;
+    font-size: 13px;
+}
+
+/* カード内の文章 */
+.post-card-body {
+    padding: 12px;
+}
+
+.post-card-title {
+    margin: 0 0 10px;
+    color: #222222;
+    font-size: 16px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+.post-author {
+    margin: 0 0 6px;
+    color: #555555;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.post-date {
+    margin: 0;
+    color: #888888;
+    font-size: 12px;
+}
+
+.empty-message {
+    color: #777777;
+    font-size: 14px;
+}
+
 /* 記事などの共通表示 */
 article {
     margin-bottom: 20px;
@@ -141,8 +274,22 @@ article {
     background-color: #ffffff;
 }
 
-/* スマートフォン向け */
-@media (max-width: 700px) {
+/* 投稿カードだけは共通の余白を解除 */
+.post-card {
+    margin-bottom: 0;
+    padding: 0;
+}
+
+/* タブレットでは3列 */
+@media (max-width: 1000px) {
+    .post-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+    }
+}
+
+/* スマートフォンでは2列 */
+@media (max-width: 650px) {
     .site-header {
         align-items: flex-start;
         flex-direction: column;
@@ -190,162 +337,12 @@ article {
     .menu-icon {
         width: auto;
         font-size: 18px;
-        color: #222222;
-        font-family: sans-serif;
-        font-variant-emoji: text;
     }
 
     .sidebar hr {
         display: none;
     }
 
-    
-/* 旅行の飛行機アイコン */
-.travel-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: #222222;
-    flex-shrink: 0;
-}
-
-.travel-icon svg {
-    display: block;
-    width: 24px;
-    height: 24px;
-}
-
-    
-/* トップページの見出し */
-.feed-header {
-    margin-bottom: 20px;
-}
-
-.feed-title {
-    margin: 0 0 8px;
-    color: #222222;
-    font-size: 26px;
-}
-
-.feed-description {
-    margin: 0;
-    color: #777777;
-    font-size: 14px;
-}
-
-/* 投稿ボタン */
-.feed-actions {
-    margin-bottom: 22px;
-}
-
-.new-article-button {
-    display: inline-block;
-    padding: 10px 18px;
-    border: 1px solid #dddddd;
-    border-radius: 8px;
-    color: #222222;
-    background: #ffffff;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.new-article-button:hover {
-    background: #f5f5f5;
-}
-
-/* 写真カードの一覧 */
-.post-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 20px;
-    align-items: start;
-}
-
-/* カード本体 */
-.post-card {
-    min-width: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 1px solid #eeeeee;
-    border-radius: 10px;
-    background: #ffffff;
-    transition: box-shadow 0.2s ease;
-}
-
-.post-card:hover {
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-}
-
-.post-card-link {
-    display: block;
-    color: inherit;
-    text-decoration: none;
-}
-
-/* 写真 */
-.post-image {
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    background: #f3f3f3;
-}
-
-/* 写真がない場合 */
-.post-no-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    background: #f2f2f2;
-    color: #777777;
-    font-size: 13px;
-}
-
-/* カード内の文章 */
-.post-card-body {
-    padding: 12px;
-}
-
-.post-card-title {
-    margin: 0 0 10px;
-    color: #222222;
-    font-size: 16px;
-    line-height: 1.5;
-    overflow-wrap: anywhere;
-}
-
-.post-author {
-    margin: 0 0 6px;
-    color: #555555;
-    font-size: 13px;
-    overflow-wrap: anywhere;
-}
-
-.post-date {
-    margin: 0;
-    color: #888888;
-    font-size: 12px;
-}
-
-/* 記事がない場合 */
-.empty-message {
-    color: #777777;
-    font-size: 14px;
-}
-
-/* タブレット */
-@media (max-width: 1000px) {
-    .post-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 16px;
-    }
-
-    
-/* スマートフォン */
-@media (max-width: 650px) {
     .post-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 12px;
@@ -362,59 +359,4 @@ article {
     .post-card-title {
         font-size: 14px;
     }
-
-
-    
-/* 投稿カードを横に並べる */
-.post-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 20px;
-    align-items: start;
 }
-
-/* カード本体 */
-.post-card {
-    min-width: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    border: 1px solid #eeeeee;
-    border-radius: 10px;
-    background: #ffffff;
-}
-
-/* カード内の画像 */
-.post-image {
-    display: block;
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-}
-
-/* カード内の文字 */
-.post-card-body {
-    padding: 12px;
-}
-
-.post-card-title {
-    font-size: 16px;
-    margin: 0 0 10px;
-}
-
-/* タブレット */
-@media (max-width: 1000px) {
-    .post-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-}
-
-/* スマートフォン */
-@media (max-width: 650px) {
-    .post-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-    }
-
-
-    
