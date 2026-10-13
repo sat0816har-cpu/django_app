@@ -193,20 +193,21 @@ def register(request):
             password=password
         )
 
-        # 登録完了メールの送信
+        # Resendを使って登録完了メールを送信
         try:
-            send_mail(
-                subject="ご登録ありがとうございます",
-                message=(
+            resend.api_key = os.environ["RESEND_API_KEY"]
+
+            resend.Emails.send({
+                "from": "onboarding@resend.dev",
+                "to": [email],
+                "subject": "ご登録ありがとうございます",
+                "text": (
                     f"{username} 様\n\n"
                     "ご登録ありがとうございます。\n"
                     "会員登録が正常に完了しました。\n\n"
                     "今後ともよろしくお願いいたします。"
                 ),
-                from_email=settings.DEFAULT_FROM_EMAIL,
-                recipient_list=[email],
-                fail_silently=False,
-            )
+            })
 
         except Exception:
             # メール送信エラーをRenderのログに記録
@@ -219,7 +220,6 @@ def register(request):
         request,
         "articles/register.html"
     )
-
 
 
 
