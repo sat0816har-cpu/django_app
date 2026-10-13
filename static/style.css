@@ -363,4 +363,58 @@ article {
         font-size: 14px;
     }
 
+
+    
+/* 投稿カードを横に並べる */
+.post-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    align-items: start;
+}
+
+/* カード本体 */
+.post-card {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    background: #ffffff;
+}
+
+/* カード内の画像 */
+.post-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+/* カード内の文字 */
+.post-card-body {
+    padding: 12px;
+}
+
+.post-card-title {
+    font-size: 16px;
+    margin: 0 0 10px;
+}
+
+/* タブレット */
+@media (max-width: 1000px) {
+    .post-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+/* スマートフォン */
+@media (max-width: 650px) {
+    .post-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+
     
