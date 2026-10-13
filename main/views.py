@@ -299,33 +299,4 @@ def user_list(request):
 from django.http import HttpResponse
 
 
-def test_resend(request):
-    # URLに指定されたテスト用キーを確認
-    test_key = os.environ.get("RESEND_TEST_KEY")
 
-    if not test_key or request.GET.get("key") != test_key:
-        return HttpResponse(
-            "アクセスできません。",
-            status=403
-        )
-
-    try:
-        resend.api_key = os.environ["RESEND_API_KEY"]
-
-        result = resend.Emails.send({
-            "from": "onboarding@resend.dev",
-            "to": ["sat0816har@gmail.com"],
-            "subject": "Djangoメール送信テスト",
-            "text": "Resendからのテストメールです。",
-        })
-
-        return HttpResponse(
-            f"送信リクエスト成功: {result}"
-        )
-
-    except Exception:
-        logger.exception("Resendテスト送信に失敗しました")
-        return HttpResponse(
-            "送信に失敗しました。RenderのLogsを確認してください。",
-            status=500
-        )
