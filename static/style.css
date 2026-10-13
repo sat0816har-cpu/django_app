@@ -360,3 +360,83 @@ article {
         font-size: 14px;
     }
 }
+
+
+/* フッター */
+.site-footer {
+    margin-top: 48px;
+    border-top: 1px solid #eeeeee;
+    background: #ffffff;
+}
+
+.footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 28px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.footer-logo {
+    color: #222222;
+    font-size: 20px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.footer-brand p {
+    margin: 0;
+    color: #777777;
+    font-size: 12px;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-links a {
+    color: #555555;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: #111111;
+    text-decoration: underline;
+}
+
+.footer-copy {
+    margin: 0;
+    color: #999999;
+    font-size: 12px;
+}
+
+/* スマートフォン */
+@media (max-width: 650px) {
+    .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 24px 16px;
+        gap: 16px;
+    }
+
+    .footer-brand {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .footer-links {
+        gap: 16px;
+    }
+}
