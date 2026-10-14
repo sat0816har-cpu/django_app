@@ -117,6 +117,7 @@ def article_create(request):
 
 
 
+
 @login_required
 def article_edit(request, article_id):
 
@@ -132,6 +133,24 @@ def article_edit(request, article_id):
 
         article.title = request.POST["title"]
         article.content = request.POST["content"]
+
+        category = request.POST.get(
+            "category",
+            article.category
+        )
+
+        valid_categories = [
+            "music",
+            "movie",
+            "book",
+            "photo",
+            "travel",
+            "cooking",
+            "other",
+        ]
+
+        if category in valid_categories:
+            article.category = category
 
         image = request.FILES.get("image")
 
@@ -149,6 +168,7 @@ def article_edit(request, article_id):
         "articles/form.html",
         {"article": article}
     )
+
 
 
 @login_required
