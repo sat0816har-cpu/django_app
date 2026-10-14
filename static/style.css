@@ -369,6 +369,7 @@ article {
     border-top: 1px solid #eeeeee;
     background: #ffffff;
     margin-bottom:30px;
+    min-height: 100px; 
    
 }
 
