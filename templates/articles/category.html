@@ -1,0 +1,57 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="feed-header">
+    <h2 class="feed-title">{{ category_name }}</h2>
+    <p class="feed-description">
+        {{ category_name }}の投稿を見てみましょう。
+    </p>
+</div>
+
+<div class="post-grid">
+    {% for article in articles %}
+        <article class="post-card">
+            <a href="/articles/{{ article.id }}/" class="post-card-link">
+
+                {% if article.image %}
+                    <img
+                        class="post-image"
+                        src="{{ article.image.url }}"
+                        alt="{{ article.title }}"
+                        loading="lazy"
+                    >
+                {% else %}
+                    <div class="post-no-image">
+                        <span>写真はありません</span>
+                    </div>
+                {% endif %}
+
+                <div class="post-card-body">
+                    <h3 class="post-card-title">
+                        {{ article.title }}
+                    </h3>
+
+                    <p class="post-author">
+                        {{ article.author.username }}
+                    </p>
+
+                    <p class="post-date">
+                        {{ article.created_at|date:"Y年n月j日" }}
+                    </p>
+                </div>
+
+            </a>
+        </article>
+
+    {% empty %}
+        <p class="empty-message">
+            まだ投稿がありません。
+            このカテゴリーの最初の記事を投稿してみましょう！
+        </p>
+    {% endfor %}
+</div>
+
+{% endblock %}
