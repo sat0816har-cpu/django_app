@@ -31,6 +31,38 @@ def article_list(request):
     )
 
 
+def category_list(request, category_slug):
+    category_names = {
+        "music": "音楽",
+        "movie": "映画",
+        "book": "読書",
+        "photo": "写真",
+        "travel": "旅行",
+        "cooking": "料理",
+        "other": "その他",
+    }
+
+    category_name = category_names.get(category_slug)
+
+    if category_name is None:
+        return HttpResponse("カテゴリーが見つかりません。", status=404)
+
+    articles = Article.objects.filter(
+        category=category_slug
+    ).order_by("-created_at")
+
+    return render(
+        request,
+        "articles/category.html",
+        {
+            "articles": articles,
+            "category_name": category_name,
+            "category_slug": category_slug,
+        }
+    )
+
+
+
 def article_detail(request, article_id):
     article = get_object_or_404(
         Article,
