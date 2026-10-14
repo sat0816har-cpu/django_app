@@ -156,6 +156,13 @@ def article_edit(request, article_id):
         if category in valid_categories:
             article.category = category
 
+        youtube_url = request.POST.get(
+            "youtube_url",
+            article.youtube_url
+        ).strip()
+
+        article.youtube_url = youtube_url
+
         image = request.FILES.get("image")
 
         if image:
@@ -172,6 +179,7 @@ def article_edit(request, article_id):
         "articles/form.html",
         {"article": article}
     )
+
 
 
 
