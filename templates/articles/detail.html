@@ -24,15 +24,13 @@
 
 {% if article.image %}
 
-    <p>
-        
-        <img
-             src="{{ article.image.url }}"
-             alt="{{ article.title }}"
-             style="max-width: 100%; height: auto; display: block;"
-        >
-        
-    </p>
+   <div style="margin: 0; padding: 0;">
+    <img
+        src="{{ article.image.url }}"
+        alt="{{ article.title }}"
+        style="width: 100%; height: auto; display: block;"
+    >
+</div>
 
 {% endif %}
 
