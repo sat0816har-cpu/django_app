@@ -18,6 +18,13 @@ urlpatterns = [
         views.article_list
     ),
 
+       # カテゴリー別ページ
+    path(
+        "category/<slug:category_slug>/",
+        views.category_list,
+        name="category_list"
+    ),
+
     path(
         "articles/new/",
         views.article_create
