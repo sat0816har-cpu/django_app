@@ -25,11 +25,13 @@
 {% if article.image %}
 
     <p>
+        
         <img
-            src="{{ article.image.url }}"
-            alt="{{ article.title }}"
-            width="500"
+             src="{{ article.image.url }}"
+             alt="{{ article.title }}"
+             style="max-width: 100%; height: auto; display: block;"
         >
+        
     </p>
 
 {% endif %}
