@@ -42,6 +42,23 @@
 </div>
 
 
+{% if article.youtube_url %}
+
+    <h3>YouTube動画</h3>
+
+    <p>
+        <a
+            href="{{ article.youtube_url }}"
+            target="_blank"
+            rel="noopener noreferrer"
+        >
+            YouTubeで動画を見る
+        </a>
+    </p>
+
+{% endif %}
+
+
 {% if user == article.author %}
 
     <p>
