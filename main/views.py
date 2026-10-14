@@ -77,6 +77,7 @@ def article_detail(request, article_id):
 
 
 
+
 @login_required
 def article_create(request):
 
@@ -86,6 +87,7 @@ def article_create(request):
         content = request.POST["content"]
         category = request.POST.get("category", "other")
         image = request.FILES.get("image")
+        youtube_url = request.POST.get("youtube_url", "").strip()
 
         valid_categories = [
             "music",
@@ -105,7 +107,8 @@ def article_create(request):
             title=title,
             content=content,
             category=category,
-            image=image
+            image=image,
+            youtube_url=youtube_url
         )
 
         return redirect("/")
@@ -114,6 +117,7 @@ def article_create(request):
         request,
         "articles/form.html"
     )
+
 
 
 
