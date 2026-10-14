@@ -6,6 +6,12 @@
     {{ article.title }}
 </h2>
 
+
+<p class="post-category">
+    {{ article.get_category_display }}
+</p>
+
+
 <p>
     投稿者：
     {{ article.author.username }}
