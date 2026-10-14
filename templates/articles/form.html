@@ -1,99 +1,95 @@
+
 {% extends "base.html" %}
 
 {% block content %}
 
 {% if article %}
-
-    <h2>
-        記事を編集する
-    </h2>
-
+    <h2>記事を編集する</h2>
 {% else %}
-
-    <h2>
-        新しい記事を書く
-    </h2>
-
+    <h2>新しい記事を書く</h2>
 {% endif %}
 
-
-<form
-    method="post"
-    enctype="multipart/form-data"
->
+<form method="post" enctype="multipart/form-data">
 
     {% csrf_token %}
 
-
     <p>
-
-        <label>
-            タイトル
-        </label>
-
+        <label>タイトル</label>
     </p>
-
     <p>
-
         <input
             type="text"
             name="title"
             value="{{ article.title|default:'' }}"
+            required
         >
-
-    </p>
-
-
-    <p>
-
-        <label>
-            本文
-        </label>
-
     </p>
 
     <p>
-
+        <label>本文</label>
+    </p>
+    <p>
         <textarea
             name="content"
             rows="10"
             cols="50"
+            required
         >{{ article.content|default:'' }}</textarea>
-
-    </p>
-
-
-    <p>
-
-        <label>
-            画像
-        </label>
-
     </p>
 
     <p>
-
-        <input
-            type="file"
-            name="image"
-        >
-
+        <label>カテゴリー</label>
+    </p>
+    <p>
+        <select name="category" required>
+            <option value="music"
+                {% if article.category == "music" %}selected{% endif %}>
+                音楽
+            </option>
+            <option value="movie"
+                {% if article.category == "movie" %}selected{% endif %}>
+                映画
+            </option>
+            <option value="book"
+                {% if article.category == "book" %}selected{% endif %}>
+                読書
+            </option>
+            <option value="photo"
+                {% if article.category == "photo" %}selected{% endif %}>
+                写真
+            </option>
+            <option value="travel"
+                {% if article.category == "travel" %}selected{% endif %}>
+                旅行
+            </option>
+            <option value="cooking"
+                {% if article.category == "cooking" %}selected{% endif %}>
+                料理
+            </option>
+            <option value="other"
+                {% if not article or article.category == "other" %}selected{% endif %}>
+                その他
+            </option>
+        </select>
     </p>
 
+    <p>
+        <label>画像</label>
+    </p>
+    <p>
+        <input type="file" name="image" accept="image/*">
+    </p>
 
-    <button type="submit">
-        保存する
-    </button>
+    {% if article and article.image %}
+        <p>現在の画像：{{ article.image.name }}</p>
+    {% endif %}
+
+    <button type="submit">保存する</button>
 
 </form>
 
-
 <p>
-
-    <a href="/">
-        記事一覧に戻る
-    </a>
-
+    <a href="/">記事一覧に戻る</a>
 </p>
 
 {% endblock %}
