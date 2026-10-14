@@ -47,6 +47,11 @@
                         {{ article.title }}
                     </h3>
 
+                    <p class="post-category">
+                        {{ article.get_category_display }}
+                    </p>
+
+
                     <p class="post-author">
                         {{ article.author.username }}
                     </p>
