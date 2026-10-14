@@ -76,6 +76,7 @@ def article_detail(request, article_id):
     )
 
 
+
 @login_required
 def article_create(request):
 
@@ -83,12 +84,27 @@ def article_create(request):
 
         title = request.POST["title"]
         content = request.POST["content"]
+        category = request.POST.get("category", "other")
         image = request.FILES.get("image")
+
+        valid_categories = [
+            "music",
+            "movie",
+            "book",
+            "photo",
+            "travel",
+            "cooking",
+            "other",
+        ]
+
+        if category not in valid_categories:
+            category = "other"
 
         Article.objects.create(
             author=request.user,
             title=title,
             content=content,
+            category=category,
             image=image
         )
 
@@ -98,6 +114,7 @@ def article_create(request):
         request,
         "articles/form.html"
     )
+
 
 
 @login_required
