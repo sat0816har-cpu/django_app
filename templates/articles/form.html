@@ -42,34 +42,13 @@
     </p>
     <p>
         <select name="category" required>
-            <option value="music"
-                {% if article.category == "music" %}selected{% endif %}>
-                音楽
-            </option>
-            <option value="movie"
-                {% if article.category == "movie" %}selected{% endif %}>
-                映画
-            </option>
-            <option value="book"
-                {% if article.category == "book" %}selected{% endif %}>
-                読書
-            </option>
-            <option value="photo"
-                {% if article.category == "photo" %}selected{% endif %}>
-                写真
-            </option>
-            <option value="travel"
-                {% if article.category == "travel" %}selected{% endif %}>
-                旅行
-            </option>
-            <option value="cooking"
-                {% if article.category == "cooking" %}selected{% endif %}>
-                料理
-            </option>
-            <option value="other"
-                {% if not article or article.category == "other" %}selected{% endif %}>
-                その他
-            </option>
+            <option value="music" {% if article.category == "music" %}selected{% endif %}>音楽</option>
+            <option value="movie" {% if article.category == "movie" %}selected{% endif %}>映画</option>
+            <option value="book" {% if article.category == "book" %}selected{% endif %}>読書</option>
+            <option value="photo" {% if article.category == "photo" %}selected{% endif %}>写真</option>
+            <option value="travel" {% if article.category == "travel" %}selected{% endif %}>旅行</option>
+            <option value="cooking" {% if article.category == "cooking" %}selected{% endif %}>料理</option>
+            <option value="other" {% if not article or article.category == "other" %}selected{% endif %}>その他</option>
         </select>
     </p>
 
@@ -83,6 +62,23 @@
     {% if article and article.image %}
         <p>現在の画像：{{ article.image.name }}</p>
     {% endif %}
+
+    <hr>
+
+    <p>
+        <label>YouTube動画のURL（任意）</label>
+    </p>
+    <p>
+        <input
+            type="url"
+            name="youtube_url"
+            value="{{ article.youtube_url|default:'' }}"
+            placeholder="https://www.youtube.com/watch?v=..."
+        >
+    </p>
+    <p>
+        YouTube動画を紹介したい場合は、動画のURLを入力してください。
+    </p>
 
     <button type="submit">保存する</button>
 
