@@ -46,15 +46,26 @@
 
     <h3>YouTube動画</h3>
 
-    <p>
-        <a
-            href="{{ article.youtube_url }}"
-            target="_blank"
-            rel="noopener noreferrer"
-        >
-            YouTubeで動画を見る
-        </a>
-    </p>
+    {% with video_id=article.youtube_url|cut:"https://www.youtube.com/watch?v=" %}
+        {% with video_id=video_id|cut:"https://youtu.be/" %}
+            {% with video_id=video_id|cut:"https://www.youtube.com/embed/" %}
+
+                <div style="max-width: 700px; margin: 20px 0;">
+                    <iframe
+                        width="100%"
+                        height="394"
+                        src="https://www.youtube-nocookie.com/embed/{{ video_id }}"
+                        title="YouTube動画"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+            {% endwith %}
+        {% endwith %}
+    {% endwith %}
 
 {% endif %}
 
