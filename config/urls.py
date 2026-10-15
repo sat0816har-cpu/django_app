@@ -66,11 +66,7 @@ urlpatterns = [
         views.user_list, name="user_list"
     ),
 
-    path(
-    "temporary-admin-setup/",
-    views.temporary_admin_setup,
-    name="temporary_admin_setup",
-),
+
     
 ]
 
