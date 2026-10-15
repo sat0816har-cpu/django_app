@@ -313,25 +313,50 @@ article {
 
     .sidebar {
         position: static;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
         padding: 0;
     }
 
     .sidebar h2 {
+        width: 100%;
+        flex: 0 0 100%;
         margin-bottom: 8px;
     }
 
     .menu-item {
-        display: inline-flex;
-        min-height: 40px;
-        margin: 2px;
-        padding: 8px 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 25%;
+        min-height: 68px;
+        margin: 0;
+        padding: 8px 2px;
+        gap: 4px;
+        border-radius: 8px;
         background-color: #f7f7f7;
-        font-size: 13px;
+        font-size: 12px;
+        text-align: center;
     }
 
     .menu-icon {
-        width: auto;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 24px;
+        width: 24px;
+        height: 24px;
         font-size: 18px;
+        line-height: 1;
+    }
+
+    .menu-icon svg {
+        display: block;
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
     }
 
     .sidebar hr {
