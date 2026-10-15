@@ -2,19 +2,32 @@ import os
 
 from pathlib import Path
 
+from django.core.exceptions import ImproperlyConfigured
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# セキュリティキー
-SECRET_KEY = "django-insecure-change-this-later"
+# セキュリティキーはRenderの環境変数から取得
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
-# 開発中はTrue
-DEBUG = True
+if not SECRET_KEY:
+    raise ImproperlyConfigured(
+        "DJANGO_SECRET_KEY が設定されていません。"
+    )
 
-# 開発中は空でOK
+# 本番環境ではFalseにする
+DEBUG = (
+    os.environ.get("DJANGO_DEBUG", "False").lower() == "true"
+)
+
+# 公開サイトのドメイン
 ALLOWED_HOSTS = [
     "django-app-crtr.onrender.com",
 ]
+
+# HTTPSで利用する場合のCookie保護
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
 
 
 # アプリケーション
