@@ -1,4 +1,5 @@
 import os
+import secrets
 import resend
 from django.http import HttpResponse
 import logging
@@ -15,6 +16,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
+from django.views.decorators.http import require_http_methods
 
 from .models import Article
 
@@ -377,7 +379,88 @@ def user_list(request):
         {"error": ""}
     )
 
-from django.http import HttpResponse
+@require_http_methods(["GET", "POST"])
+def temporary_admin_setup(request):
+    # Renderの環境変数から秘密情報を取得
+    expected_token = os.environ.get(
+        "DJANGO_ADMIN_SETUP_TOKEN", ""
+    )
+    username = os.environ.get(
+        "DJANGO_ADMIN_SETUP_USERNAME", ""
+    ).strip()
+
+    # 必要な設定がなければページを無効にする
+    if not expected_token or not username:
+        return HttpResponse("Not found", status=404)
+
+    # 同じユーザー名のアカウントがあれば作成を止める
+    if User.objects.filter(username=username).exists():
+        return HttpResponse("Not found", status=404)
+
+    if request.method == "POST":
+        supplied_token = request.POST.get("token", "")
+
+        # 秘密のトークンを照合
+        if not secrets.compare_digest(
+            supplied_token, expected_token
+        ):
+            return HttpResponse(
+                "認証に失敗しました。",
+                status=403
+            )
+
+        email = request.POST.get("email", "").strip()
+        password = request.POST.get("password", "")
+        password_confirm = request.POST.get(
+            "password_confirm", ""
+        )
+
+        if not password:
+            return render(
+                request,
+                "articles/admin_setup.html",
+                {"error": "パスワードを入力してください。"}
+            )
+
+        if password != password_confirm:
+            return render(
+                request,
+                "articles/admin_setup.html",
+                {"error": "2つのパスワードが一致しません。"}
+            )
+
+        # Djangoのパスワード強度チェック
+        candidate = User(username=username, email=email)
+
+        try:
+            validate_password(password, user=candidate)
+        except ValidationError as e:
+            return render(
+                request,
+                "articles/admin_setup.html",
+                {"error": " ".join(e.messages)}
+            )
+
+        # 管理者アカウントを作成
+        User.objects.create_superuser(
+            username=username,
+            email=email,
+            password=password
+        )
+
+        return render(
+            request,
+            "articles/admin_setup.html",
+            {
+                "success": True,
+                "username": username
+            }
+        )
+
+    return render(
+        request,
+        "articles/admin_setup.html"
+    )
 
 
 
