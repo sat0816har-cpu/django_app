@@ -379,6 +379,30 @@ def user_list(request):
         {"error": ""}
     )
 
+# プライバシーポリシー
+def privacy(request):
+    return render(request, "articles/privacy.html")
+
+
+# 利用規約
+def terms(request):
+    return render(request, "articles/terms.html")
+
+
+# このサイトについて
+def about(request):
+    return render(request, "articles/about.html")
+
+
+# お問い合わせ
+def contact(request):
+    return render(request, "articles/contact.html")
+
+
+# ご利用ガイド
+def guide(request):
+    return render(request, "articles/guide.html")
+
 
 
 
