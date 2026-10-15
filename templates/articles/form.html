@@ -84,8 +84,14 @@
 
 </form>
 
-<p>
-    <a href="/">ホームに戻る</a>
-</p>
+<div class="detail-actions">
+    <button
+        class="detail-button detail-back"
+        type="button"
+        onclick="if (document.referrer) { try { const previous = new URL(document.referrer); if (previous.origin === window.location.origin) { window.history.back(); return; } } catch (e) {} } window.location.href = '/';"
+    >
+        ← 戻る
+    </button>
+</div>
 
 {% endblock %}
