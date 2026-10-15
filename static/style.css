@@ -104,25 +104,20 @@ body {
     background-color: #f2f2f2;
 }
 
+
 .menu-icon {
     display: inline-flex;
     justify-content: center;
     align-items: center;
     width: 26px;
+    height: 26px;
+    flex-shrink: 0;
     color: #222222;
     font-size: 22px;
     line-height: 1;
 }
 
-.travel-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: #222222;
-    flex-shrink: 0;
-}
-
-.travel-icon svg {
+.menu-icon svg {
     display: block;
     width: 24px;
     height: 24px;
