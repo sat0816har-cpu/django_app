@@ -551,4 +551,35 @@ article {
     color: #111827;
 }
 
+/* 案内・説明ページ */
+.info-page {
+    max-width: 850px;
+    padding: 10px 0 30px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+.info-page h2 {
+    margin: 0 0 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 26px;
+    line-height: 1.5;
+}
+
+.info-page h3 {
+    margin: 28px 0 10px;
+    font-size: 18px;
+}
+
+.info-page p,
+.info-page li {
+    color: #444444;
+    font-size: 15px;
+}
+
+.info-page ul {
+    padding-left: 24px;
+}
+
 
