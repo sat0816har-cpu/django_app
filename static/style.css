@@ -440,3 +440,32 @@ article {
         gap: 16px;
     }
 }
+
+
+/* メニュー項目の位置と高さを統一 */
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-sizing: border-box;
+    min-height: 44px;
+}
+
+/* メニューアイコンの大きさと位置を統一 */
+.menu-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    line-height: 1;
+}
+
+/* SVGアイコンのサイズを統一 */
+.menu-icon svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
