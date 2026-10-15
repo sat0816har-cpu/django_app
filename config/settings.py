@@ -18,6 +18,7 @@ ALLOWED_HOSTS = [
 
 
 # アプリケーション
+
 INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -26,8 +27,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 
+    "cloudinary_storage",
+    "cloudinary",
+
     "main",
 ]
+
 
 
 # ミドルウェア
@@ -160,3 +165,21 @@ DEFAULT_FROM_EMAIL = os.environ.get(
 
 # メール送信のタイムアウトを10秒に設定
 EMAIL_TIMEOUT = 10
+
+
+# Cloudinaryに画像を保存する設定
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    "API_KEY": os.environ.get("CLOUDINARY_API_KEY"),
+    "API_SECRET": os.environ.get("CLOUDINARY_API_SECRET"),
+}
+
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
