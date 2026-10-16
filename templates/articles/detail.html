@@ -76,11 +76,11 @@
 
     {% endif %}
 
-    <button class="detail-button detail-back"
-            type="button"
-            onclick="if (document.referrer) { try { const previous = new URL(document.referrer); if (previous.origin === window.location.origin) { window.history.back(); return; } } catch (e) {} } window.location.href = '/';">
-        ← 戻る
-    </button>
+      <button class="detail-button detail-back"
+        type="button"
+        onclick="if (document.referrer) { try { const previous = new URL(document.referrer); if (previous.origin === window.location.origin && previous.pathname === '/my-articles/') { window.location.href = '/my-articles/'; return; } if (previous.origin === window.location.origin) { window.history.back(); return; } } catch (e) {} } window.location.href = '/';">
+    ← 戻る
+      </button>
 
 </div>
 
