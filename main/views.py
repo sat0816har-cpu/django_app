@@ -63,6 +63,35 @@ def category_list(request, category_slug):
         }
     )
 
+def genre_list(request, genre_slug):
+    genre_names = {
+        "hobby": "趣味・エンタメ",
+        "people": "人・社会",
+        "life": "暮らし",
+        "learning": "学び・仕事",
+        "creative": "創作・表現",
+        "other": "その他",
+    }
+
+    genre_name = genre_names.get(genre_slug)
+
+    if genre_name is None:
+        return HttpResponse("ジャンルが見つかりません。", status=404)
+
+    articles = Article.objects.filter(
+        genre=genre_slug
+    ).order_by("-created_at")
+
+    return render(
+        request,
+        "articles/genre.html",
+        {
+            "articles": articles,
+            "genre_name": genre_name,
+            "genre_slug": genre_slug,
+        }
+    )
+
 
 
 def article_detail(request, article_id):
