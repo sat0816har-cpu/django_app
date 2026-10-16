@@ -905,4 +905,66 @@ article {
 }
 
 
+/* 自分の投稿一覧をホーム画面のカードデザインに統一 */
+.my-articles-grid .article-card {
+    padding: 0;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    background: #ffffff;
+    overflow: hidden;
+    font-size: 13px;
+}
+
+/* カード内の文章の余白 */
+.my-articles-grid .article-card h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+/* カード内の文章をまとめる */
+.my-articles-grid .article-card h3,
+.my-articles-grid .article-card p,
+.my-articles-grid .article-card .article-card-meta {
+    margin-left: 12px;
+    margin-right: 12px;
+}
+
+/* 作者・投稿日 */
+.my-articles-grid .article-card p {
+    margin-top: 0;
+    margin-bottom: 6px;
+    color: #555555;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+/* 投稿日の下の余白をなくす */
+.my-articles-grid .article-card p:last-child {
+    margin-bottom: 12px;
+}
+
+/* ジャンルとカテゴリーの間隔をホーム画面に統一 */
+.my-articles-grid .article-card .article-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* ジャンル・カテゴリーの文字と余白 */
+.my-articles-grid .article-card .article-card-genre,
+.my-articles-grid .article-card .article-card-category {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    padding: 3px 8px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+
 
