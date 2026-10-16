@@ -6,41 +6,39 @@
     <h1>{{ genre_name }}</h1>
 
     {% if articles %}
-        <div class="post-grid">
-            {% for article in articles %}
-                <article class="article-card">
-                    {% if article.image %}
-                        <a href="/articles/{{ article.id }}/">
-                            <img
-                                src="{{ article.image.url }}"
-                                alt="{{ article.title }}"
-                                class="article-image"
-                            >
-                        </a>
-                    {% endif %}
 
-                    <div class="article-card-content">
-                        <h2>
-                            <a href="/articles/{{ article.id }}/">
-                                {{ article.title }}
-                            </a>
-                        </h2>
+    <div class="post-grid">
+    {% for article in articles %}
+        <article class="post-card">
+            <a href="/articles/{{ article.id }}/" class="post-card-link">
 
-                        <p class="article-meta">
-                            投稿者：{{ article.author.username }}
-                        </p>
+                {% if article.image %}
+                    <img
+                        src="{{ article.image.url }}"
+                        alt="{{ article.title }}"
+                        class="post-image"
+                    >
+                {% endif %}
 
-                        <p>
-                            {{ article.content|truncatechars:100 }}
-                        </p>
+                <div class="post-card-body">
+                    <h2 class="post-card-title">
+                        {{ article.title }}
+                    </h2>
 
-                        <a href="/articles/{{ article.id }}/">
-                            記事を読む
-                        </a>
-                    </div>
-                </article>
-            {% endfor %}
-        </div>
+                    <p class="post-author">
+                        投稿者：{{ article.author.username }}
+                    </p>
+
+                    <p class="post-date">
+                        {{ article.created_at|date:"Y年n月j日" }}
+                    </p>
+                </div>
+
+            </a>
+        </article>
+    {% endfor %}
+</div>
+    
     {% else %}
         <p>このジャンルには、まだ記事がありません。</p>
         {% if user.is_authenticated %}
