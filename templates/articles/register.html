@@ -44,34 +44,19 @@
 </form>
 
 
+
 {% if error %}
-    <div style="
+    <p style="
         color: red;
         font-weight: bold;
-        width: 100%;
-        max-width: 600px;
-        box-sizing: border-box;
-        white-space: normal;
-        word-break: normal;
-        overflow-wrap: break-word;
-        writing-mode: horizontal-tb;
+        margin: 15px 0;
         text-align: left;
+        writing-mode: horizontal-tb;
     ">
-        {% if error|stringformat:"s" %}
-            {% if error|length > 1 and error.0 %}
-                {% for message in error %}
-                    <p style="margin: 8px 0;">
-                        {{ message }}
-                    </p>
-                {% endfor %}
-            {% else %}
-                <p style="margin: 8px 0;">
-                    {{ error }}
-                </p>
-            {% endif %}
-        {% endif %}
-    </div>
+        {{ error }}
+    </p>
 {% endif %}
+
 
 
 {% endblock %}
