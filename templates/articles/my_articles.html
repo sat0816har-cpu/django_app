@@ -27,6 +27,16 @@
                     {{ article.title }}
                 </h3>
 
+                <div class="article-card-meta">
+                   <span class="article-card-genre">
+                     {{ article.get_genre_display }}
+                   </span>
+
+                  <span class="article-card-category">
+                     {{ article.get_category_display }}
+                  </span>
+                </div>
+
                 <p>
                     作者：
                     {{ article.author.username }}
