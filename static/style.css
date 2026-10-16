@@ -752,10 +752,20 @@ article {
 
 
 
-/* スマホ表示：キャッチコピーを中央揃え */
+
+/* スマホ表示：フッターのロゴ・キャッチコピー・コピーライトを中央揃え */
 @media (max-width: 650px) {
-    .footer-brand p {
-        text-align: center;
+    .footer-brand .footer-logo,
+    .footer-brand p,
+    .footer-copy {
+        text-align: center !important;
+    }
+
+    .footer-brand .footer-logo,
+    .footer-brand p,
+    .footer-copy {
+        width: 100%;
+        box-sizing: border-box;
     }
 }
 
