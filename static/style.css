@@ -120,6 +120,15 @@ body {
     background-color: #f2f2f2;
 }
 
+/* ジャンル項目 */
+.genre-item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 28px;
+    text-align: left;
+}
+
 
 .menu-icon {
     display: inline-flex;
@@ -342,21 +351,36 @@ article {
     }
 
     
-    .menu-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: calc(25% - 6px);
-        min-height: 68px;
-        margin: 3px;
-        padding: 8px 2px;
-        gap: 4px;
-        border-radius: 8px;
-        background-color: #f7f7f7;
-        font-size: 12px;
-        text-align: center;
-    }
+.menu-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 calc(25% - 6px);
+    width: calc(25% - 6px);
+    min-width: 0;
+    min-height: 68px;
+    margin: 3px;
+    padding: 8px 2px;
+    gap: 4px;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    font-size: 12px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+    .menu-section-title {
+    width: 100%;
+    flex: 0 0 100%;
+    text-align: left;
+}
+
+.genre-item {
+    justify-content: center;
+    padding-left: 2px;
+    text-align: center;
+}
 
     .menu-icon {
         display: inline-flex;
@@ -658,14 +682,21 @@ article {
     font-size: 18px;
 }
 
-/* ジャンル項目 */
-.genre-item {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding-left: 28px;
-    text-align: left;
+
+/* ジャンル名のPC・スマホ表示切り替え */
+.genre-mobile {
+    display: none;
 }
 
+@media (max-width: 650px) {
+    .genre-pc {
+        display: none;
+    }
+
+    .genre-mobile {
+        display: inline;
+        line-height: 1.5;
+    }
+}
 
 
