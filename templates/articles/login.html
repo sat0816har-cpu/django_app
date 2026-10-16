@@ -54,6 +54,21 @@
 </form>
 
 
+
+{% if error %}
+    <p style="
+        color: red;
+        font-weight: bold;
+        margin: 15px 0;
+        text-align: left;
+        writing-mode: horizontal-tb;
+    ">
+        {{ error }}
+    </p>
+{% endif %}
+
+
+
 <p>
 
    
