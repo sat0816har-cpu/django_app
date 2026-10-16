@@ -63,6 +63,12 @@ urlpatterns = [
     ),
 
     path(
+    "my-articles/",
+    views.my_articles,
+    name="my_articles"
+    ),
+
+    path(
         "logout/",
         views.logout_view
     ),
