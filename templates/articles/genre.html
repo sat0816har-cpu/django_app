@@ -2,11 +2,12 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="page-container">
-    <h2>{{ genre_name }}</h2>
+<div class="feed-header">
+    <h2 class="feed-title">{{ genre_name }}</h2>
     <p class="feed-description">
         {{ genre_name }}の投稿を見てみましょう。
     </p>
+</div>
 
     {% if articles %}
 
