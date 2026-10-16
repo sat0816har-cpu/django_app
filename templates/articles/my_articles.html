@@ -7,34 +7,39 @@
 
 <hr>
 
-
 <div class="my-articles-grid">
 
     {% for article in articles %}
 
-        <article class="article-card">
+        <a href="/article/{{ article.id }}/"
+           class="article-card-link">
 
-            <h3>
-                <a href="/article/{{ article.id }}/">
+            <article class="article-card">
+
+                {% if article.image %}
+                    <img
+                        src="{{ article.image.url }}"
+                        alt="{{ article.title }}"
+                    >
+                {% endif %}
+
+                <h3>
                     {{ article.title }}
-                </a>
-            </h3>
+                </h3>
 
-            <p>{{ article.content|truncatewords:30 }}</p>
+                <p>
+                    作者：
+                    {{ article.author.username }}
+                </p>
 
-            {% if article.image %}
-                <img
-                    src="{{ article.image.url }}"
-                    alt="{{ article.title }}"
-                >
-            {% endif %}
+                <p>
+                    投稿日：
+                    {{ article.created_at|date:"Y年m月d日" }}
+                </p>
 
-            <p>
-                投稿日：
-                {{ article.created_at|date:"Y年m月d日" }}
-            </p>
+            </article>
 
-        </article>
+        </a>
 
     {% empty %}
 
@@ -43,6 +48,5 @@
     {% endfor %}
 
 </div>
-
 
 {% endblock %}
