@@ -616,3 +616,26 @@ article {
 }
 
 
+/* ユーザー登録ボタン */
+.register-button {
+    display: inline-block;
+    padding: 12px 28px;
+    margin-top: 15px;
+    background-color: #3688e8;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 30px;
+    border: 1px solid #3688e8;
+    transition: all 0.25s ease;
+}
+
+.register-button:hover {
+    background-color: #ffffff;
+    color: #3688e8;
+    box-shadow: 0 4px 12px rgba(54, 136, 232, 0.18);
+    transform: translateY(-2px);
+}
+
+
