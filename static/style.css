@@ -799,6 +799,30 @@ article {
     }
 }
 
+/* スマートフォンのジャンルページのはみ出し対策 */
+@media (max-width: 650px) {
+    .page-layout,
+    .main-content,
+    .post-grid {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    .post-grid > .article-card {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        overflow: hidden;
+        overflow-wrap: anywhere;
+    }
+
+    .post-grid .article-card img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+}
 
 
 
