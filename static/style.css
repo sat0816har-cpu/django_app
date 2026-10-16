@@ -770,6 +770,37 @@ article {
 }
 
 
+/* スマホ表示：フッターブランド全体を中央揃え */
+@media (max-width: 650px) {
+    .footer-brand {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .footer-brand .footer-logo {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+    }
+
+    .footer-brand p {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+
+    .footer-copy {
+        text-align: center !important;
+    }
+}
+
+
+
 
 
 
