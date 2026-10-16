@@ -14,7 +14,7 @@ class Article(models.Model):
         ("other", "その他"),
     ]
 
-        GENRE_CHOICES = [
+    GENRE_CHOICES = [
         ("hobby", "趣味・エンタメ"),
         ("people", "人・社会"),
         ("life", "暮らし"),
