@@ -583,3 +583,36 @@ article {
 }
 
 
+
+/* 案内ページのタイトル */
+.info-title {
+    text-align: center;
+    margin: 35px 0 40px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.info-title .en {
+    display: block;
+    margin-bottom: 10px;
+    color: #999999;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.info-title h1 {
+    margin: 0;
+    color: #333333;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+@media (max-width: 600px) {
+    .info-title h1 {
+        font-size: 23px;
+    }
+}
+
+
