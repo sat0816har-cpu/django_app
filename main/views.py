@@ -155,9 +155,9 @@ def article_create(request):
 
 
 
+
 @login_required
 def article_edit(request, article_id):
-
     article = get_object_or_404(
         Article,
         id=article_id
@@ -167,11 +167,10 @@ def article_edit(request, article_id):
         return redirect("/")
 
     if request.method == "POST":
-
         article.title = request.POST["title"]
         article.content = request.POST["content"]
 
-            genre = request.POST.get(
+        genre = request.POST.get(
             "genre",
             article.genre
         )
@@ -202,18 +201,6 @@ def article_edit(request, article_id):
             "cooking",
             "other",
         ]
-
-        valid_genres = [
-            "hobby",
-            "people",
-            "life",
-            "learning",
-            "creative",
-            "other",
-        ]
-
-        if genre not in valid_genres:
-            genre = "other"
 
         if category in valid_categories:
             article.category = category
