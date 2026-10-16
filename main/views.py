@@ -171,6 +171,23 @@ def article_edit(request, article_id):
         article.title = request.POST["title"]
         article.content = request.POST["content"]
 
+                genre = request.POST.get(
+            "genre",
+            article.genre
+        )
+
+        valid_genres = [
+            "hobby",
+            "people",
+            "life",
+            "learning",
+            "creative",
+            "other",
+        ]
+
+        if genre in valid_genres:
+            article.genre = genre
+
         category = request.POST.get(
             "category",
             article.category
