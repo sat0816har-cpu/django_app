@@ -144,7 +144,7 @@ def article_create(request):
             youtube_url=youtube_url
         )
 
-        return redirect("/")
+        return redirect("my_articles")
 
     return render(
         request,
