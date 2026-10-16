@@ -866,4 +866,24 @@ article {
 }
 
 
+/* マイ投稿：カード全体のリンクは維持し、タイトルの装飾を消す */
+.article-card-link {
+    color: inherit;
+    text-decoration: none;
+}
+
+.article-card-link:visited,
+.article-card-link:hover,
+.article-card-link:active {
+    color: inherit;
+    text-decoration: none;
+}
+
+.article-card-link .article-card h3 {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+
 
