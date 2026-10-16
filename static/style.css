@@ -884,6 +884,25 @@ article {
     text-decoration: none;
 }
 
+/* ホーム画面のカード：ジャンルとカテゴリーを横並びにする */
+.post-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.post-card-meta .post-genre,
+.post-card-meta .post-category {
+    display: inline-block;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    padding: 3px 8px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    margin: 0;
+}
 
 
 
