@@ -749,4 +749,23 @@ article {
 }
 
 
+/* スマホ表示：フッターのロゴとコピーライトを中央揃え */
+@media (max-width: 650px) {
+    .footer-brand {
+        width: 100%;
+        text-align: center;
+    }
+
+    .footer-logo {
+        display: block;
+        text-align: center;
+    }
+
+    .footer-copy {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+
 
