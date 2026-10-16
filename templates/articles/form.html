@@ -37,6 +37,22 @@
         >{{ article.content|default:'' }}</textarea>
     </p>
 
+    
+    <p>
+        <label>ジャンル</label>
+    </p>
+    <p>
+        <select name="genre" required>
+            <option value="hobby" {% if article.genre == "hobby" %}selected{% endif %}>趣味・エンタメ</option>
+            <option value="people" {% if article.genre == "people" %}selected{% endif %}>人・社会</option>
+            <option value="life" {% if article.genre == "life" %}selected{% endif %}>暮らし</option>
+            <option value="learning" {% if article.genre == "learning" %}selected{% endif %}>学び・仕事</option>
+            <option value="creative" {% if article.genre == "creative" %}selected{% endif %}>創作・表現</option>
+            <option value="other" {% if not article or article.genre == "other" %}selected{% endif %}>その他</option>
+        </select>
+    </p>
+
+
     <p>
         <label>カテゴリー</label>
     </p>
