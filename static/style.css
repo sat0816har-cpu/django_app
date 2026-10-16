@@ -642,14 +642,14 @@ article {
 
 /* ジャンル見出し */
 .menu-section-title {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    display: block;
     padding: 14px 16px 8px;
-    margin-top: 6px;
+    margin: 6px 0 0 0;
     color: #777777;
     font-size: 13px;
     font-weight: 600;
+    text-align: left;
+    box-sizing: border-box;
 }
 
 .menu-section-title .menu-icon {
