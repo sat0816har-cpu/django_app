@@ -87,6 +87,7 @@ def article_create(request):
 
         title = request.POST["title"]
         content = request.POST["content"]
+        genre = request.POST.get("genre", "other")
         category = request.POST.get("category", "other")
         image = request.FILES.get("image")
         youtube_url = request.POST.get("youtube_url", "").strip()
@@ -108,6 +109,7 @@ def article_create(request):
             author=request.user,
             title=title,
             content=content,
+            genre=genre,
             category=category,
             image=image,
             youtube_url=youtube_url
@@ -154,6 +156,18 @@ def article_edit(request, article_id):
             "cooking",
             "other",
         ]
+
+        valid_genres = [
+            "hobby",
+            "people",
+            "life",
+            "learning",
+            "creative",
+            "other",
+        ]
+
+        if genre not in valid_genres:
+            genre = "other"
 
         if category in valid_categories:
             article.category = category
