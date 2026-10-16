@@ -43,6 +43,7 @@
 
 </form>
 
+
 {% if error %}
     <div style="
         color: red;
@@ -50,19 +51,27 @@
         width: 100%;
         max-width: 600px;
         box-sizing: border-box;
-        overflow-wrap: anywhere;
+        white-space: normal;
+        word-break: normal;
+        overflow-wrap: break-word;
         writing-mode: horizontal-tb;
+        text-align: left;
     ">
         {% if error|stringformat:"s" %}
             {% if error|length > 1 and error.0 %}
                 {% for message in error %}
-                    <p style="margin: 8px 0;">{{ message }}</p>
+                    <p style="margin: 8px 0;">
+                        {{ message }}
+                    </p>
                 {% endfor %}
             {% else %}
-                <p style="margin: 8px 0;">{{ error }}</p>
+                <p style="margin: 8px 0;">
+                    {{ error }}
+                </p>
             {% endif %}
         {% endif %}
     </div>
 {% endif %}
+
 
 {% endblock %}
