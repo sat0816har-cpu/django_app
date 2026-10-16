@@ -1,0 +1,47 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{ page_title }}</h2>
+
+<p>{{ user.username }}さんの投稿</p>
+
+<hr>
+
+{% for article in articles %}
+
+    <article class="article-card">
+
+        <h3>
+            <a href="/article/{{ article.id }}/">
+                {{ article.title }}
+            </a>
+        </h3>
+
+        <p>{{ article.content|truncatewords:30 }}</p>
+
+        {% if article.image %}
+            <img
+                src="{{ article.image.url }}"
+                alt="{{ article.title }}"
+                style="max-width: 100%; height: auto;"
+            >
+        {% endif %}
+
+        <p>
+            投稿日：
+            {{ article.created_at|date:"Y年m月d日 H:i" }}
+        </p>
+
+    </article>
+
+    <hr>
+
+{% empty %}
+
+    <p>まだ投稿した記事はありません。</p>
+
+{% endfor %}
+
+{% endblock %}
