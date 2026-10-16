@@ -369,7 +369,7 @@ def login_view(request):
 
         if user is not None:
             login(request, user)
-            return redirect("/")
+            return redirect("my_articles")
 
         # ログイン失敗時のメッセージ
         if not User.objects.filter(username=username).exists():
