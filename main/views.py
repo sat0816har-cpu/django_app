@@ -103,9 +103,13 @@ def article_detail(request, article_id):
     return render(
         request,
         "articles/detail.html",
-        {"article": article}
+        {
+            "article": article,
+            "from_my_articles": (
+                request.GET.get("from") == "my-articles"
+            ),
+        }
     )
-
 
 
 
