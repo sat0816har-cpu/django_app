@@ -171,7 +171,7 @@ def article_edit(request, article_id):
         article.title = request.POST["title"]
         article.content = request.POST["content"]
 
-                genre = request.POST.get(
+            genre = request.POST.get(
             "genre",
             article.genre
         )
