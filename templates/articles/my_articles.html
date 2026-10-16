@@ -3,45 +3,46 @@
 
 {% block content %}
 
-<h2>{{ page_title }}</h2>
-
-<p>{{ user.username }}さんの投稿</p>
+<h2>{{ user.username }}さんの投稿</h2>
 
 <hr>
 
-{% for article in articles %}
 
-    <article class="article-card">
+<div class="my-articles-grid">
 
-        <h3>
-            <a href="/article/{{ article.id }}/">
-                {{ article.title }}
-            </a>
-        </h3>
+    {% for article in articles %}
 
-        <p>{{ article.content|truncatewords:30 }}</p>
+        <article class="article-card">
 
-        {% if article.image %}
-            <img
-                src="{{ article.image.url }}"
-                alt="{{ article.title }}"
-                style="max-width: 100%; height: auto;"
-            >
-        {% endif %}
+            <h3>
+                <a href="/article/{{ article.id }}/">
+                    {{ article.title }}
+                </a>
+            </h3>
 
-        <p>
-            投稿日：
-            {{ article.created_at|date:"Y年m月d日 H:i" }}
-        </p>
+            <p>{{ article.content|truncatewords:30 }}</p>
 
-    </article>
+            {% if article.image %}
+                <img
+                    src="{{ article.image.url }}"
+                    alt="{{ article.title }}"
+                >
+            {% endif %}
 
-    <hr>
+            <p>
+                投稿日：
+                {{ article.created_at|date:"Y年m月d日" }}
+            </p>
 
-{% empty %}
+        </article>
 
-    <p>まだ投稿した記事はありません。</p>
+    {% empty %}
 
-{% endfor %}
+        <p>まだ投稿した記事はありません。</p>
+
+    {% endfor %}
+
+</div>
+
 
 {% endblock %}
