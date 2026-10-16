@@ -749,15 +749,18 @@ article {
 }
 
 
-/* スマホ表示：フッターのロゴとコピーライトを中央揃え */
+
+
+/* スマホ表示：ロゴとコピーライトだけ中央揃え */
 @media (max-width: 650px) {
+
     .footer-brand {
         width: 100%;
-        text-align: center;
     }
 
     .footer-logo {
         display: block;
+        width: 100%;
         text-align: center;
     }
 
@@ -766,6 +769,7 @@ article {
         text-align: center;
     }
 }
+
 
 
 
