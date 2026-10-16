@@ -306,28 +306,41 @@ def register(request):
 
 
 
+
 def login_view(request):
 
     if request.method == "POST":
 
-        username = request.POST["username"]
-        password = request.POST["password"]
+        username = request.POST.get("username", "").strip()
+        password = request.POST.get("password", "")
 
         user = authenticate(
+            request,
             username=username,
             password=password
         )
 
         if user is not None:
-
             login(request, user)
-
             return redirect("/")
+
+        # ログイン失敗時のメッセージ
+        if not User.objects.filter(username=username).exists():
+            error = "ユーザー名が間違っています。"
+        else:
+            error = "パスワードが間違っています。"
+
+        return render(
+            request,
+            "articles/login.html",
+            {"error": error}
+        )
 
     return render(
         request,
         "articles/login.html"
     )
+
 
 
 def logout_view(request):
