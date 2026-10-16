@@ -14,6 +14,15 @@ class Article(models.Model):
         ("other", "その他"),
     ]
 
+        GENRE_CHOICES = [
+        ("hobby", "趣味・エンタメ"),
+        ("people", "人・社会"),
+        ("life", "暮らし"),
+        ("learning", "学び・仕事"),
+        ("creative", "創作・表現"),
+        ("other", "その他"),
+    ]
+
     author = models.ForeignKey(
         User,
         on_delete=models.CASCADE
@@ -24,6 +33,12 @@ class Article(models.Model):
     category = models.CharField(
         max_length=20,
         choices=CATEGORY_CHOICES,
+        default="other"
+    )
+
+    genre = models.CharField(
+        max_length=20,
+        choices=GENRE_CHOICES,
         default="other"
     )
 
