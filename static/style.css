@@ -858,12 +858,15 @@ article {
     }
 }
 
-/* スマートフォンでは1列 */
-@media (max-width: 500px) {
+
+/* スマートフォンでは2列 */
+@media (max-width: 650px) {
     .my-articles-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
     }
 }
+
 
 
 /* マイ投稿：カード全体のリンクは維持し、タイトルの装飾を消す */
