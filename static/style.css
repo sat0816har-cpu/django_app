@@ -826,5 +826,44 @@ article {
 
 
 
+/* 自分の投稿一覧：横4列 */
+.my-articles-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+/* 各記事のカード */
+.my-articles-grid .article-card {
+    min-width: 0;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fff;
+    overflow-wrap: anywhere;
+}
+
+/* 記事内の画像 */
+.my-articles-grid .article-card img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 6px;
+}
+
+/* タブレットでは2列 */
+@media (max-width: 900px) {
+    .my-articles-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* スマートフォンでは1列 */
+@media (max-width: 500px) {
+    .my-articles-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 
 
