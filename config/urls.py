@@ -25,6 +25,13 @@ urlpatterns = [
         name="category_list"
     ),
 
+        # ジャンル別ページ
+    path(
+        "genre/<slug:genre_slug>/",
+        views.genre_list,
+        name="genre_list"
+    ),
+
     path(
         "articles/new/",
         views.article_create
