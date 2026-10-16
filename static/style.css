@@ -700,3 +700,53 @@ article {
 }
 
 
+/* PCではスマホ用ラベルを隠す */
+.genre-mobile,
+.category-other-mobile {
+    display: none;
+}
+
+/* スマホ用メニュー */
+@media (max-width: 650px) {
+
+    /* ジャンル・カテゴリーの見出しを隠す */
+    .menu-section-title {
+        display: none;
+    }
+
+    /* 全メニューを4列にする */
+    .sidebar > .menu-item {
+        flex: 0 0 calc(25% - 6px);
+        width: calc(25% - 6px);
+        min-width: 0;
+        margin: 3px;
+        padding: 6px 2px;
+        min-height: 58px;
+        gap: 2px;
+        box-sizing: border-box;
+        text-align: center;
+    }
+
+    /* ジャンルもカテゴリーと同じ配置 */
+    .sidebar > .genre-item {
+        justify-content: center;
+        padding-left: 2px;
+    }
+
+    /* スマホではPC用ラベルを隠す */
+    .genre-pc,
+    .category-other-pc {
+        display: none;
+    }
+
+    /* スマホ用ラベルを表示 */
+    .genre-mobile,
+    .category-other-mobile {
+        display: inline;
+        line-height: 1.4;
+        overflow-wrap: anywhere;
+    }
+}
+
+
+
