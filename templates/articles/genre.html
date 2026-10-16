@@ -1,0 +1,53 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+<div class="page-container">
+    <h1>{{ genre_name }}</h1>
+
+    {% if articles %}
+        <div class="article-grid">
+            {% for article in articles %}
+                <article class="article-card">
+                    {% if article.image %}
+                        <a href="/articles/{{ article.id }}/">
+                            <img
+                                src="{{ article.image.url }}"
+                                alt="{{ article.title }}"
+                                class="article-image"
+                            >
+                        </a>
+                    {% endif %}
+
+                    <div class="article-card-content">
+                        <h2>
+                            <a href="/articles/{{ article.id }}/">
+                                {{ article.title }}
+                            </a>
+                        </h2>
+
+                        <p class="article-meta">
+                            投稿者：{{ article.author.username }}
+                        </p>
+
+                        <p>
+                            {{ article.content|truncatechars:100 }}
+                        </p>
+
+                        <a href="/articles/{{ article.id }}/">
+                            記事を読む
+                        </a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>このジャンルには、まだ記事がありません。</p>
+        {% if user.is_authenticated %}
+            <p>
+                <a href="/articles/new/">最初の記事を投稿する</a>
+            </p>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %}
