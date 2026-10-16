@@ -463,6 +463,23 @@ def contact(request):
 def guide(request):
     return render(request, "articles/guide.html")
 
+def my_articles(request):
+    if not request.user.is_authenticated:
+        return redirect("/login/")
+
+    articles = Article.objects.filter(
+        author=request.user
+    ).order_by("-created_at")
+
+    return render(
+        request,
+        "articles/my_articles.html",
+        {
+            "articles": articles,
+            "page_title": f"{request.user.username}さんの投稿",
+        }
+    )
+
 
 
 
