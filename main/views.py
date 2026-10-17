@@ -523,11 +523,13 @@ def my_articles(request):
             context
         )
 
+    
     return render(
-        request,
-        "articles/my-articles.html",
-        context
-    )
+    request,
+    "articles/my_articles.html",
+    context
+      )
+
 
 
 
