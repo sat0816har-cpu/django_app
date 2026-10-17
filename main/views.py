@@ -54,6 +54,7 @@ def article_list(request):
 
 
 
+
 def category_list(request, category_slug):
     category_names = {
         "music": "音楽",
@@ -68,20 +69,38 @@ def category_list(request, category_slug):
     category_name = category_names.get(category_slug)
 
     if category_name is None:
-        return HttpResponse("カテゴリーが見つかりません。", status=404)
+        return HttpResponse(
+            "カテゴリーが見つかりません。",
+            status=404
+        )
 
     articles = Article.objects.filter(
         category=category_slug
     ).order_by("-created_at")
 
+    paginator = Paginator(articles, 12)
+    page_obj = paginator.get_page(
+        request.GET.get("page", 1)
+    )
+
+    context = {
+        "articles": page_obj.object_list,
+        "page_obj": page_obj,
+        "category_name": category_name,
+        "category_slug": category_slug,
+    }
+
+    if request.GET.get("partial") == "1":
+        return render(
+            request,
+            "articles/_category_article_cards.html",
+            context
+        )
+
     return render(
         request,
         "articles/category.html",
-        {
-            "articles": articles,
-            "category_name": category_name,
-            "category_slug": category_slug,
-        }
+        context
     )
 
 
