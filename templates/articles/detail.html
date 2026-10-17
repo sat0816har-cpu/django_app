@@ -9,18 +9,24 @@
 <div class="post-card-meta">
 
     <span class="post-genre">
-        {{ article.get_genre_display }}
+        <a href="/?genre={{ article.genre }}">
+            {{ article.get_genre_display }}
+        </a>
     </span>
 
     <span class="post-category">
-        {{ article.get_category_display }}
+        <a href="/?category={{ article.category }}">
+            {{ article.get_category_display }}
+        </a>
     </span>
 
 </div>
 
 <p>
     投稿者：
-    {{ article.author.username }}
+    <a href="/users/{{ article.author.username }}/" class="detail-meta-link">
+        {{ article.author.username }}
+    </a>
 </p>
 
 <p>
