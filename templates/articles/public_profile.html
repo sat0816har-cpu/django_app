@@ -214,9 +214,16 @@ document.addEventListener("DOMContentLoaded", function () {
             const template = document.createElement("template");
             template.innerHTML = html.trim();
 
-            const addedArticles = template.content.querySelectorAll(
-                ".public-profile-card"
-            ).length;
+            const hasNextElement =
+                template.content.querySelector("#has-next-page");
+
+            const hasNext = hasNextElement &&
+                hasNextElement.dataset.hasNext === "true";
+
+            const addedArticles =
+                template.content.querySelectorAll(
+                    ".public-profile-card"
+                ).length;
 
             if (addedArticles === 0) {
                 button.remove();
@@ -225,13 +232,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
             articleList.insertAdjacentHTML("beforeend", html);
 
-            if (addedArticles < 8) {
-                button.remove();
-            } else {
+            if (hasNext) {
                 button.dataset.nextPage = String(nextPage + 1);
                 button.textContent = "もっと見る";
                 button.disabled = false;
+            } else {
+                button.remove();
             }
+
         } catch (error) {
             console.error(error);
             button.textContent = "もう一度試す";
