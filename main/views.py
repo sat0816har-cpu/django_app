@@ -552,6 +552,7 @@ def public_profile(request, username):
         "profile": profile,
         "articles": page_obj.object_list,
         "page_obj": page_obj,
+        "has_next": page_obj.has_next(),
     }
 
     if request.GET.get("partial") == "1":
