@@ -525,6 +525,33 @@ def profile_edit(request):
 
 
 
+def public_profile(request, username):
+    profile_user = get_object_or_404(
+        User,
+        username=username
+    )
+
+    profile = Profile.objects.filter(
+        user=profile_user
+    ).first()
+
+    articles = Article.objects.filter(
+        author=profile_user
+    ).order_by("-created_at")
+
+    return render(
+        request,
+        "articles/public_profile.html",
+        {
+            "profile_user": profile_user,
+            "profile": profile,
+            "articles": articles,
+        }
+    )
+
+
+
+
 
 
 
