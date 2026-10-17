@@ -1,11 +1,3 @@
-
-<div
-    class="genre-page-meta"
-    hidden
-    data-has-next="{{ page_obj.has_next|yesno:'true,false' }}"
-    data-next-page="{{ page_obj.next_page_number|default:'' }}"
-></div>
-
 {% for article in articles %}
     <article class="post-card">
         <a href="/articles/{{ article.id }}/" class="post-card-link">
