@@ -18,18 +18,16 @@
         <p class="site-tagline">好きでつながる。世界が広がる。</p>
     </div>
 
-    <nav class="user-menu">
-        {% if user.is_authenticated %}
-           <span class="user-name">
-   　　　　 <span class="user-icon">👤</span>
-   　　　　 {{ user.username }}さん
-           </span>
-            <a href="/logout/">ログアウト</a>
-        {% else %}
-            <a href="/register/">ユーザー登録</a>
-            <a href="/login/">ログイン</a>
-        {% endif %}
-    </nav>
+<nav class="user-menu">
+    {% if user.is_authenticated %}
+        <span class="user-name"><span class="user-icon">👤</span>{{ user.username }}さん</span>
+        <a href="/logout/">ログアウト</a>
+    {% else %}
+        <a href="/register/">ユーザー登録</a>
+        <a href="/login/">ログイン</a>
+    {% endif %}
+</nav>
+    
 </header>
 
 <div class="page-layout">
