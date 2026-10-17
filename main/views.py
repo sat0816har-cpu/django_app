@@ -504,9 +504,9 @@ def profile_edit(request):
         if image:
             profile.image = image
 
-        profile.save()
+            profile.save()
 
-        return redirect("profile_edit")
+        　　return redirect("my_articles")
 
     return render(
         request,
