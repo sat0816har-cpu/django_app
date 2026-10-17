@@ -31,12 +31,30 @@
 
 <div class="page-layout">
 
-    <aside class="sidebar">
+    
+<aside class="sidebar">
 
-        <a href="/" class="menu-item">
-            <span class="menu-icon">⌂</span>
-            <span>ホーム</span>
-        </a>
+    {% if user.is_authenticated %}
+        <div class="user-menu-section">
+
+            <a href="/my-articles/" class="menu-item">
+                <span class="menu-icon">▤</span>
+                <span>{{ user.username }}さんの投稿一覧</span>
+            </a>
+
+            <a href="/articles/new/" class="menu-item post-menu">
+                <span class="menu-icon">✎</span>
+                <span>投稿する</span>
+            </a>
+
+            <hr>
+        </div>
+    {% endif %}
+
+    <a href="/" class="menu-item">
+        <span class="menu-icon">⌂</span>
+        <span>ホーム</span>
+    </a>
 
         
 
@@ -144,24 +162,6 @@
             <span class="category-other-pc">その他</span>
 <span class="category-other-mobile">カテゴリ<br>その他</span>
         </a>
-
-        
-
-{% if user.is_authenticated %}
-    <div class="user-menu-section">
-        <hr>
-
-        <a href="/my-articles/" class="menu-item">
-            <span class="menu-icon">▤</span>
-            <span>{{ user.username }}さんの投稿一覧</span>
-        </a>
-
-        <a href="/articles/new/" class="menu-item post-menu">
-            <span class="menu-icon">✎</span>
-            <span>投稿する</span>
-        </a>
-    </div>
-{% endif %}
 
 
         
