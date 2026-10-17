@@ -46,20 +46,31 @@ body {
     font-size: 12px;
 }
 
+
 .user-menu {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
-    gap: 22px;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 12px;
     font-size: 15px;
+    white-space: nowrap;
+}
+
+.user-menu span {
+    display: inline-block;
+    margin: 0;
+    line-height: 1.5;
 }
 
 .user-menu a {
     position: relative;
     display: inline-block;
     padding-bottom: 5px;
+    margin: 0;
     color: #333333;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .user-menu a::after {
@@ -78,6 +89,7 @@ body {
 .user-menu a:hover::after {
     transform: scaleX(1);
 }
+
 
 /* サイドメニューと本文 */
 .page-layout {
