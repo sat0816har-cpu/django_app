@@ -1091,4 +1091,26 @@ article {
     color: #222222;
 }
 
+/* パソコン：ユーザー名とログアウトの位置を調整 */
+@media (min-width: 651px) {
+    .user-menu {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: nowrap;
+        gap: 12px;
+    }
+
+    .user-menu span,
+    .user-menu a {
+        margin: 0;
+        line-height: 28px;
+        box-sizing: border-box;
+    }
+
+    .user-menu a {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
 
