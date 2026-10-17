@@ -1,5 +1,6 @@
 {% for article in articles %}
     <article class="post-card">
+
         <a href="/articles/{{ article.id }}/" class="post-card-link">
 
             {% if article.image %}
@@ -23,5 +24,25 @@
             </div>
 
         </a>
+
+        <div class="post-card-likes">
+            <input
+                type="hidden"
+                class="csrf-token"
+                value="{{ csrf_token }}"
+            >
+
+            <button
+                type="button"
+                class="like-button"
+                data-like-url="{% url 'article_like' article.id %}"
+                aria-label="この記事にいいね"
+            >
+                <span class="like-heart">♡</span>
+                <span class="like-label">いいね</span>
+                <span class="like-count">{{ article.like_count }}</span>
+            </button>
+        </div>
+
     </article>
 {% endfor %}
