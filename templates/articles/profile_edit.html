@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>プロフィール編集</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <p>プロフィール画像</p>
+
+    {% if profile.image %}
+        <img
+            src="{{ profile.image.url }}"
+            alt="プロフィール画像"
+            width="150"
+        >
+    {% endif %}
+
+    <p>
+        <input type="file" name="image" accept="image/*">
+    </p>
+
+    <p>自己紹介</p>
+    <textarea name="introduction" rows="5" cols="40">{{ profile.introduction }}</textarea>
+
+    <p>好きなこと・趣味</p>
+    <input
+        type="text"
+        name="favorite_things"
+        value="{{ profile.favorite_things }}"
+        maxlength="300"
+    >
+
+    <p>
+        <button type="submit">プロフィールを保存</button>
+    </p>
+</form>
+
+<p>
+    <a href="/my-articles/">自分の投稿ページに戻る</a>
+</p>
+
+{% endblock %}
