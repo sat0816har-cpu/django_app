@@ -19,6 +19,7 @@ from django.core.mail import send_mail
 from django.views.decorators.http import require_http_methods
 
 from .models import Article, Profile
+from django.core.paginator import Paginator
 
 logger = logging.getLogger(__name__)
 
@@ -525,6 +526,7 @@ def profile_edit(request):
 
 
 
+
 def public_profile(request, username):
     profile_user = get_object_or_404(
         User,
@@ -539,15 +541,32 @@ def public_profile(request, username):
         author=profile_user
     ).order_by("-created_at")
 
+    paginator = Paginator(articles, 8)
+
+    page_obj = paginator.get_page(
+        request.GET.get("page", 1)
+    )
+
+    context = {
+        "profile_user": profile_user,
+        "profile": profile,
+        "articles": page_obj.object_list,
+        "page_obj": page_obj,
+    }
+
+    if request.GET.get("partial") == "1":
+        return render(
+            request,
+            "articles/_public_profile_cards.html",
+            context
+        )
+
     return render(
         request,
         "articles/public_profile.html",
-        {
-            "profile_user": profile_user,
-            "profile": profile,
-            "articles": articles,
-        }
+        context
     )
+
 
 
 
