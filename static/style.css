@@ -1026,6 +1026,21 @@ article {
         min-width: 0;
     }
 
+.user-menu {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: nowrap;
+    gap: 12px;
+    font-size: 15px;
+    white-space: nowrap;
+　　}
+    
+}
+
+
+/* スマホ：ユーザー名とログアウトの位置を統一 */
+@media (max-width: 650px) {
     .user-menu {
         display: flex;
         flex-direction: row;
@@ -1033,41 +1048,20 @@ article {
         justify-content: flex-end;
         flex-wrap: nowrap;
         gap: 12px;
-        width: 100%;
-        box-sizing: border-box;
-        font-size: 14px;
         white-space: nowrap;
-    }
-
-    .user-menu span,
-    .user-menu a {
-        margin: 0;
         line-height: 1.5;
     }
-}
-
-
-/* スマホ：ユーザー名とログアウトの上下位置を統一 */
-@media (max-width: 650px) {
-    .user-menu {
-        align-items: center !important;
-        line-height: 1.5 !important;
-    }
 
     .user-menu span,
     .user-menu a {
-        display: inline-flex !important;
-        align-items: center !important;
+        display: inline-flex;
+        align-items: center;
+        margin: 0;
+        padding-top: 0;
+        padding-bottom: 0;
         height: 28px;
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-        margin: 0 !important;
-        line-height: 28px !important;
+        line-height: 28px;
         box-sizing: border-box;
-    }
-
-    .user-menu a::after {
-        bottom: 0;
     }
 }
 
