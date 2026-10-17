@@ -714,18 +714,18 @@ article {
         display: none;
     }
 
-    /* 全メニューを4列にする */
-    .sidebar > .menu-item {
-        flex: 0 0 calc(25% - 6px);
-        width: calc(25% - 6px);
-        min-width: 0;
-        margin: 3px;
-        padding: 6px 2px;
-        min-height: 58px;
-        gap: 2px;
-        box-sizing: border-box;
-        text-align: center;
-    }
+    /* 通常のメニューを4列にする */
+.sidebar > .menu-item:not(.post-menu):not([href="/my-articles/"]) {
+    flex: 0 0 calc(25% - 6px);
+    width: calc(25% - 6px);
+    min-width: 0;
+    margin: 3px;
+    padding: 6px 2px;
+    min-height: 58px;
+    gap: 2px;
+    box-sizing: border-box;
+    text-align: center;
+}
 
     /* ジャンルもカテゴリーと同じ配置 */
     .sidebar > .genre-item {
@@ -970,20 +970,28 @@ article {
 }
 
 
-/* スマホ：投稿関連メニューを別枠にする */
+/* スマホ：投稿関連メニューを上部に独立表示 */
 @media (max-width: 650px) {
-    .post-menu,
-    a[href="/my-articles/"] {
+    .sidebar > .user-menu-section {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        flex: 0 0 100%;
+        box-sizing: border-box;
+    }
+
+    .sidebar > .user-menu-section .post-menu,
+    .sidebar > .user-menu-section a[href="/my-articles/"] {
         display: flex;
         align-items: center;
         width: 100%;
+        flex: 0 0 auto;
         box-sizing: border-box;
-        margin-top: 8px;
+        margin: 4px 0;
         padding: 10px;
         border: 1px solid #dddddd;
         border-radius: 8px;
         background: #ffffff;
     }
 }
-
 
