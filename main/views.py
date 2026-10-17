@@ -18,7 +18,7 @@ from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.views.decorators.http import require_http_methods
 
-from .models import Article
+from .models import Article, Profile
 
 logger = logging.getLogger(__name__)
 
@@ -483,6 +483,37 @@ def my_articles(request):
             "page_title": f"{request.user.username}さんの投稿",
         }
     )
+
+
+@login_required
+def profile_edit(request):
+    profile, created = Profile.objects.get_or_create(
+        user=request.user
+    )
+
+    if request.method == "POST":
+        profile.introduction = request.POST.get(
+            "introduction", ""
+        ).strip()
+
+        profile.favorite_things = request.POST.get(
+            "favorite_things", ""
+        ).strip()
+
+        image = request.FILES.get("image")
+        if image:
+            profile.image = image
+
+        profile.save()
+
+        return redirect("profile_edit")
+
+    return render(
+        request,
+        "articles/profile_edit.html",
+        {"profile": profile}
+    )
+
 
 
 
