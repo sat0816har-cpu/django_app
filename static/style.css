@@ -970,4 +970,20 @@ article {
 }
 
 
+/* スマホ：投稿関連メニューを別枠にする */
+@media (max-width: 650px) {
+    .post-menu,
+    a[href="/my-articles/"] {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        box-sizing: border-box;
+        margin-top: 8px;
+        padding: 10px;
+        border: 1px solid #dddddd;
+        border-radius: 8px;
+        background: #ffffff;
+    }
+}
+
 
