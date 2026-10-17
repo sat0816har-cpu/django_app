@@ -159,61 +159,32 @@
 
     {% if articles %}
 
-        <div class="public-profile-articles">
+        <div class="public-profile-articles" id="public-profile-articles">
 
-            {% for article in articles %}
-
-                <div class="public-profile-card">
-
-                    {% if article.image %}
-                        <a href="/articles/{{ article.id }}/">
-                            <img
-                                src="{{ article.image.url }}"
-                                alt="{{ article.title }}"
-                            >
-                        </a>
-                    {% endif %}
-
-                    <h3>
-                        <a
-                            href="/articles/{{ article.id }}/"
-                            style="color: inherit;"
-                        >
-                            {{ article.title }}
-                        </a>
-                    </h3>
-
-                    <p style="color: #777777; font-size: 12px;">
-                        {{ article.created_at|date:"Y年n月j日" }}
-                    </p>
-
-                    <p style="font-size: 12px;">
-                        {{ article.get_genre_display }} /
-                        {{ article.get_category_display }}
-                    </p>
-
-                    <p style="font-size: 14px;">
-                        {{ article.content|truncatechars:70 }}
-                    </p>
-
-                    <a
-                        href="/articles/{{ article.id }}/"
-                        style="font-size: 14px;"
-                    >
-                        記事を読む →
-                    </a>
-
-                </div>
-
-            {% endfor %}
+            {% include "articles/_public_profile_cards.html" %}
 
         </div>
+
+        {% if page_obj.has_next %}
+            <div style="text-align: center; margin-top: 25px;">
+                <button
+                    id="load-more-articles"
+                    type="button"
+                    data-next-page="{{ page_obj.next_page_number }}"
+                    style="padding: 10px 28px; border: 1px solid #dddddd; border-radius: 25px; background: #ffffff; color: #555555; font-size: 15px; cursor: pointer;"
+                >
+                    もっと見る
+                </button>
+            </div>
+        {% endif %}
 
     {% else %}
 
         <p>この記事の投稿者は、まだ記事を投稿していません。</p>
 
     {% endif %}
+
+
 
     <p style="margin-top: 30px;">
         <a href="/" style="text-decoration: none;">← トップページへ戻る</a>
