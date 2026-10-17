@@ -1157,3 +1157,18 @@ article {
         color: #999999 !important;
     }
 }
+
+/* スマホ：プロフィール名と投稿タイトル */
+@media screen and (max-width: 650px) {
+    .mobile-user-title {
+        font-size: 18px !important;
+        color: #888888 !important;
+        font-weight: 500;
+    }
+
+    .mobile-articles-title {
+        font-size: 19px !important;
+        color: #888888 !important;
+        font-weight: 500;
+    }
+}
