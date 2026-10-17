@@ -186,9 +186,61 @@
 
 
 
-    <p style="margin-top: 30px;">
-        <a href="/" style="text-decoration: none;">← トップページへ戻る</a>
-    </p>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById("load-more-articles");
+    const articleList = document.getElementById("public-profile-articles");
+
+    if (!button || !articleList) return;
+
+    button.addEventListener("click", async function () {
+        const nextPage = Number(button.dataset.nextPage);
+
+        button.disabled = true;
+        button.textContent = "読み込み中...";
+
+        try {
+            const url = new URL(window.location.href);
+            url.searchParams.set("page", nextPage);
+            url.searchParams.set("partial", "1");
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error("記事の読み込みに失敗しました");
+            }
+
+            const html = await response.text();
+            const template = document.createElement("template");
+            template.innerHTML = html.trim();
+
+            const addedArticles = template.content.querySelectorAll(
+                ".public-profile-card"
+            ).length;
+
+            if (addedArticles === 0) {
+                button.remove();
+                return;
+            }
+
+            articleList.insertAdjacentHTML("beforeend", html);
+
+            if (addedArticles < 8) {
+                button.remove();
+            } else {
+                button.dataset.nextPage = String(nextPage + 1);
+                button.textContent = "もっと見る";
+                button.disabled = false;
+            }
+        } catch (error) {
+            console.error(error);
+            button.textContent = "もう一度試す";
+            button.disabled = false;
+        }
+    });
+});
+</script>
+
 
 </div>
 
