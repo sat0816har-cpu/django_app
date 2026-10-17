@@ -869,9 +869,11 @@ article {
 .my-articles-grid .article-card img {
     display: block;
     width: 100%;
-    height: auto;
-    border-radius: 6px;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 8px;
 }
+
 
 /* タブレットでは2列 */
 @media (max-width: 900px) {
