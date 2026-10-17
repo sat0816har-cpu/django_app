@@ -1047,3 +1047,28 @@ article {
 }
 
 
+/* スマホ：ユーザー名とログアウトの上下位置を統一 */
+@media (max-width: 650px) {
+    .user-menu {
+        align-items: center !important;
+        line-height: 1.5 !important;
+    }
+
+    .user-menu span,
+    .user-menu a {
+        display: inline-flex !important;
+        align-items: center !important;
+        height: 28px;
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        margin: 0 !important;
+        line-height: 28px !important;
+        box-sizing: border-box;
+    }
+
+    .user-menu a::after {
+        bottom: 0;
+    }
+}
+
+
