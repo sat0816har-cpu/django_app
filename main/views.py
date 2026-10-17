@@ -493,6 +493,7 @@ def my_articles(request):
 
 
 
+
 @login_required
 def profile_edit(request):
     profile, created = Profile.objects.get_or_create(
@@ -512,7 +513,7 @@ def profile_edit(request):
         if image:
             profile.image = image
 
-            profile.save()
+        profile.save()
 
         return redirect("my_articles")
 
@@ -521,6 +522,7 @@ def profile_edit(request):
         "articles/profile_edit.html",
         {"profile": profile}
     )
+
 
 
 
