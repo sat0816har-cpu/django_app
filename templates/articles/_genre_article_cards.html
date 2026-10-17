@@ -1,0 +1,35 @@
+
+<div
+    class="genre-page-meta"
+    hidden
+    data-has-next="{{ page_obj.has_next|yesno:'true,false' }}"
+    data-next-page="{{ page_obj.next_page_number|default:'' }}"
+></div>
+
+{% for article in articles %}
+    <article class="post-card">
+        <a href="/articles/{{ article.id }}/" class="post-card-link">
+
+            {% if article.image %}
+                <img
+                    src="{{ article.image.url }}"
+                    alt="{{ article.title }}"
+                    class="post-image"
+                >
+            {% endif %}
+
+            <div class="post-card-body">
+                <h2 class="post-card-title">{{ article.title }}</h2>
+
+                <p class="post-author">
+                    投稿者：{{ article.author.username }}
+                </p>
+
+                <p class="post-date">
+                    {{ article.created_at|date:"Y年n月j日" }}
+                </p>
+            </div>
+
+        </a>
+    </article>
+{% endfor %}
