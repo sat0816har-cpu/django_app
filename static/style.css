@@ -1186,3 +1186,19 @@ article {
     text-decoration: none;
     opacity: 0.75;
 }
+
+
+    .public-profile-container > h2 {
+        font-size: 22px;
+        color: #777777;
+        font-weight: 500;
+    }
+
+    @media (max-width: 600px) {
+        .public-profile-container > h2 {
+            font-size: 17px;
+            color: #999999;
+            font-weight: 500;
+        }
+    }
+
