@@ -26,7 +26,6 @@
             </button>
         </div>
     {% endif %}
-
 {% else %}
     <p>このジャンルには、まだ記事がありません。</p>
 
@@ -36,8 +35,6 @@
         </p>
     {% endif %}
 {% endif %}
-
-
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -84,7 +81,6 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             if (cards.length === 0) {
-                console.error("返されたHTML:", html);
                 throw new Error("記事カードが見つかりませんでした");
             }
 
@@ -92,20 +88,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 grid.appendChild(card);
             });
 
-            const meta = template.content.querySelector(
-                ".genre-page-meta"
-            );
-
-            if (!meta) {
-                console.error("ページ情報が見つかりません");
-                button.remove();
-                return;
-            }
-
-            if (meta.dataset.hasNext !== "true") {
+            if (cards.length < 12) {
                 button.parentElement.remove();
             } else {
-                button.dataset.nextPage = meta.dataset.nextPage;
+                button.dataset.nextPage = nextPage + 1;
                 button.disabled = false;
                 button.textContent = "もっと見る";
             }
@@ -118,7 +104,5 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-
-
 
 {% endblock %}
