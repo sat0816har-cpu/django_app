@@ -58,6 +58,11 @@ class Article(models.Model):
         auto_now_add=True
     )
 
+
+    like_count = models.PositiveIntegerField(
+        default=0
+    )
+
     def __str__(self):
         return self.title
 
