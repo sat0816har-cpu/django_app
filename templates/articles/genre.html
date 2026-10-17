@@ -38,95 +38,87 @@
 {% endif %}
 
 
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const button = document.getElementById(
         "load-more-genre-articles"
     );
-
     const grid = document.getElementById(
         "genre-article-grid"
     );
 
     if (!button || !grid) {
-        console.error("ボタンまたは記事一覧が見つかりません。");
         return;
     }
 
     button.addEventListener("click", async function () {
-        const nextPage = button.dataset.nextPage;
+        const nextPage = Number(button.dataset.nextPage);
 
         if (!nextPage || button.disabled) {
-            console.error("次のページ番号がありません。");
             return;
         }
 
         button.disabled = true;
-        button.textContent = "読み込み中…";
-
-        const url = new URL(window.location.href);
-        url.searchParams.set("page", nextPage);
-        url.searchParams.set("partial", "1");
+        button.textContent = "読み込み中...";
 
         try {
-            console.log("読み込み先:", url.toString());
+            const url = new URL(window.location.href);
+            url.searchParams.set("page", nextPage);
+            url.searchParams.set("partial", "1");
 
             const response = await fetch(url.toString());
 
-            console.log("HTTPステータス:", response.status);
-
-            const html = await response.text();
-
             if (!response.ok) {
-                console.error("サーバーからの応答:", html);
                 throw new Error(
-                    "読み込みエラー（HTTP " +
-                    response.status + "）"
+                    "読み込みに失敗しました: " + response.status
                 );
             }
 
-            const doc = new DOMParser().parseFromString(
-                html,
-                "text/html"
+            const html = await response.text();
+            const template = document.createElement("template");
+            template.innerHTML = html;
+
+            const cards = template.content.querySelectorAll(
+                ".post-card"
             );
 
-            const meta = doc.querySelector(".genre-page-meta");
-            const cards = doc.querySelectorAll(".post-card");
-
-            console.log("記事カード数:", cards.length);
-            console.log("ページ情報:", meta);
-
-            if (!meta) {
-                console.error("ページ情報が見つかりません。");
-                throw new Error("記事一覧の応答形式が正しくありません。");
-            }
-
             if (cards.length === 0) {
-                console.error("追加する記事がありません。");
-                throw new Error("記事が見つかりませんでした。");
+                console.error("返されたHTML:", html);
+                throw new Error("記事カードが見つかりませんでした");
             }
 
             cards.forEach(function (card) {
                 grid.appendChild(card);
             });
 
-            if (meta.dataset.hasNext !== "true") {
+            const meta = template.content.querySelector(
+                ".genre-page-meta"
+            );
+
+            if (!meta) {
+                console.error("ページ情報が見つかりません");
                 button.remove();
                 return;
             }
 
-            button.dataset.nextPage = meta.dataset.nextPage;
-            button.textContent = "もっと見る";
-            button.disabled = false;
+            if (meta.dataset.hasNext !== "true") {
+                button.parentElement.remove();
+            } else {
+                button.dataset.nextPage = meta.dataset.nextPage;
+                button.disabled = false;
+                button.textContent = "もっと見る";
+            }
 
         } catch (error) {
-            console.error("もっと見るのエラー:", error);
-            button.textContent = "もう一度試す";
+            console.error(error);
             button.disabled = false;
+            button.textContent = "もう一度試す";
         }
     });
 });
 </script>
+
 
 
 {% endblock %}
