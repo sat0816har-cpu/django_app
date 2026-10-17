@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 def article_list(request):
     articles = Article.objects.all().order_by("-created_at")
 
-    paginator = Paginator(articles, 8)
+    paginator = Paginator(articles, 12)
     page_obj = paginator.get_page(
         request.GET.get("page", 1)
     )
