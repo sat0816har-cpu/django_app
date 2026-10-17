@@ -43,6 +43,12 @@ urlpatterns = [
     ),
 
     path(
+        "articles/<int:article_id>/like/",
+        views.article_like,
+        name="article_like"
+    ),
+
+    path(
         "articles/<int:article_id>/edit/",
         views.article_edit
     ),
