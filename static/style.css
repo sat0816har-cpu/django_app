@@ -1066,3 +1066,29 @@ article {
 }
 
 
+/* プロフィール編集ボタン */
+.profile-edit-button-wrap {
+    margin: 16px 0;
+}
+
+.profile-edit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #444444;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.profile-edit-button:hover {
+    background-color: #f3f3f3;
+    color: #222222;
+}
+
+
