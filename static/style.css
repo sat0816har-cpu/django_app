@@ -1144,3 +1144,21 @@ article {
     color: #777777;
     font-weight: 500;
 }
+
+/* スマホ：ユーザー名と投稿タイトルを少し控えめに */
+@media (max-width: 650px) {
+
+    /* ヘッダーのユーザー名 */
+    .user-name {
+        font-size: 13px;
+        color: #777777;
+    }
+
+    /* 自分の投稿一覧のタイトル */
+    .my-articles-title {
+        font-size: 19px;
+        color: #888888;
+        font-weight: 500;
+    }
+
+}
