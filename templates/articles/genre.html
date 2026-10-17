@@ -37,6 +37,7 @@
     {% endif %}
 {% endif %}
 
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const button = document.getElementById(
@@ -48,6 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     if (!button || !grid) {
+        console.error("ボタンまたは記事一覧が見つかりません。");
         return;
     }
 
@@ -55,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const nextPage = button.dataset.nextPage;
 
         if (!nextPage || button.disabled) {
+            console.error("次のページ番号がありません。");
             return;
         }
 
@@ -66,13 +69,22 @@ document.addEventListener("DOMContentLoaded", function () {
         url.searchParams.set("partial", "1");
 
         try {
-            const response = await fetch(url);
+            console.log("読み込み先:", url.toString());
 
-            if (!response.ok) {
-                throw new Error("記事を読み込めませんでした");
-            }
+            const response = await fetch(url.toString());
+
+            console.log("HTTPステータス:", response.status);
 
             const html = await response.text();
+
+            if (!response.ok) {
+                console.error("サーバーからの応答:", html);
+                throw new Error(
+                    "読み込みエラー（HTTP " +
+                    response.status + "）"
+                );
+            }
+
             const doc = new DOMParser().parseFromString(
                 html,
                 "text/html"
@@ -81,11 +93,24 @@ document.addEventListener("DOMContentLoaded", function () {
             const meta = doc.querySelector(".genre-page-meta");
             const cards = doc.querySelectorAll(".post-card");
 
+            console.log("記事カード数:", cards.length);
+            console.log("ページ情報:", meta);
+
+            if (!meta) {
+                console.error("ページ情報が見つかりません。");
+                throw new Error("記事一覧の応答形式が正しくありません。");
+            }
+
+            if (cards.length === 0) {
+                console.error("追加する記事がありません。");
+                throw new Error("記事が見つかりませんでした。");
+            }
+
             cards.forEach(function (card) {
                 grid.appendChild(card);
             });
 
-            if (!meta || meta.dataset.hasNext !== "true") {
+            if (meta.dataset.hasNext !== "true") {
                 button.remove();
                 return;
             }
@@ -95,11 +120,13 @@ document.addEventListener("DOMContentLoaded", function () {
             button.disabled = false;
 
         } catch (error) {
+            console.error("もっと見るのエラー:", error);
             button.textContent = "もう一度試す";
             button.disabled = false;
-            console.error(error);
         }
     });
 });
 </script>
+
+
 {% endblock %}
