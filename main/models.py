@@ -60,3 +60,32 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="profile"
+    )
+
+    image = models.ImageField(
+        upload_to="profiles/",
+        blank=True,
+        null=True
+    )
+
+    introduction = models.TextField(
+        blank=True,
+        default=""
+    )
+
+    favorite_things = models.CharField(
+        max_length=300,
+        blank=True,
+        default=""
+    )
+
+    def __str__(self):
+        return f"{self.user.username}のプロフィール"
+
