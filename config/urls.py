@@ -75,6 +75,14 @@ urlpatterns = [
         name="profile_edit"
     ),
 
+    
+    path(
+        "users/<str:username>/",
+        views.public_profile,
+        name="public_profile"
+    ),
+
+
 
     path(
         "logout/",
