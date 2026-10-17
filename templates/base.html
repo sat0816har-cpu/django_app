@@ -146,19 +146,23 @@
         </a>
 
         
+
 {% if user.is_authenticated %}
-    <hr>
+    <div class="user-menu-section">
+        <hr>
 
-    <a href="/my-articles/" class="menu-item">
-        <span class="menu-icon">▤</span>
-        <span>{{ user.username }}さんの投稿一覧</span>
-    </a>
+        <a href="/my-articles/" class="menu-item">
+            <span class="menu-icon">▤</span>
+            <span>{{ user.username }}さんの投稿一覧</span>
+        </a>
 
-    <a href="/articles/new/" class="menu-item post-menu">
-        <span class="menu-icon">✎</span>
-        <span>投稿する</span>
-    </a>
+        <a href="/articles/new/" class="menu-item post-menu">
+            <span class="menu-icon">✎</span>
+            <span>投稿する</span>
+        </a>
+    </div>
 {% endif %}
+
 
         
     </aside>
