@@ -467,9 +467,15 @@ def contact(request):
 def guide(request):
     return render(request, "articles/guide.html")
 
+
+
 def my_articles(request):
     if not request.user.is_authenticated:
         return redirect("/login/")
+
+    profile, created = Profile.objects.get_or_create(
+        user=request.user
+    )
 
     articles = Article.objects.filter(
         author=request.user
@@ -480,9 +486,11 @@ def my_articles(request):
         "articles/my_articles.html",
         {
             "articles": articles,
+            "profile": profile,
             "page_title": f"{request.user.username}さんの投稿",
         }
     )
+
 
 
 @login_required
