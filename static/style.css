@@ -1137,3 +1137,10 @@ article {
     border-radius: 50%;
     display: block;
 }
+
+/* 自分の投稿一覧のタイトル */
+.my-articles-title {
+    font-size: 22px;
+    color: #777777;
+    font-weight: 500;
+}
