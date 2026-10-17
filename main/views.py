@@ -24,14 +24,34 @@ from django.core.paginator import Paginator
 logger = logging.getLogger(__name__)
 
 
+
 def article_list(request):
     articles = Article.objects.all().order_by("-created_at")
+
+    paginator = Paginator(articles, 12)
+    page_obj = paginator.get_page(
+        request.GET.get("page", 1)
+    )
+
+    context = {
+        "articles": page_obj.object_list,
+        "page_obj": page_obj,
+        "has_next": page_obj.has_next(),
+    }
+
+    if request.GET.get("partial") == "1":
+        return render(
+            request,
+            "articles/_article_cards.html",
+            context
+        )
 
     return render(
         request,
         "articles/index.html",
-        {"articles": articles}
+        context
     )
+
 
 
 def category_list(request, category_slug):
