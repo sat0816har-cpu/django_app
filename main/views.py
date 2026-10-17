@@ -490,6 +490,7 @@ def guide(request):
 
 
 
+
 def my_articles(request):
     if not request.user.is_authenticated:
         return redirect("/login/")
@@ -502,15 +503,32 @@ def my_articles(request):
         author=request.user
     ).order_by("-created_at")
 
+    paginator = Paginator(articles, 12)
+    page_obj = paginator.get_page(
+        request.GET.get("page", 1)
+    )
+
+    context = {
+        "articles": page_obj.object_list,
+        "page_obj": page_obj,
+        "has_next": page_obj.has_next(),
+        "profile": profile,
+        "page_title": f"{request.user.username}さんの投稿",
+    }
+
+    if request.GET.get("partial") == "1":
+        return render(
+            request,
+            "articles/_my_article_cards.html",
+            context
+        )
+
     return render(
         request,
-        "articles/my_articles.html",
-        {
-            "articles": articles,
-            "profile": profile,
-            "page_title": f"{request.user.username}さんの投稿",
-        }
+        "articles/my-articles.html",
+        context
     )
+
 
 
 
