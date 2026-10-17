@@ -541,7 +541,7 @@ def public_profile(request, username):
         author=profile_user
     ).order_by("-created_at")
 
-    paginator = Paginator(articles, 4)
+    paginator = Paginator(articles, 8)
 
     page_obj = paginator.get_page(
         request.GET.get("page", 1)
