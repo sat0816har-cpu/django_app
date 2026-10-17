@@ -3,9 +3,53 @@
 
 {% block content %}
 
-<p>
-    <a href="/profile/edit/">プロフィールを編集する</a>
-</p>
+
+<div class="my-profile">
+
+    <div class="profile-avatar">
+
+        {% if profile.image %}
+            <img
+                src="{{ profile.image.url }}"
+                alt="プロフィール画像"
+                class="profile-image"
+            >
+        {% else %}
+            <div class="default-avatar">
+                <div class="avatar-head"></div>
+                <div class="avatar-body"></div>
+            </div>
+        {% endif %}
+
+    </div>
+
+    <div class="profile-information">
+
+        <h2>{{ user.username }}さん</h2>
+
+        {% if profile.favorite_things %}
+            <p>
+                <strong>好きなこと・趣味：</strong>
+                {{ profile.favorite_things }}
+            </p>
+        {% endif %}
+
+        {% if profile.introduction %}
+            <p>{{ profile.introduction|linebreaksbr }}</p>
+        {% else %}
+            <p>自己紹介はまだ登録されていません。</p>
+        {% endif %}
+
+        <p>
+            <a href="/profile/edit/">プロフィールを編集する</a>
+        </p>
+
+    </div>
+
+</div>
+
+<hr>
+
 
 <h2>{{ user.username }}さんの投稿</h2>
 
