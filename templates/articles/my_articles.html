@@ -114,25 +114,27 @@ document.addEventListener("DOMContentLoaded", function () {
             const template = document.createElement("template");
             template.innerHTML = html;
 
-            const cards = template.content.querySelectorAll(
-                ".article-card-link"
+            // 記事カード全体を取得する
+            const wrappers = template.content.querySelectorAll(
+                ".article-card-wrapper"
             );
 
-            cards.forEach(function (card) {
-                grid.appendChild(card);
+            wrappers.forEach(function (wrapper) {
+                grid.appendChild(wrapper);
             });
 
-            if (cards.length === 0) {
+            if (wrappers.length === 0) {
                 throw new Error("投稿を読み込めませんでした");
             }
 
-            if (cards.length < 12) {
+            if (wrappers.length < 12) {
                 button.parentElement.remove();
             } else {
                 button.dataset.nextPage = nextPage + 1;
                 button.disabled = false;
                 button.textContent = "もっと見る";
             }
+
         } catch (error) {
             console.error(error);
             button.disabled = false;
