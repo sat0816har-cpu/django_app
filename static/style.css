@@ -1145,20 +1145,15 @@ article {
     font-weight: 500;
 }
 
-/* スマホ：ユーザー名と投稿タイトルを少し控えめに */
-@media (max-width: 650px) {
-
-    /* ヘッダーのユーザー名 */
-    .user-name {
-        font-size: 13px;
-        color: #777777;
+/* スマホ：ユーザー名と投稿タイトルの表示調整 */
+@media screen and (max-width: 650px) {
+    .user-menu .user-name {
+        font-size: 12px !important;
+        color: #888888 !important;
     }
 
-    /* 自分の投稿一覧のタイトル */
-    .my-articles-title {
-        font-size: 14px;
-        color: #888888;
-        font-weight: 500;
+    h1.my-articles-title {
+        font-size: 18px !important;
+        color: #999999 !important;
     }
-
 }
