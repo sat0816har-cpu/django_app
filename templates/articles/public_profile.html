@@ -65,7 +65,42 @@
             font-weight: 500;
         }
     }
-  
+
+    
+    .public-profile-header {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .public-profile-avatar {
+        flex-shrink: 0;
+        width: 110px;
+        height: 110px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    .public-profile-info {
+        flex: 1;
+        min-width: 0;
+    }
+
+    @media (max-width: 600px) {
+        .public-profile-header {
+            gap: 14px;
+        }
+
+        .public-profile-avatar {
+            width: 76px;
+            height: 76px;
+        }
+
+        .public-profile-info {
+            display: block;
+        }
+    }
+
   
 </style>
 
