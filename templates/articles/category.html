@@ -1,6 +1,5 @@
 
 {% extends "base.html" %}
-{% load static %}
 
 {% block content %}
 
@@ -11,47 +10,98 @@
     </p>
 </div>
 
-<div class="post-grid">
-    {% for article in articles %}
-        <article class="post-card">
-            <a href="/articles/{{ article.id }}/" class="post-card-link">
+{% if articles %}
+    <div class="post-grid" id="category-article-grid">
+        {% include "articles/_category_article_cards.html" %}
+    </div>
 
-                {% if article.image %}
-                    <img
-                        class="post-image"
-                        src="{{ article.image.url }}"
-                        alt="{{ article.title }}"
-                        loading="lazy"
-                    >
-                {% else %}
-                    <div class="post-no-image">
-                        <span>写真はありません</span>
-                    </div>
-                {% endif %}
+    {% if page_obj.has_next %}
+        <div style="text-align: center; margin-top: 25px;">
+            <button
+                id="load-more-category-articles"
+                type="button"
+                data-next-page="{{ page_obj.next_page_number }}"
+                style="padding: 10px 28px; border: 1px solid #dddddd; border-radius: 25px; background: #ffffff; color: #555555; font-size: 15px; cursor: pointer;"
+            >
+                もっと見る
+            </button>
+        </div>
+    {% endif %}
 
-                <div class="post-card-body">
-                    <h3 class="post-card-title">
-                        {{ article.title }}
-                    </h3>
+{% else %}
+    <p class="empty-message">
+        まだ投稿がありません。
+        このカテゴリーの最初の記事を投稿してみましょう！
+    </p>
+{% endif %}
 
-                    <p class="post-author">
-                        {{ article.author.username }}
-                    </p>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById(
+        "load-more-category-articles"
+    );
+    const grid = document.getElementById(
+        "category-article-grid"
+    );
 
-                    <p class="post-date">
-                        {{ article.created_at|date:"Y年n月j日" }}
-                    </p>
-                </div>
+    if (!button || !grid) {
+        return;
+    }
 
-            </a>
-        </article>
+    button.addEventListener("click", async function () {
+        const nextPage = Number(button.dataset.nextPage);
 
-    {% empty %}
-        <p class="empty-message">
-            まだ投稿がありません。
-            このカテゴリーの最初の記事を投稿してみましょう！
-        </p>
-    {% endfor %}
-</div>
+        if (!nextPage || button.disabled) {
+            return;
+        }
+
+        button.disabled = true;
+        button.textContent = "読み込み中...";
+
+        try {
+            const url = new URL(window.location.href);
+            url.searchParams.set("page", nextPage);
+            url.searchParams.set("partial", "1");
+
+            const response = await fetch(url.toString());
+
+            if (!response.ok) {
+                throw new Error(
+                    "読み込みに失敗しました: " + response.status
+                );
+            }
+
+            const html = await response.text();
+            const template = document.createElement("template");
+            template.innerHTML = html;
+
+            const cards = template.content.querySelectorAll(
+                ".post-card"
+            );
+
+            if (cards.length === 0) {
+                throw new Error("記事カードが見つかりませんでした");
+            }
+
+            cards.forEach(function (card) {
+                grid.appendChild(card);
+            });
+
+            if (cards.length < 12) {
+                button.parentElement.remove();
+            } else {
+                button.dataset.nextPage = nextPage + 1;
+                button.disabled = false;
+                button.textContent = "もっと見る";
+            }
+
+        } catch (error) {
+            console.error(error);
+            button.disabled = false;
+            button.textContent = "もう一度試す";
+        }
+    });
+});
+</script>
 
 {% endblock %}
