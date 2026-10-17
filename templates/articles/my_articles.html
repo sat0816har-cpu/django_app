@@ -59,56 +59,88 @@
 
 <hr>
 
-<div class="my-articles-grid">
 
-    {% for article in articles %}
+<div class="my-articles-grid" id="my-articles-grid">
 
-        <a href="/articles/{{ article.id }}/?from=my-articles"
-          class="article-card-link">
+    {% include "articles/_my_article_cards.html" %}
 
-            <article class="article-card">
-
-                {% if article.image %}
-                    <img
-                        src="{{ article.image.url }}"
-                        alt="{{ article.title }}"
-                    >
-                {% endif %}
-
-                <h3>
-                    {{ article.title }}
-                </h3>
-
-                <div class="article-card-meta">
-                   <span class="article-card-genre">
-                     {{ article.get_genre_display }}
-                   </span>
-
-                  <span class="article-card-category">
-                     {{ article.get_category_display }}
-                  </span>
-                </div>
-
-                <p>
-                    作者：
-                    {{ article.author.username }}
-                </p>
-
-                <p>
-                    投稿日：
-                    {{ article.created_at|date:"Y年m月d日" }}
-                </p>
-
-            </article>
-
-        </a>
-
-    {% empty %}
-
+    {% if not articles %}
         <p>まだ投稿した記事はありません。</p>
-
-    {% endfor %}
+    {% endif %}
 
 </div>
+
+{% if has_next %}
+    <div style="text-align: center; margin-top: 25px;">
+        <button
+            id="load-more-my-articles"
+            type="button"
+            data-next-page="2"
+            style="padding: 10px 28px; border: 1px solid #dddddd; border-radius: 25px; background: #ffffff; color: #555555; font-size: 15px; cursor: pointer;"
+        >
+            もっと見る
+        </button>
+    </div>
+{% endif %}
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById("load-more-my-articles");
+    const grid = document.getElementById("my-articles-grid");
+
+    if (!button || !grid) {
+        return;
+    }
+
+    button.addEventListener("click", async function () {
+        const nextPage = Number(button.dataset.nextPage);
+
+        button.disabled = true;
+        button.textContent = "読み込み中...";
+
+        try {
+            const url = new URL(window.location.href);
+            url.searchParams.set("page", nextPage);
+            url.searchParams.set("partial", "1");
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error("読み込みに失敗しました");
+            }
+
+            const html = await response.text();
+            const template = document.createElement("template");
+            template.innerHTML = html;
+
+            const cards = template.content.querySelectorAll(
+                ".article-card-link"
+            );
+
+            cards.forEach(function (card) {
+                grid.appendChild(card);
+            });
+
+            if (cards.length === 0) {
+                throw new Error("投稿を読み込めませんでした");
+            }
+
+            if (cards.length < 12) {
+                button.parentElement.remove();
+            } else {
+                button.dataset.nextPage = nextPage + 1;
+                button.disabled = false;
+                button.textContent = "もっと見る";
+            }
+        } catch (error) {
+            console.error(error);
+            button.disabled = false;
+            button.textContent = "もう一度試す";
+        }
+    });
+});
+</script>
+
 
 {% endblock %}
