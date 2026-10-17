@@ -202,5 +202,85 @@
     </div>
 </footer>
 
+<script>
+document.addEventListener("click", async function(event) {
+    const button = event.target.closest(".like-button");
+
+    if (!button) {
+        return;
+    }
+
+    event.preventDefault();
+
+    // 通信中の連続クリックを防ぐ
+    if (button.dataset.loading === "true") {
+        return;
+    }
+
+    const container =
+        button.closest(".post-card") ||
+        button.closest(".article-like-area");
+
+    const csrfInput = container
+        ? container.querySelector(".csrf-token")
+        : null;
+
+    const csrfToken = csrfInput ? csrfInput.value : "";
+
+    if (!csrfToken) {
+        alert("セキュリティ情報を取得できませんでした。ページを再読み込みしてください。");
+        return;
+    }
+
+    button.dataset.loading = "true";
+
+    try {
+        const response = await fetch(button.dataset.likeUrl, {
+            method: "POST",
+            headers: {
+                "X-CSRFToken": csrfToken,
+                "X-Requested-With": "XMLHttpRequest"
+            },
+            credentials: "same-origin"
+        });
+
+        if (!response.ok) {
+            throw new Error("いいねに失敗しました。");
+        }
+
+        const data = await response.json();
+
+        if (data.success) {
+            const count = button.querySelector(".like-count");
+            const heart = button.querySelector(".like-heart");
+            const label = button.querySelector(".like-label");
+
+            if (count) {
+                count.textContent = data.like_count;
+            }
+
+            if (heart) {
+                heart.textContent = "♥";
+            }
+
+            if (label) {
+                label.textContent = "いいね済み";
+            }
+
+            button.classList.add("is-liked");
+            button.disabled = true;
+        } else {
+            throw new Error("いいねに失敗しました。");
+        }
+
+    } catch (error) {
+        alert(error.message || "通信に失敗しました。もう一度お試しください。");
+
+    } finally {
+        button.dataset.loading = "false";
+    }
+});
+</script>
+
 </body>
 </html>
