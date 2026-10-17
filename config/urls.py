@@ -68,6 +68,14 @@ urlpatterns = [
     name="my_articles"
     ),
 
+    
+    path(
+        "profile/edit/",
+        views.profile_edit,
+        name="profile_edit"
+    ),
+
+
     path(
         "logout/",
         views.logout_view
