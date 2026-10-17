@@ -20,7 +20,10 @@
 
     <nav class="user-menu">
         {% if user.is_authenticated %}
-            <span>{{ user.username }}さん</span>
+           <span class="user-name">
+   　　　　 <span class="user-icon">👤</span>
+   　　　　 {{ user.username }}さん
+           </span>
             <a href="/logout/">ログアウト</a>
         {% else %}
             <a href="/register/">ユーザー登録</a>
