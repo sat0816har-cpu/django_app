@@ -28,6 +28,53 @@ logger = logging.getLogger(__name__)
 
 
 
+@require_POST
+def article_like(request, article_id):
+    article = get_object_or_404(
+        Article,
+        id=article_id
+    )
+
+    # Cookieに保存する、この記事専用の識別キー
+    cookie_name = f"liked_article_{article.id}"
+
+    # すでにいいね済みなら、件数を増やさない
+    if request.COOKIES.get(cookie_name) == "1":
+        return JsonResponse({
+            "success": True,
+            "liked": True,
+            "like_count": article.like_count,
+        })
+
+    # データベース側で安全に1増やす
+    Article.objects.filter(
+        id=article.id
+    ).update(
+        like_count=F("like_count") + 1
+    )
+
+    article.refresh_from_db()
+
+    response = JsonResponse({
+        "success": True,
+        "liked": True,
+        "like_count": article.like_count,
+    })
+
+    # Cookieを約1年間保存
+    response.set_cookie(
+        cookie_name,
+        "1",
+        max_age=60 * 60 * 24 * 365,
+        secure=not settings.DEBUG,
+        httponly=True,
+        samesite="Lax",
+    )
+
+    return response
+
+
+
 def article_list(request):
     articles = Article.objects.all().order_by("-created_at")
 
