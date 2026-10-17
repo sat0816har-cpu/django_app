@@ -1,37 +1,61 @@
-
 {% for article in articles %}
 
-    <a href="/articles/{{ article.id }}/?from=my-articles"
-       class="article-card-link">
+    <div class="article-card-wrapper">
 
-        <article class="article-card">
+        <a href="/articles/{{ article.id }}/?from=my-articles"
+           class="article-card-link">
 
-            {% if article.image %}
-                <img
-                    src="{{ article.image.url }}"
-                    alt="{{ article.title }}"
-                    loading="lazy"
-                >
-            {% endif %}
+            <article class="article-card">
 
-            <h3>{{ article.title }}</h3>
+                {% if article.image %}
+                    <img
+                        src="{{ article.image.url }}"
+                        alt="{{ article.title }}"
+                        loading="lazy"
+                    >
+                {% endif %}
 
-            <div class="article-card-meta">
-                <span class="article-card-genre">
-                    {{ article.get_genre_display }}
-                </span>
+                <h3>{{ article.title }}</h3>
 
-                <span class="article-card-category">
-                    {{ article.get_category_display }}
-                </span>
-            </div>
+                <div class="article-card-meta">
+                    <span class="article-card-genre">
+                        {{ article.get_genre_display }}
+                    </span>
 
-            <p>作者：{{ article.author.username }}</p>
+                    <span class="article-card-category">
+                        {{ article.get_category_display }}
+                    </span>
+                </div>
 
-            <p>投稿日：{{ article.created_at|date:"Y年m月d日" }}</p>
+                <p>作者：{{ article.author.username }}</p>
 
-        </article>
+                <p>投稿日：{{ article.created_at|date:"Y年m月d日" }}</p>
 
-    </a>
+            </article>
+
+        </a>
+
+        <div class="post-card-likes">
+
+            <input
+                type="hidden"
+                class="csrf-token"
+                value="{{ csrf_token }}"
+            >
+
+            <button
+                type="button"
+                class="like-button"
+                data-like-url="{% url 'article_like' article.id %}"
+                aria-label="この記事にいいね"
+            >
+                <span class="like-heart">♡</span>
+                <span class="like-label">いいね</span>
+                <span class="like-count">{{ article.like_count }}</span>
+            </button>
+
+        </div>
+
+    </div>
 
 {% endfor %}
