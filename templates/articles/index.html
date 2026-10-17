@@ -20,67 +20,94 @@
     </div>
 {% endif %}
 
-<div class="post-grid">
 
-    {% for article in articles %}
+<div class="post-grid" id="post-grid">
 
-        <article class="post-card">
+    {% include "articles/_article_cards.html" %}
 
-            <a href="/articles/{{ article.id }}/"
-               class="post-card-link">
-
-                {% if article.image %}
-                    <img
-                        class="post-image"
-                        src="{{ article.image.url }}"
-                        alt="{{ article.title }}"
-                        loading="lazy"
-                    >
-                {% else %}
-                    <div class="post-no-image">
-                        <span>写真はありません</span>
-                    </div>
-                {% endif %}
-
-                <div class="post-card-body">
-                    <h3 class="post-card-title">
-                        {{ article.title }}
-                    </h3>
-
-                <div class="post-card-meta">
-
-                   <span class="post-genre">
-                        {{ article.get_genre_display }}
-                   </span>
-
-                   <span class="post-category">
-                        {{ article.get_category_display }}
-                   </span>
-
-                </div>
-
-
-                    <p class="post-author">
-                        {{ article.author.username }}
-                    </p>
-
-                    <p class="post-date">
-                        {{ article.created_at|date:"Y年n月j日" }}
-                    </p>
-                </div>
-
-            </a>
-
-        </article>
-
-    {% empty %}
-
+    {% if not articles %}
         <p class="empty-message">
             まだ投稿がありません。最初の記事を投稿してみましょう！
         </p>
-
-    {% endfor %}
+    {% endif %}
 
 </div>
+
+{% if has_next %}
+    <div class="load-more-container">
+        <button
+            type="button"
+            id="load-more-button"
+            data-next-page="2"
+        >
+            もっと見る
+        </button>
+    </div>
+{% endif %}
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById("load-more-button");
+    const grid = document.getElementById("post-grid");
+    const status = document.getElementById("load-more-status");
+
+    if (!button || !grid || !status) {
+        return;
+    }
+
+    button.addEventListener("click", async function () {
+        const nextPage = Number(button.dataset.nextPage);
+
+        button.disabled = true;
+        button.textContent = "読み込み中...";
+
+        try {
+            const url = new URL(window.location.href);
+            url.searchParams.set("page", nextPage);
+            url.searchParams.set("partial", "1");
+
+            const response = await fetch(url);
+
+            if (!response.ok) {
+                throw new Error("読み込みに失敗しました");
+            }
+
+            const html = await response.text();
+            const template = document.createElement("template");
+            template.innerHTML = html;
+
+            const cards = template.content.querySelectorAll(".post-card");
+            const newStatus = template.content.querySelector(
+                "#load-more-status"
+            );
+
+            cards.forEach(function (card) {
+                grid.insertBefore(card, status);
+            });
+
+            if (!newStatus) {
+                throw new Error("読み込み結果を確認できません");
+            }
+
+            status.dataset.hasNext = newStatus.dataset.hasNext;
+
+            if (status.dataset.hasNext === "true") {
+                button.dataset.nextPage = nextPage + 1;
+                button.disabled = false;
+                button.textContent = "もっと見る";
+            } else {
+                button.parentElement.remove();
+            }
+
+        } catch (error) {
+            button.disabled = false;
+            button.textContent = "もう一度試す";
+            console.error(error);
+        }
+    });
+});
+</script>
+
 
 {% endblock %}
