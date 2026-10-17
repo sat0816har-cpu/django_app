@@ -506,7 +506,7 @@ def profile_edit(request):
 
             profile.save()
 
-        　　return redirect("my_articles")
+        return redirect("my_articles")
 
     return render(
         request,
