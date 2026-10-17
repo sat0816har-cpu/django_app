@@ -84,6 +84,8 @@ def category_list(request, category_slug):
         }
     )
 
+
+
 def genre_list(request, genre_slug):
     genre_names = {
         "hobby": "趣味・エンタメ",
@@ -103,15 +105,31 @@ def genre_list(request, genre_slug):
         genre=genre_slug
     ).order_by("-created_at")
 
+    paginator = Paginator(articles, 12)
+    page_obj = paginator.get_page(
+        request.GET.get("page", 1)
+    )
+
+    context = {
+        "articles": page_obj.object_list,
+        "page_obj": page_obj,
+        "genre_name": genre_name,
+        "genre_slug": genre_slug,
+    }
+
+    if request.GET.get("partial") == "1":
+        return render(
+            request,
+            "articles/_genre_article_cards.html",
+            context
+        )
+
     return render(
         request,
         "articles/genre.html",
-        {
-            "articles": articles,
-            "genre_name": genre_name,
-            "genre_slug": genre_slug,
-        }
+        context
     )
+
 
 
 
