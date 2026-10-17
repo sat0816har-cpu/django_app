@@ -17,14 +17,18 @@
         <label>タイトル</label>
     </p>
     <p>
-        <input type="text" name="title" value="{{ article.title|default:'' }}" required style="width: 100%; box-sizing: border-box;">
+        <input type="text" name="title"
+       value="{{ article.title|default:'' }}"
+       required
+       style="width: 100%; max-width: 800px; box-sizing: border-box;">
     </p>
 
     <p>
         <label>本文</label>
     </p>
     <p>
-        <textarea name="content" rows="10" cols="50" required style="width: 100%; box-sizing: border-box;"></textarea>
+        <textarea name="content" rows="10" cols="50" required
+          style="width: 100%; max-width: 800px; box-sizing: border-box;"></textarea>
     </p>
 
     
