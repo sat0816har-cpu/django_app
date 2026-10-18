@@ -2,10 +2,6 @@
 {% load static %}
 
 {% for article in articles %}
-
-
-{% for article in articles %}
-
     <article class="post-card">
         <a href="/articles/{{ article.id }}/"
            class="post-card-link">
@@ -17,7 +13,6 @@
                     alt="{{ article.title }}"
                     loading="lazy"
                 >
-            
             {% else %}
                 <img
                     class="post-image"
@@ -26,7 +21,6 @@
                     loading="lazy"
                 >
             {% endif %}
-
 
             <div class="post-card-body">
                 <h3 class="post-card-title">
@@ -53,7 +47,6 @@
             </div>
         </a>
 
-        <!-- いいねボタン -->
         <div class="post-card-likes">
             <input
                 type="hidden"
@@ -73,7 +66,6 @@
             </button>
         </div>
     </article>
-
 {% endfor %}
 
 <span
