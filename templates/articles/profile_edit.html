@@ -8,19 +8,28 @@
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
 
-    <p>プロフィール画像</p>
+   
+<p>プロフィール画像</p>
 
-    {% if profile.image %}
-        <img
-            src="{{ profile.image.url }}"
-            alt="プロフィール画像"
-            width="150"
-        >
-    {% endif %}
+{% if profile.image %}
+    <img
+        src="{{ profile.image.url }}"
+        alt="プロフィール画像"
+        width="150"
+    >
+{% else %}
+    {% load static %}
+    <img
+        src="{% static 'images/default_profile.png' %}"
+        alt="デフォルトのプロフィール画像"
+        width="150"
+    >
+{% endif %}
 
-    <p>
-        <input type="file" name="image" accept="image/*">
-    </p>
+<p>
+    <input type="file" name="image" accept="image/*">
+</p>
+
 
     <p>自己紹介</p>
     <textarea name="introduction" rows="5" cols="40">{{ profile.introduction }}</textarea>
