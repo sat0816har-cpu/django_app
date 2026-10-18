@@ -20,7 +20,7 @@ from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.views.decorators.http import require_http_methods
 
-from .models import Article, Profile
+from .models import Article, Profile, Comment
 from django.core.paginator import Paginator
 
 logger = logging.getLogger(__name__)
