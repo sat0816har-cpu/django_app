@@ -201,22 +201,75 @@ def genre_list(request, genre_slug):
 
 
 
+
 def article_detail(request, article_id):
     article = get_object_or_404(
         Article,
         id=article_id
     )
 
+    error = ""
+
+    # コメント投稿処理
+    if request.method == "POST":
+
+        name = request.POST.get(
+            "name", ""
+        ).strip()
+
+        content = request.POST.get(
+            "content", ""
+        ).strip()
+
+        # 入力チェック
+        if not name:
+            error = "お名前を入力してください。"
+
+        elif not content:
+            error = "コメントを入力してください。"
+
+        elif len(name) > 50:
+            error = "お名前は50文字以内で入力してください。"
+
+        elif len(content) > 1000:
+            error = "コメントは1000文字以内で入力してください。"
+
+        else:
+            # コメントをデータベースに保存
+            Comment.objects.create(
+                article=article,
+                name=name,
+                content=content
+            )
+
+            # 保存後、記事詳細画面に戻る
+            if request.GET.get("from") == "my-articles":
+                return redirect(
+                    f"/articles/{article.id}/?from=my-articles"
+                )
+
+            return redirect(
+                f"/articles/{article.id}/"
+            )
+
+    # この記事に投稿されたコメントを取得
+    comments = Comment.objects.filter(
+        article=article
+    ).order_by("-created_at")
+
     return render(
         request,
         "articles/detail.html",
         {
             "article": article,
+            "comments": comments,
+            "error": error,
             "from_my_articles": (
                 request.GET.get("from") == "my-articles"
             ),
         }
     )
+
 
 
 
