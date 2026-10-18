@@ -10,11 +10,17 @@
                     alt="{{ article.title }}"
                     loading="lazy"
                 >
+
+            
             {% else %}
-                <div class="post-no-image">
-                    <span>写真はありません</span>
-                </div>
+                <img
+                    class="post-image"
+                    src="{% static 'images/default_article.jpg' %}"
+                    alt="記事のイメージ画像"
+                    loading="lazy"
+                >
             {% endif %}
+
 
             <div class="post-card-body">
                 <h3 class="post-card-title">
