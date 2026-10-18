@@ -196,3 +196,13 @@ STORAGES = {
     },
 }
 
+
+# 操作が30分間なければセッションを終了する
+SESSION_COOKIE_AGE = 1800
+
+# ブラウザを閉じても、30分間はセッションを維持する
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+
+# 操作するたびにセッションの有効期限を更新する
+SESSION_SAVE_EVERY_REQUEST = True
+
