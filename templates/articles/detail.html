@@ -33,27 +33,6 @@
     {{ article.created_at }}
 </p>
 
-<!-- いいねボタン -->
-<div class="article-like-area">
-
-    <input
-        type="hidden"
-        class="csrf-token"
-        value="{{ csrf_token }}"
-    >
-
-    <button
-        type="button"
-        class="like-button"
-        data-like-url="{% url 'article_like' article.id %}"
-        aria-label="この記事にいいね"
-    >
-        <span class="like-heart">♡</span>
-        <span class="like-label">いいね</span>
-        <span class="like-count">{{ article.like_count }}</span>
-    </button>
-
-</div>
 
 {% if article.image %}
     <div style="width: 100%; max-width: 800px; margin: 0 0 8px; box-sizing: border-box;">
@@ -134,6 +113,28 @@
     </button>
 
 {% endif %}
+
+</div>
+
+<!-- いいねボタン -->
+<div class="article-like-area">
+
+    <input
+        type="hidden"
+        class="csrf-token"
+        value="{{ csrf_token }}"
+    >
+
+    <button
+        type="button"
+        class="like-button"
+        data-like-url="{% url 'article_like' article.id %}"
+        aria-label="この記事にいいね"
+    >
+        <span class="like-heart">♡</span>
+        <span class="like-label">いいね</span>
+        <span class="like-count">{{ article.like_count }}</span>
+    </button>
 
 </div>
 
