@@ -3,13 +3,23 @@
 
         <a href="/articles/{{ article.id }}/" class="post-card-link">
 
+           
             {% if article.image %}
                 <img
                     src="{{ article.image.url }}"
                     alt="{{ article.title }}"
                     class="post-image"
+                    loading="lazy"
+                >
+            {% else %}
+                <img
+                    src="{% static 'images/default_article.jpg' %}"
+                    alt="記事のイメージ画像"
+                    class="post-image"
+                    loading="lazy"
                 >
             {% endif %}
+
 
             <div class="post-card-body">
                 <h2 class="post-card-title">{{ article.title }}</h2>
