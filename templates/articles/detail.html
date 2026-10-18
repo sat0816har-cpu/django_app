@@ -131,5 +131,79 @@
 
 </div>
 
+<hr style="margin: 32px 0;">
+
+<h3>コメント</h3>
+
+{% for comment in comments %}
+    <div style="border-bottom: 1px solid #dddddd; padding: 12px 0;">
+
+        <strong>{{ comment.name }}</strong>
+
+        <p style="font-size: 13px; color: #777;">
+            {{ comment.created_at|date:"Y年n月j日 H:i" }}
+        </p>
+
+        <p style="white-space: pre-wrap; overflow-wrap: anywhere;">{{ comment.content }}</p>
+
+    </div>
+{% empty %}
+    <p>まだコメントはありません。最初のコメントを投稿してみましょう！</p>
+{% endfor %}
+
+<h3 style="margin-top: 28px;">コメントを投稿する</h3>
+
+{% if comment_error %}
+    <p style="color: #c62828;">
+        {{ comment_error }}
+    </p>
+{% endif %}
+
+<form method="post">
+
+    {% csrf_token %}
+
+    <div style="position: absolute; left: -10000px;" aria-hidden="true">
+        <label for="comment-website">ウェブサイト</label>
+        <input
+            type="text"
+            id="comment-website"
+            name="website"
+            tabindex="-1"
+            autocomplete="off"
+        >
+    </div>
+
+    <p>
+        <label for="comment-name">ニックネーム</label><br>
+        <input
+            type="text"
+            id="comment-name"
+            name="name"
+            maxlength="50"
+            value="{{ comment_name }}"
+            required
+            style="width: 100%; max-width: 400px; padding: 10px; box-sizing: border-box;"
+        >
+    </p>
+
+    <p>
+        <label for="comment-content">コメント本文</label><br>
+        <textarea
+            id="comment-content"
+            name="content"
+            maxlength="1000"
+            rows="5"
+            required
+            style="width: 100%; max-width: 600px; padding: 10px; box-sizing: border-box;"
+        >{{ comment_content }}</textarea>
+    </p>
+
+    <button type="submit" class="detail-button">
+        コメントを投稿
+    </button>
+
+</form>
+
 {% endblock %}
 ```
