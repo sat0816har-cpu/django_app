@@ -7,13 +7,21 @@
 
             <article class="article-card">
 
+                
                 {% if article.image %}
                     <img
                         src="{{ article.image.url }}"
                         alt="{{ article.title }}"
                         loading="lazy"
                     >
+                {% else %}
+                    <img
+                        src="{% static 'images/default_article.jpg' %}"
+                        alt="記事のイメージ画像"
+                        loading="lazy"
+                    >
                 {% endif %}
+
 
                 <h3>{{ article.title }}</h3>
 
