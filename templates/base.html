@@ -202,6 +202,7 @@
     </div>
 </footer>
 
+
 <script>
 document.addEventListener("click", async function(event) {
     const button = event.target.closest(".like-button");
@@ -217,18 +218,34 @@ document.addEventListener("click", async function(event) {
         return;
     }
 
-    const container =
-        button.closest(".post-card") ||
-        button.closest(".article-like-area");
+    // ボタンを含む親要素からCSRFトークンを探す
+    let element = button;
+    let csrfToken = "";
 
-    const csrfInput = container
-        ? container.querySelector(".csrf-token")
-        : null;
+    while (element && !csrfToken) {
+        const csrfInput = element.querySelector(".csrf-token");
 
-    const csrfToken = csrfInput ? csrfInput.value : "";
+        if (csrfInput && csrfInput.value) {
+            csrfToken = csrfInput.value;
+            break;
+        }
+
+        element = element.parentElement;
+    }
+
+    // 親要素で見つからなければページ全体から探す
+    if (!csrfToken) {
+        const csrfInput = document.querySelector(".csrf-token");
+
+        if (csrfInput) {
+            csrfToken = csrfInput.value;
+        }
+    }
 
     if (!csrfToken) {
-        alert("セキュリティ情報を取得できませんでした。ページを再読み込みしてください。");
+        alert(
+            "セキュリティ情報を取得できませんでした。ページを再読み込みしてください。"
+        );
         return;
     }
 
@@ -245,7 +262,9 @@ document.addEventListener("click", async function(event) {
         });
 
         if (!response.ok) {
-            throw new Error("いいねに失敗しました。");
+            throw new Error(
+                "いいねに失敗しました。ページを再読み込みしてお試しください。"
+            );
         }
 
         const data = await response.json();
@@ -274,13 +293,17 @@ document.addEventListener("click", async function(event) {
         }
 
     } catch (error) {
-        alert(error.message || "通信に失敗しました。もう一度お試しください。");
+        alert(
+            error.message ||
+            "通信に失敗しました。もう一度お試しください。"
+        );
 
     } finally {
         button.dataset.loading = "false";
     }
 });
 </script>
+
 
 </body>
 </html>
