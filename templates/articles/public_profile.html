@@ -122,13 +122,22 @@
 
     <div class="public-profile-header">
 
-        {% if profile and profile.image %}
-            <img
-                class="public-profile-avatar"
-                src="{{ profile.image.url }}"
-                alt="{{ profile_user.username }}さんのプロフィール画像"
-            >
-        {% endif %}
+        
+{% if profile and profile.image %}
+    <img
+        class="public-profile-avatar"
+        src="{{ profile.image.url }}"
+        alt="{{ profile_user.username }}さんのプロフィール画像"
+    >
+{% else %}
+    {% load static %}
+    <img
+        class="public-profile-avatar"
+        src="{% static 'images/default_profile2.jpg' %}"
+        alt="デフォルトのプロフィール画像"
+    >
+{% endif %}
+
 
         <div class="public-profile-info">
             <h3 style="margin: 0;">
