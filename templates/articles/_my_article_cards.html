@@ -67,3 +67,9 @@
         </div>
     </article>
 {% endfor %}
+
+<span
+    id="load-more-status"
+    data-has-next="{{ has_next|yesno:'true,false' }}"
+    hidden
+></span>
