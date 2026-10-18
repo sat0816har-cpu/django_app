@@ -20,7 +20,9 @@ from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.views.decorators.http import require_http_methods
 
-from .models import Article, Profile, Comment
+
+from .models import Article, Profile, Comment, ArticleImage, ArticleVideo
+
 from django.core.paginator import Paginator
 
 logger = logging.getLogger(__name__)
@@ -273,6 +275,7 @@ def article_detail(request, article_id):
 
 
 
+
 @login_required
 def article_create(request):
 
@@ -282,31 +285,89 @@ def article_create(request):
         content = request.POST["content"]
         genre = request.POST.get("genre", "other")
         category = request.POST.get("category", "other")
+
+        # 従来のメイン画像とYouTube動画
         image = request.FILES.get("image")
-        youtube_url = request.POST.get("youtube_url", "").strip()
+        youtube_url = request.POST.get(
+            "youtube_url", ""
+        ).strip()
+
+        # 追加画像と追加YouTube動画
+        extra_images = request.FILES.getlist("extra_images")
+
+        extra_youtube_urls = [
+            url.strip()
+            for url in request.POST.getlist("extra_youtube_urls")
+            if url.strip()
+        ]
 
         valid_categories = [
-            "music",
-            "movie",
-            "book",
-            "photo",
-            "travel",
-            "cooking",
-            "other",
+            "music", "movie", "book", "photo",
+            "travel", "cooking", "other",
+        ]
+
+        valid_genres = [
+            "hobby", "people", "life",
+            "learning", "creative", "other",
         ]
 
         if category not in valid_categories:
             category = "other"
 
-        Article.objects.create(
+        if genre not in valid_genres:
+            genre = "other"
+
+        # 画像はメイン画像を含めて最大10枚
+        image_count = (1 if image else 0) + len(extra_images)
+
+        if image_count > 10:
+            return render(
+                request,
+                "articles/form.html",
+                {
+                    "error": "画像は1記事につき最大10枚までです。",
+                }
+            )
+
+        # 動画はメイン動画を含めて最大10本
+        video_count = (
+            (1 if youtube_url else 0)
+            + len(extra_youtube_urls)
+        )
+
+        if video_count > 10:
+            return render(
+                request,
+                "articles/form.html",
+                {
+                    "error": "YouTube動画は1記事につき最大10本までです。",
+                }
+            )
+
+        # まず記事本体を保存
+        article = Article.objects.create(
             author=request.user,
             title=title,
             content=content,
             genre=genre,
             category=category,
             image=image,
-            youtube_url=youtube_url
+            youtube_url=youtube_url,
         )
+
+        # 追加画像を保存
+        for extra_image in extra_images:
+            ArticleImage.objects.create(
+                article=article,
+                image=extra_image,
+            )
+
+        # 追加動画を保存
+        for url in extra_youtube_urls:
+            ArticleVideo.objects.create(
+                article=article,
+                youtube_url=url,
+            )
 
         return redirect("my_articles")
 
@@ -314,6 +375,7 @@ def article_create(request):
         request,
         "articles/form.html"
     )
+
 
 
 
@@ -331,57 +393,104 @@ def article_edit(request, article_id):
         return redirect("/")
 
     if request.method == "POST":
+
         article.title = request.POST["title"]
         article.content = request.POST["content"]
 
         genre = request.POST.get(
-            "genre",
-            article.genre
+            "genre", article.genre
         )
 
         valid_genres = [
-            "hobby",
-            "people",
-            "life",
-            "learning",
-            "creative",
-            "other",
+            "hobby", "people", "life",
+            "learning", "creative", "other",
         ]
 
         if genre in valid_genres:
             article.genre = genre
 
         category = request.POST.get(
-            "category",
-            article.category
+            "category", article.category
         )
 
         valid_categories = [
-            "music",
-            "movie",
-            "book",
-            "photo",
-            "travel",
-            "cooking",
-            "other",
+            "music", "movie", "book", "photo",
+            "travel", "cooking", "other",
         ]
 
         if category in valid_categories:
             article.category = category
 
+        # メイン動画
         youtube_url = request.POST.get(
-            "youtube_url",
-            article.youtube_url
+            "youtube_url", article.youtube_url
         ).strip()
 
-        article.youtube_url = youtube_url
-
+        # 新しいメイン画像
         image = request.FILES.get("image")
 
         if image:
             article.image = image
 
+        # 追加画像・追加動画
+        extra_images = request.FILES.getlist("extra_images")
+
+        extra_youtube_urls = [
+            url.strip()
+            for url in request.POST.getlist("extra_youtube_urls")
+            if url.strip()
+        ]
+
+        # 既存画像も含めて最大10枚
+        image_count = (
+            (1 if article.image else 0)
+            + article.extra_images.count()
+            + len(extra_images)
+        )
+
+        if image_count > 10:
+            return render(
+                request,
+                "articles/form.html",
+                {
+                    "article": article,
+                    "error": "画像は1記事につき最大10枚までです。",
+                }
+            )
+
+        # 既存動画も含めて最大10本
+        video_count = (
+            (1 if youtube_url else 0)
+            + article.extra_videos.count()
+            + len(extra_youtube_urls)
+        )
+
+        if video_count > 10:
+            return render(
+                request,
+                "articles/form.html",
+                {
+                    "article": article,
+                    "error": "YouTube動画は1記事につき最大10本までです。",
+                }
+            )
+
+        article.youtube_url = youtube_url
         article.save()
+
+        # 追加画像を保存
+        for extra_image in extra_images:
+            ArticleImage.objects.create(
+                article=article,
+                image=extra_image,
+            )
+
+        # 追加動画を保存
+        for url in extra_youtube_urls:
+            ArticleVideo.objects.create(
+                article=article,
+                youtube_url=url,
+            )
 
         return redirect(
             f"/articles/{article.id}/"
