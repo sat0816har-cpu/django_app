@@ -1,14 +1,23 @@
 {% for article in articles %}
     <div class="public-profile-card">
 
-        {% if article.image %}
-            <a href="/articles/{{ article.id }}/">
+        
+        <a href="/articles/{{ article.id }}/">
+            {% if article.image %}
                 <img
                     src="{{ article.image.url }}"
                     alt="{{ article.title }}"
+                    loading="lazy"
                 >
-            </a>
-        {% endif %}
+            {% else %}
+                <img
+                    src="{% static 'images/default_article.jpg' %}"
+                    alt="記事のイメージ画像"
+                    loading="lazy"
+                >
+            {% endif %}
+        </a>
+
 
         <h3>
             <a
