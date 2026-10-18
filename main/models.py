@@ -94,3 +94,35 @@ class Profile(models.Model):
     def __str__(self):
         return f"{self.user.username}のプロフィール"
 
+
+
+class Comment(models.Model):
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE,
+        related_name="comments"
+    )
+
+    name = models.CharField(
+        max_length=50
+    )
+
+    content = models.TextField(
+        max_length=1000
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    is_approved = models.BooleanField(
+        default=True
+    )
+
+    def __str__(self):
+        return f"{self.name} - {self.article.title}"
+
+    class Meta:
+        ordering = ["created_at"]
+
+
