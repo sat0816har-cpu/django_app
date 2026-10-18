@@ -21,7 +21,7 @@ from django.core.mail import send_mail
 from django.views.decorators.http import require_http_methods
 
 
-from .models import Article, Profile, Comment, ArticleImage, ArticleVideo
+from .models import Article, Profile, Comment
 
 from django.core.paginator import Paginator
 
