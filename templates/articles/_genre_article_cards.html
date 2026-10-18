@@ -25,6 +25,16 @@
             <div class="post-card-body">
                 <h2 class="post-card-title">{{ article.title }}</h2>
 
+                <div class="post-card-meta">
+                    <span class="post-genre">
+                        {{ article.get_genre_display }}
+                    </span>
+
+                    <span class="post-category">
+                        {{ article.get_category_display }}
+                    </span>
+                </div>
+
                 <p class="post-author">
                     投稿者：{{ article.author.username }}
                 </p>
