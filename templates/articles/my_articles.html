@@ -8,18 +8,23 @@
 
     <div class="profile-avatar">
 
-        {% if profile.image %}
-            <img
-                src="{{ profile.image.url }}"
-                alt="プロフィール画像"
-                class="profile-image"
-            >
-        {% else %}
-            <div class="default-avatar">
-                <div class="avatar-head"></div>
-                <div class="avatar-body"></div>
-            </div>
-        {% endif %}
+       
+{% load static %}
+
+{% if profile.image %}
+    <img
+        src="{{ profile.image.url }}"
+        alt="プロフィール画像"
+        class="profile-image"
+    >
+{% else %}
+    <img
+        src="{% static 'images/default_profile.jpg' %}"
+        alt="デフォルトのプロフィール画像"
+        class="profile-image"
+    >
+{% endif %}
+
 
     </div>
 
