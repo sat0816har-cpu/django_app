@@ -329,8 +329,6 @@ def article_create(request):
 
 
 
-
-
 @login_required
 def article_edit(request, article_id):
     article = get_object_or_404(
@@ -370,76 +368,19 @@ def article_edit(request, article_id):
         if category in valid_categories:
             article.category = category
 
-        # メイン動画
+        # YouTube動画は1本
         youtube_url = request.POST.get(
             "youtube_url", article.youtube_url
         ).strip()
 
-        # 新しいメイン画像
+        # 新しい画像が選ばれた場合だけ差し替える
         image = request.FILES.get("image")
 
         if image:
             article.image = image
 
-        # 追加画像・追加動画
-        extra_images = request.FILES.getlist("extra_images")
-
-        extra_youtube_urls = [
-            url.strip()
-            for url in request.POST.getlist("extra_youtube_urls")
-            if url.strip()
-        ]
-
-        # 既存画像も含めて最大10枚
-        image_count = (
-            (1 if article.image else 0)
-            + article.extra_images.count()
-            + len(extra_images)
-        )
-
-        if image_count > 10:
-            return render(
-                request,
-                "articles/form.html",
-                {
-                    "article": article,
-                    "error": "画像は1記事につき最大10枚までです。",
-                }
-            )
-
-        # 既存動画も含めて最大10本
-        video_count = (
-            (1 if youtube_url else 0)
-            + article.extra_videos.count()
-            + len(extra_youtube_urls)
-        )
-
-        if video_count > 10:
-            return render(
-                request,
-                "articles/form.html",
-                {
-                    "article": article,
-                    "error": "YouTube動画は1記事につき最大10本までです。",
-                }
-            )
-
         article.youtube_url = youtube_url
         article.save()
-
-        # 追加画像を保存
-        for extra_image in extra_images:
-            ArticleImage.objects.create(
-                article=article,
-                image=extra_image,
-            )
-
-        # 追加動画を保存
-        for url in extra_youtube_urls:
-            ArticleVideo.objects.create(
-                article=article,
-                youtube_url=url,
-            )
 
         return redirect(
             f"/articles/{article.id}/"
