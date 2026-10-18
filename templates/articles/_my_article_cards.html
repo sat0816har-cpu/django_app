@@ -36,9 +36,9 @@
                     </span>
                 </div>
 
-                <p>作者：{{ article.author.username }}</p>
+                <p>{{ article.author.username }}</p>
 
-                <p>投稿日：{{ article.created_at|date:"Y年m月d日" }}</p>
+                <p>{{ article.created_at|date:"Y年m月d日" }}</p>
 
             </article>
 
