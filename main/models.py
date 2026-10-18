@@ -126,3 +126,40 @@ class Comment(models.Model):
         ordering = ["created_at"]
 
 
+class ArticleImage(models.Model):
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE,
+        related_name="extra_images"
+    )
+
+    image = models.ImageField(
+        upload_to="articles/"
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return f"{self.article.title}の追加画像"
+
+
+class ArticleVideo(models.Model):
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE,
+        related_name="extra_videos"
+    )
+
+    youtube_url = models.URLField()
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return f"{self.article.title}の追加動画"
+
+
+
