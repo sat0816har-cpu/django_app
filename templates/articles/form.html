@@ -9,32 +9,29 @@
     <h2>新しい記事を書く</h2>
 {% endif %}
 
+{% if error %}
+    <p style="color: red;">{{ error }}</p>
+{% endif %}
+
 <form method="post" enctype="multipart/form-data">
 
     {% csrf_token %}
 
-    <p>
-        <label>タイトル</label>
-    </p>
+    <p><label>タイトル</label></p>
     <p>
         <input type="text" name="title"
-       value="{{ article.title|default:'' }}"
-       required
-       style="width: 100%; max-width: 800px; box-sizing: border-box;">
+               value="{{ article.title|default:'' }}"
+               required
+               style="width: 100%; max-width: 800px; box-sizing: border-box;">
     </p>
 
+    <p><label>本文</label></p>
     <p>
-        <label>本文</label>
-    </p>
-    <p>
-        <textarea name="content" rows="10" cols="50" required
-          style="width: 100%; max-width: 800px; box-sizing: border-box;">{{ article.content|default:'' }}</textarea>
+        <textarea name="content" rows="10" required
+                  style="width: 100%; max-width: 800px; box-sizing: border-box;">{{ article.content|default:'' }}</textarea>
     </p>
 
-    
-    <p>
-        <label>ジャンル</label>
-    </p>
+    <p><label>ジャンル</label></p>
     <p>
         <select name="genre" required>
             <option value="hobby" {% if article.genre == "hobby" %}selected{% endif %}>趣味・エンタメ</option>
@@ -46,10 +43,7 @@
         </select>
     </p>
 
-
-    <p>
-        <label>カテゴリー</label>
-    </p>
+    <p><label>カテゴリー</label></p>
     <p>
         <select name="category" required>
             <option value="music" {% if article.category == "music" %}selected{% endif %}>音楽</option>
@@ -62,33 +56,60 @@
         </select>
     </p>
 
-    <p>
-        <label>画像</label>
-    </p>
+    <hr>
+
+    <h3>画像</h3>
+
+    {% if article and article.image %}
+        <p>現在のメイン画像：{{ article.image.name }}</p>
+    {% endif %}
+
+    <p>メイン画像（任意）</p>
     <p>
         <input type="file" name="image" accept="image/*">
     </p>
 
-    {% if article and article.image %}
-        <p>現在の画像：{{ article.image.name }}</p>
-    {% endif %}
+    <p>追加画像（最大9枚）</p>
+
+    <div id="extra-image-fields">
+        <p>
+            <input type="file" name="extra_images" accept="image/*">
+        </p>
+    </div>
+
+    <button type="button" id="add-image-button">
+        ＋ 画像を追加
+    </button>
 
     <hr>
 
+    <h3>YouTube動画</h3>
+
+    <p>メイン動画のURL（任意）</p>
     <p>
-        <label>YouTube動画のURL（任意）</label>
+        <input type="url"
+               name="youtube_url"
+               value="{{ article.youtube_url|default:'' }}"
+               placeholder="https://www.youtube.com/watch?v=..."
+               style="width: 100%; max-width: 600px; box-sizing: border-box;">
     </p>
-    <p>
-        <input
-            type="url"
-            name="youtube_url"
-            value="{{ article.youtube_url|default:'' }}"
-            placeholder="https://www.youtube.com/watch?v=..."
-        >
-    </p>
-    <p>
-        YouTube動画を紹介したい場合は、動画のURLを入力してください。
-    </p>
+
+    <p>追加動画（最大9本）</p>
+
+    <div id="extra-video-fields">
+        <p>
+            <input type="url"
+                   name="extra_youtube_urls"
+                   placeholder="https://www.youtube.com/watch?v=..."
+                   style="width: 100%; max-width: 600px; box-sizing: border-box;">
+        </p>
+    </div>
+
+    <button type="button" id="add-video-button">
+        ＋ YouTube動画を追加
+    </button>
+
+    <hr>
 
     <button type="submit">保存する</button>
 
@@ -103,5 +124,58 @@
         ← 戻る
     </button>
 </div>
+
+<script>
+(function () {
+    const imageFields = document.getElementById("extra-image-fields");
+    const videoFields = document.getElementById("extra-video-fields");
+    const addImageButton = document.getElementById("add-image-button");
+    const addVideoButton = document.getElementById("add-video-button");
+
+    let imageCount = 1;
+    let videoCount = 1;
+
+    addImageButton.addEventListener("click", function () {
+        if (imageCount >= 9) {
+            alert("追加画像は最大9枚までです。メイン画像と合わせて最大10枚です。");
+            return;
+        }
+
+        const p = document.createElement("p");
+        const input = document.createElement("input");
+
+        input.type = "file";
+        input.name = "extra_images";
+        input.accept = "image/*";
+
+        p.appendChild(input);
+        imageFields.appendChild(p);
+
+        imageCount++;
+    });
+
+    addVideoButton.addEventListener("click", function () {
+        if (videoCount >= 9) {
+            alert("追加動画は最大9本までです。メイン動画と合わせて最大10本です。");
+            return;
+        }
+
+        const p = document.createElement("p");
+        const input = document.createElement("input");
+
+        input.type = "url";
+        input.name = "extra_youtube_urls";
+        input.placeholder = "https://www.youtube.com/watch?v=...";
+        input.style.width = "100%";
+        input.style.maxWidth = "600px";
+        input.style.boxSizing = "border-box";
+
+        p.appendChild(input);
+        videoFields.appendChild(p);
+
+        videoCount++;
+    });
+})();
+</script>
 
 {% endblock %}
