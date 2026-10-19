@@ -3,99 +3,366 @@
 
 {% block content %}
 
-{% if article %}
-    <h2>記事を編集する</h2>
-{% else %}
-    <h2>新しい記事を書く</h2>
-{% endif %}
+<style>
+    .article-form-container {
+        width: 100%;
+        max-width: 760px;
+        margin: 24px auto;
+        padding: 0 12px;
+        box-sizing: border-box;
+    }
 
-{% if error %}
-    <p style="color: red;">{{ error }}</p>
-{% endif %}
+    .article-form-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 28px;
+        box-sizing: border-box;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+    }
 
-<form method="post" enctype="multipart/form-data">
+    .article-form-title {
+        margin: 0 0 8px;
+        font-size: 24px;
+        line-height: 1.5;
+        color: #222222;
+    }
 
-    {% csrf_token %}
+    .article-form-description {
+        margin: 0 0 26px;
+        color: #6b7280;
+        font-size: 14px;
+        line-height: 1.7;
+    }
 
-    <p><label>タイトル</label></p>
-    <p>
-        <input type="text" name="title"
-               value="{{ article.title|default:'' }}"
-               required
-               style="width: 100%; max-width: 800px; box-sizing: border-box;">
-    </p>
+    .article-form-group {
+        margin-bottom: 22px;
+    }
 
-    <p><label>本文</label></p>
-    <p>
-        <textarea name="content" rows="10" required
-                  style="width: 100%; max-width: 800px; box-sizing: border-box;">{{ article.content|default:'' }}</textarea>
-    </p>
+    .article-form-label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        color: #374151;
+    }
 
-    <p><label>ジャンル</label></p>
-    <p>
-        <select name="genre" required>
-            <option value="hobby" {% if article.genre == "hobby" %}selected{% endif %}>趣味・エンタメ</option>
-            <option value="people" {% if article.genre == "people" %}selected{% endif %}>人・社会</option>
-            <option value="life" {% if article.genre == "life" %}selected{% endif %}>暮らし</option>
-            <option value="learning" {% if article.genre == "learning" %}selected{% endif %}>学び・仕事</option>
-            <option value="creative" {% if article.genre == "creative" %}selected{% endif %}>創作・表現</option>
-            <option value="other" {% if not article or article.genre == "other" %}selected{% endif %}>その他</option>
-        </select>
-    </p>
+    .article-form-input,
+    .article-form-textarea,
+    .article-form-select {
+        display: block;
+        width: 100%;
+        padding: 12px 13px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #222222;
+        font-size: 15px;
+        line-height: 1.6;
+        box-sizing: border-box;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
 
-    <p><label>カテゴリー</label></p>
-    <p>
-        <select name="category" required>
-            <option value="music" {% if article.category == "music" %}selected{% endif %}>音楽</option>
-            <option value="movie" {% if article.category == "movie" %}selected{% endif %}>映画</option>
-            <option value="book" {% if article.category == "book" %}selected{% endif %}>読書</option>
-            <option value="photo" {% if article.category == "photo" %}selected{% endif %}>写真</option>
-            <option value="travel" {% if article.category == "travel" %}selected{% endif %}>旅行</option>
-            <option value="cooking" {% if article.category == "cooking" %}selected{% endif %}>料理</option>
-            <option value="other" {% if not article or article.category == "other" %}selected{% endif %}>その他</option>
-        </select>
-    </p>
+    .article-form-input:focus,
+    .article-form-textarea:focus,
+    .article-form-select:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+    }
 
-    <hr>
+    .article-form-textarea {
+        min-height: 260px;
+        resize: vertical;
+    }
 
-    <h3>画像</h3>
+    .article-form-file {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        border: 1px dashed #cbd5e1;
+        border-radius: 8px;
+        background: #f9fafb;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
 
-    {% if article and article.image %}
-        <p>現在の画像：{{ article.image.name }}</p>
-    {% endif %}
+    .article-form-help {
+        margin: 7px 0 0;
+        color: #6b7280;
+        font-size: 13px;
+        line-height: 1.7;
+        overflow-wrap: anywhere;
+    }
 
-    <p>画像（任意）</p>
-    <p>
-        <input type="file" name="image" accept="image/*">
-    </p>
+    .article-form-section {
+        margin-top: 30px;
+        padding-top: 24px;
+        border-top: 1px solid #e5e7eb;
+    }
 
-    <hr>
+    .article-form-section-title {
+        margin: 0 0 20px;
+        font-size: 18px;
+        color: #374151;
+    }
 
-    <h3>YouTube動画</h3>
+    .article-form-error {
+        margin-bottom: 22px;
+        padding: 12px 14px;
+        border: 1px solid #fecaca;
+        border-radius: 8px;
+        background: #fef2f2;
+        color: #b91c1c;
+        font-size: 14px;
+        overflow-wrap: anywhere;
+    }
 
-    <p>動画のURL（任意）</p>
-    <p>
-        <input type="url"
-               name="youtube_url"
-               value="{{ article.youtube_url|default:'' }}"
-               placeholder="https://www.youtube.com/watch?v=..."
-               style="width: 100%; max-width: 600px; box-sizing: border-box;">
-    </p>
+    .article-form-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 30px;
+    }
 
-    <hr>
+    .article-form-submit,
+    .article-form-back {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        box-sizing: border-box;
+        transition: background 0.2s;
+    }
 
-    <button type="submit">保存する</button>
+    .article-form-submit {
+        flex: 1;
+        border: 1px solid #2563eb;
+        background: #2563eb;
+        color: #ffffff;
+    }
 
-</form>
+    .article-form-submit:hover {
+        background: #1d4ed8;
+    }
 
-<div class="detail-actions">
-    <button
-        class="detail-button detail-back"
-        type="button"
-        onclick="if (document.referrer) { try { const previous = new URL(document.referrer); if (previous.origin === window.location.origin) { window.history.back(); return; } } catch (e) {} } window.location.href = '/';"
-    >
-        ← 戻る
-    </button>
+    .article-form-back {
+        border: 1px solid #d1d5db;
+        background: #ffffff;
+        color: #374151;
+    }
+
+    .article-form-back:hover {
+        background: #f3f4f6;
+    }
+
+    @media (max-width: 600px) {
+        .article-form-container {
+            margin: 12px auto;
+            padding: 0 8px;
+        }
+
+        .article-form-card {
+            padding: 20px 16px;
+            border-radius: 12px;
+        }
+
+        .article-form-title {
+            font-size: 21px;
+        }
+
+        .article-form-textarea {
+            min-height: 220px;
+        }
+
+        .article-form-actions {
+            flex-direction: column;
+        }
+
+        .article-form-submit,
+        .article-form-back {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="article-form-container">
+
+    <div class="article-form-card">
+
+        {% if article %}
+            <h2 class="article-form-title">記事を編集する</h2>
+            <p class="article-form-description">
+                記事の内容を変更して、保存しましょう。
+            </p>
+        {% else %}
+            <h2 class="article-form-title">新しい記事を書く</h2>
+            <p class="article-form-description">
+                あなたの「好き」を、みんなに届けましょう。
+            </p>
+        {% endif %}
+
+        {% if error %}
+            <div class="article-form-error">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="post" enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+            <div class="article-form-group">
+                <label class="article-form-label" for="article-title">
+                    タイトル
+                </label>
+                <input
+                    class="article-form-input"
+                    type="text"
+                    id="article-title"
+                    name="title"
+                    value="{{ article.title|default:'' }}"
+                    placeholder="記事のタイトルを入力してください"
+                    required
+                >
+            </div>
+
+            <div class="article-form-group">
+                <label class="article-form-label" for="article-content">
+                    本文
+                </label>
+                <textarea
+                    class="article-form-textarea"
+                    id="article-content"
+                    name="content"
+                    placeholder="伝えたいことを書いてみましょう。"
+                    required
+                >{{ article.content|default:'' }}</textarea>
+                <p class="article-form-help">
+                    自分の経験や好きなことを、自由に書いてみましょう。
+                </p>
+            </div>
+
+            <div class="article-form-group">
+                <label class="article-form-label" for="article-genre">
+                    ジャンル
+                </label>
+                <select
+                    class="article-form-select"
+                    id="article-genre"
+                    name="genre"
+                    required
+                >
+                    <option value="hobby" {% if article.genre == "hobby" %}selected{% endif %}>趣味・エンタメ</option>
+                    <option value="people" {% if article.genre == "people" %}selected{% endif %}>人・社会</option>
+                    <option value="life" {% if article.genre == "life" %}selected{% endif %}>暮らし</option>
+                    <option value="learning" {% if article.genre == "learning" %}selected{% endif %}>学び・仕事</option>
+                    <option value="creative" {% if article.genre == "creative" %}selected{% endif %}>創作・表現</option>
+                    <option value="other" {% if not article or article.genre == "other" %}selected{% endif %}>その他</option>
+                </select>
+            </div>
+
+            <div class="article-form-group">
+                <label class="article-form-label" for="article-category">
+                    カテゴリー
+                </label>
+                <select
+                    class="article-form-select"
+                    id="article-category"
+                    name="category"
+                    required
+                >
+                    <option value="music" {% if article.category == "music" %}selected{% endif %}>音楽</option>
+                    <option value="movie" {% if article.category == "movie" %}selected{% endif %}>映画</option>
+                    <option value="book" {% if article.category == "book" %}selected{% endif %}>読書</option>
+                    <option value="photo" {% if article.category == "photo" %}selected{% endif %}>写真</option>
+                    <option value="travel" {% if article.category == "travel" %}selected{% endif %}>旅行</option>
+                    <option value="cooking" {% if article.category == "cooking" %}selected{% endif %}>料理</option>
+                    <option value="other" {% if not article or article.category == "other" %}selected{% endif %}>その他</option>
+                </select>
+            </div>
+
+            <div class="article-form-section">
+
+                <h3 class="article-form-section-title">画像</h3>
+
+                {% if article and article.image %}
+                    <p class="article-form-help">
+                        現在の画像：{{ article.image.name }}
+                    </p>
+                {% endif %}
+
+                <div class="article-form-group">
+                    <label class="article-form-label" for="article-image">
+                        画像を選択（任意）
+                    </label>
+                    <input
+                        class="article-form-file"
+                        type="file"
+                        id="article-image"
+                        name="image"
+                        accept="image/*"
+                    >
+                    <p class="article-form-help">
+                        記事に掲載する画像を選択できます。
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="article-form-section">
+
+                <h3 class="article-form-section-title">YouTube動画</h3>
+
+                <div class="article-form-group">
+                    <label class="article-form-label" for="article-youtube">
+                        動画のURL（任意）
+                    </label>
+                    <input
+                        class="article-form-input"
+                        type="url"
+                        id="article-youtube"
+                        name="youtube_url"
+                        value="{{ article.youtube_url|default:'' }}"
+                        placeholder="https://www.youtube.com/watch?v=..."
+                    >
+                    <p class="article-form-help">
+                        記事に動画を掲載する場合は、YouTubeのURLを入力してください。
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="article-form-actions">
+                <button class="article-form-submit" type="submit">
+                    {% if article %}
+                        変更を保存する
+                    {% else %}
+                        投稿する
+                    {% endif %}
+                </button>
+            </div>
+
+        </form>
+
+        <div class="article-form-actions">
+            <button
+                class="article-form-back"
+                type="button"
+                onclick="if (document.referrer) { try { const previous = new URL(document.referrer); if (previous.origin === window.location.origin) { window.history.back(); return; } } catch (e) {} } window.location.href = '/';"
+            >
+                ← 戻る
+            </button>
+        </div>
+
+    </div>
+
 </div>
 
 {% endblock %}
