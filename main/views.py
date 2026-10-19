@@ -661,7 +661,7 @@ def contact(request):
 
             resend.Emails.send({
                 "from": sender,
-                "to": ["sukitsuna.info@gmail.com"],
+                "to": ["sat0816har@gmail.com"],
                 "reply_to": [email],
                 "subject": f"【すきつな】お問い合わせ：{name}",
                 "text": (
