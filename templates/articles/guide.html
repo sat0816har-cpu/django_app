@@ -2,65 +2,171 @@
 
 {% block content %}
 
-<div class="info-page">
-    
- 
-<div class="info-title">
-    <span class="en">User Guide</span>
-    <h1>ご利用ガイド</h1>
-</div>
+<style>
+    .guide-page {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px 16px 40px;
+        box-sizing: border-box;
+    }
 
+    .guide-page .info-title {
+        margin-bottom: 28px;
+        text-align: center;
+    }
 
-    <p>
+    .guide-page .info-title .en {
+        display: block;
+        margin-bottom: 6px;
+        color: #777;
+        font-size: 13px;
+        letter-spacing: 2px;
+    }
+
+    .guide-page .info-title h1 {
+        margin: 0;
+        font-size: 26px;
+        line-height: 1.5;
+    }
+
+    .guide-intro {
+        margin-bottom: 20px;
+        padding: 20px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: #fff;
+        font-size: 15px;
+        line-height: 1.9;
+    }
+
+    .guide-card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .guide-card {
+        padding: 20px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: #fff;
+        box-sizing: border-box;
+    }
+
+    .guide-card h2 {
+        margin: 0 0 12px;
+        font-size: 17px;
+        line-height: 1.6;
+    }
+
+    .guide-card p {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.9;
+        overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 600px) {
+        .guide-page {
+            padding: 16px 12px 30px;
+        }
+
+        .guide-page .info-title h1 {
+            font-size: 23px;
+        }
+
+        .guide-intro {
+            padding: 18px;
+        }
+
+        .guide-card-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .guide-card {
+            padding: 18px;
+        }
+    }
+</style>
+
+<div class="guide-page">
+
+    <div class="info-title">
+        <span class="en">User Guide</span>
+        <h1>ご利用ガイド</h1>
+    </div>
+
+    <div class="guide-intro">
         「すきつな」の基本的な使い方をご案内します。
         初めての方も、順番に操作してみてください。
-    </p>
+    </div>
 
-    <h3>1. ユーザー登録</h3>
-    <p>
-        ユーザー登録ページから必要な情報を入力して、
-        アカウントを作成します。
-    </p>
+    <div class="guide-card-grid">
 
-    <h3>2. ログイン</h3>
-    <p>
-        登録したアカウントでログインすると、
-        ログインが必要な機能を利用できます。
-    </p>
+        <section class="guide-card">
+            <h2>1. ユーザー登録</h2>
+            <p>
+                ユーザー登録ページから必要な情報を入力して、
+                アカウントを作成します。
+            </p>
+        </section>
 
-    <h3>3. 記事を投稿する</h3>
-    <p>
-        新しい記事を書くページで、タイトル、本文、
-        ジャンル、カテゴリーなどを入力して保存します。
-    </p>
+        <section class="guide-card">
+            <h2>2. ログイン</h2>
+            <p>
+                登録したアカウントでログインすると、
+                ログインが必要な機能を利用できます。
+            </p>
+        </section>
 
-    <h3>4. 画像を追加する</h3>
-    <p>
-        記事の投稿・編集画面で画像を選択できます。
-        公開してよい画像を使用し、他人の写真や著作物を
-        利用する場合は権利に注意してください。
-    </p>
+        <section class="guide-card">
+            <h2>3. 記事を投稿する</h2>
+            <p>
+                新しい記事を書くページで、タイトル、本文、
+                ジャンル、カテゴリーなどを入力して保存します。
+            </p>
+        </section>
 
-    <h3>5. YouTube動画を紹介する</h3>
-    <p>
-        投稿画面のYouTube動画URL欄に、紹介したい動画のURLを
-        入力します。動画の公開状態や提供元の設定によっては、
-        ページ内で再生できない場合があります。
-    </p>
+        <section class="guide-card">
+            <h2>4. 画像を追加する</h2>
+            <p>
+                記事の投稿・編集画面で画像を選択できます。
+                公開してよい画像を使用し、他人の写真や著作物を
+                利用する場合は権利に注意してください。
+            </p>
+        </section>
 
-    <h3>6. 記事を修正・削除する</h3>
-    <p>
-        自分が投稿した記事の詳細ページから、
-        修正や削除の操作を行えます。
-        削除する前に、内容をよく確認してください。
-    </p>
+        <section class="guide-card">
+            <h2>5. YouTube動画を紹介する</h2>
+            <p>
+                投稿画面のYouTube動画URL欄に、紹介したい動画のURLを
+                入力します。動画の公開状態や提供元の設定によっては、
+                ページ内で再生できない場合があります。
+            </p>
+        </section>
 
-    <h3>7. 安全に利用するために</h3>
-    <p>
-        パスワードを他人に教えないこと、
-        個人情報を不用意に公開しないこと、
-        他人を尊重した投稿を心がけることが大切です。
-    </p>
+        <section class="guide-card">
+            <h2>6. 記事を修正・削除する</h2>
+            <p>
+                自分が投稿した記事の詳細ページから、
+                修正や削除の操作を行えます。
+                削除する前に、内容をよく確認してください。
+            </p>
+        </section>
+
+        <section class="guide-card">
+            <h2>7. 安全に利用するために</h2>
+            <p>
+                パスワードを他人に教えないこと、
+                個人情報を不用意に公開しないこと、
+                他人を尊重した投稿を心がけることが大切です。
+            </p>
+        </section>
+
+    </div>
+
 </div>
 
 {% endblock %}
