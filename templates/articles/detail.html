@@ -1,216 +1,638 @@
+
 {% extends "base.html" %}
 
 {% block content %}
 
-<h2>
-    {{ article.title }}
-</h2>
+<style>
+    .article-detail-container {
+        width: 100%;
+        max-width: 860px;
+        margin: 24px auto;
+        padding: 0 12px;
+        box-sizing: border-box;
+    }
 
-<div class="post-card-meta">
+    .article-detail-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 28px;
+        margin-bottom: 24px;
+        box-sizing: border-box;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+    }
 
-    <span class="post-genre">
-        <a href="/?genre={{ article.genre }}">
-            {{ article.get_genre_display }}
-        </a>
-    </span>
+    .article-detail-title {
+        margin: 0 0 18px;
+        color: #222222;
+        font-size: 26px;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
 
-    <span class="post-category">
-        <a href="/?category={{ article.category }}">
-            {{ article.get_category_display }}
-        </a>
-    </span>
+    .article-detail-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
 
-</div>
+    .article-detail-tag {
+        display: inline-block;
+        padding: 5px 12px;
+        border: 1px solid #dbeafe;
+        border-radius: 20px;
+        background: #eff6ff;
+        color: #1d4ed8;
+        font-size: 13px;
+        text-decoration: none;
+    }
 
-<p>
-    投稿者：
-    <a href="/users/{{ article.author.username }}/" class="detail-meta-link">
-        {{ article.author.username }}
-    </a>
-</p>
+    .article-detail-tag:hover {
+        background: #dbeafe;
+    }
 
-<p>
-    {{ article.created_at }}
-</p>
+    .article-detail-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 20px;
+        margin-bottom: 22px;
+        color: #6b7280;
+        font-size: 13px;
+        line-height: 1.8;
+    }
 
+    .article-detail-info p {
+        margin: 0;
+        overflow-wrap: anywhere;
+    }
 
-{% if article.image %}
-    <div style="width: 100%; max-width: 800px; margin: 0 0 8px; box-sizing: border-box;">
-        <img
-            src="{{ article.image.url }}"
-            alt="{{ article.title }}"
-            style="display: block; width: 100%; height: auto;"
+    .article-detail-info a {
+        color: #2563eb;
+        text-decoration: none;
+    }
+
+    .article-detail-info a:hover {
+        text-decoration: underline;
+    }
+
+    .article-detail-image {
+        width: 100%;
+        margin: 0 0 24px;
+        overflow: hidden;
+        border-radius: 10px;
+        background: #f3f4f6;
+    }
+
+    .article-detail-image img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .article-detail-content {
+        color: #374151;
+        font-size: 16px;
+        line-height: 2;
+        overflow-wrap: anywhere;
+        white-space: pre-wrap;
+    }
+
+    .article-detail-video-title {
+        margin: 28px 0 14px;
+        font-size: 19px;
+        color: #374151;
+    }
+
+    .article-detail-video {
+        width: 100%;
+        margin-top: 14px;
+        overflow: hidden;
+        border-radius: 10px;
+        background: #111827;
+    }
+
+    .article-detail-video-inner {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+    }
+
+    .article-detail-video iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    .detail-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 28px;
+    }
+
+    .detail-actions .detail-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        padding: 10px 18px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #374151;
+        font-size: 14px;
+        text-decoration: none;
+        cursor: pointer;
+        box-sizing: border-box;
+    }
+
+    .detail-actions .detail-button:hover {
+        background: #f3f4f6;
+    }
+
+    .detail-actions .detail-back {
+        margin-left: auto;
+    }
+
+    .article-like-area {
+        display: flex;
+        justify-content: center;
+        margin: 24px 0;
+    }
+
+    .article-like-area .like-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 46px;
+        padding: 10px 22px;
+        border: 1px solid #fecdd3;
+        border-radius: 24px;
+        background: #fff1f2;
+        color: #be123c;
+        font-size: 15px;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.2s;
+    }
+
+    .article-like-area .like-button:hover {
+        background: #ffe4e6;
+    }
+
+    .article-like-area .like-button:active {
+        transform: scale(0.97);
+    }
+
+    .like-heart {
+        font-size: 22px;
+        line-height: 1;
+    }
+
+    .like-count {
+        font-weight: 700;
+    }
+
+    .article-comments-card {
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 14px;
+        padding: 26px;
+        box-sizing: border-box;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+    }
+
+    .article-comments-title {
+        margin: 0 0 20px;
+        padding-bottom: 14px;
+        border-bottom: 1px solid #e5e7eb;
+        color: #222222;
+        font-size: 21px;
+    }
+
+    .article-comment-item {
+        padding: 16px 0;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .article-comment-item:last-child {
+        border-bottom: none;
+    }
+
+    .article-comment-name {
+        margin: 0;
+        color: #374151;
+        font-size: 15px;
+        font-weight: 700;
+        overflow-wrap: anywhere;
+    }
+
+    .article-comment-date {
+        margin: 6px 0 10px;
+        color: #9ca3af;
+        font-size: 12px;
+    }
+
+    .article-comment-content {
+        margin: 0;
+        color: #4b5563;
+        font-size: 14px;
+        line-height: 1.9;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+
+    .article-comment-empty {
+        padding: 18px;
+        border-radius: 8px;
+        background: #f9fafb;
+        color: #6b7280;
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    .article-comment-form {
+        margin-top: 28px;
+        padding-top: 24px;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .article-comment-form-title {
+        margin: 0 0 20px;
+        color: #374151;
+        font-size: 18px;
+    }
+
+    .article-comment-group {
+        margin-bottom: 20px;
+    }
+
+    .article-comment-label {
+        display: block;
+        margin-bottom: 8px;
+        color: #374151;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .article-comment-input,
+    .article-comment-textarea {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #222222;
+        font-size: 15px;
+        line-height: 1.7;
+        box-sizing: border-box;
+    }
+
+    .article-comment-input:focus,
+    .article-comment-textarea:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+    }
+
+    .article-comment-textarea {
+        min-height: 140px;
+        resize: vertical;
+    }
+
+    .article-comment-error {
+        margin-bottom: 18px;
+        padding: 12px 14px;
+        border: 1px solid #fecaca;
+        border-radius: 8px;
+        background: #fef2f2;
+        color: #b91c1c;
+        font-size: 14px;
+        line-height: 1.7;
+        overflow-wrap: anywhere;
+    }
+
+    .article-comment-submit {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 44px;
+        padding: 11px 22px;
+        border: 1px solid #2563eb;
+        border-radius: 8px;
+        background: #2563eb;
+        color: #ffffff;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .article-comment-submit:hover {
+        background: #1d4ed8;
+    }
+
+    @media (max-width: 600px) {
+        .article-detail-container {
+            margin: 12px auto;
+            padding: 0 8px;
+        }
+
+        .article-detail-card {
+            padding: 20px 16px;
+            border-radius: 12px;
+        }
+
+        .article-detail-title {
+            font-size: 22px;
+        }
+
+        .article-detail-content {
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+        .detail-actions {
+            gap: 8px;
+        }
+
+        .detail-actions .detail-button {
+            padding: 10px 13px;
+        }
+
+        .detail-actions .detail-back {
+            margin-left: auto;
+        }
+
+        .article-comments-card {
+            padding: 20px 16px;
+            border-radius: 12px;
+        }
+
+        .article-comments-title {
+            font-size: 19px;
+        }
+
+        .article-comment-submit {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="article-detail-container">
+
+    <!-- 記事本文 -->
+    <article class="article-detail-card">
+
+        <h2 class="article-detail-title">
+            {{ article.title }}
+        </h2>
+
+        <div class="article-detail-meta">
+
+            <a class="article-detail-tag"
+               href="/?genre={{ article.genre }}">
+                {{ article.get_genre_display }}
+            </a>
+
+            <a class="article-detail-tag"
+               href="/?category={{ article.category }}">
+                {{ article.get_category_display }}
+            </a>
+
+        </div>
+
+        <div class="article-detail-info">
+
+            <p>
+                投稿者：
+                <a href="/users/{{ article.author.username }}/">
+                    {{ article.author.username }}
+                </a>
+            </p>
+
+            <p>
+                {{ article.created_at }}
+            </p>
+
+        </div>
+
+        {% if article.image %}
+            <div class="article-detail-image">
+                <img
+                    src="{{ article.image.url }}"
+                    alt="{{ article.title }}"
+                >
+            </div>
+        {% endif %}
+
+        <div class="article-detail-content">{{ article.content }}</div>
+
+        {% if article.youtube_url %}
+
+            <h3 class="article-detail-video-title">
+                YouTube動画
+            </h3>
+
+            {% with video_id=article.youtube_url|cut:"https://www.youtube.com/watch?v=" %}
+                {% with video_id=video_id|cut:"https://youtu.be/" %}
+                    {% with video_id=video_id|cut:"https://www.youtube.com/embed/" %}
+
+                        <div class="article-detail-video">
+                            <div class="article-detail-video-inner">
+                                <iframe
+                                    src="https://www.youtube-nocookie.com/embed/{{ video_id }}"
+                                    title="YouTube動画"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+
+                    {% endwith %}
+                {% endwith %}
+            {% endwith %}
+
+        {% endif %}
+
+        <!-- 編集・削除・戻る -->
+        <div class="detail-actions">
+
+            {% if user == article.author %}
+
+                <a class="detail-button"
+                   href="/articles/{{ article.id }}/edit/">
+                    修正する
+                </a>
+
+                <a class="detail-button"
+                   href="/articles/{{ article.id }}/delete/">
+                    削除する
+                </a>
+
+            {% endif %}
+
+            {% if from_my_articles %}
+
+                <a class="detail-button detail-back"
+                   href="/my-articles/">
+                    ← 戻る
+                </a>
+
+            {% else %}
+
+                <button
+                    class="detail-button detail-back"
+                    type="button"
+                    onclick="if (document.referrer) { try { const previous = new URL(document.referrer); if (previous.origin === window.location.origin) { window.history.back(); return; } } catch (e) {} } window.location.href = '/';">
+                    ← 戻る
+                </button>
+
+            {% endif %}
+
+        </div>
+
+    </article>
+
+    <!-- いいね -->
+    <div class="article-like-area">
+
+        <input
+            type="hidden"
+            class="csrf-token"
+            value="{{ csrf_token }}"
         >
+
+        <button
+            type="button"
+            class="like-button"
+            data-like-url="{% url 'article_like' article.id %}"
+            aria-label="この記事にいいね"
+        >
+            <span class="like-heart">♡</span>
+            <span class="like-label">いいね</span>
+            <span class="like-count">{{ article.like_count }}</span>
+        </button>
+
     </div>
-{% endif %}
 
+    <!-- コメント -->
+    <section class="article-comments-card">
 
+        <h3 class="article-comments-title">
+            コメント
+        </h3>
 
-<div style="width: 100%; max-width: 800px; box-sizing: border-box; overflow-wrap: anywhere; white-space: normal; border: 1px solid #dddddd; padding: 24px;">
-    {{ article.content }}
-</div>
+        {% for comment in comments %}
 
-{% if article.youtube_url %}
+            <div class="article-comment-item">
 
-    <h3>YouTube動画</h3>
+                <p class="article-comment-name">
+                    {{ comment.name }}
+                </p>
 
-    {% with video_id=article.youtube_url|cut:"https://www.youtube.com/watch?v=" %}
-        {% with video_id=video_id|cut:"https://youtu.be/" %}
-            {% with video_id=video_id|cut:"https://www.youtube.com/embed/" %}
+                <p class="article-comment-date">
+                    {{ comment.created_at|date:"Y年n月j日 H:i" }}
+                </p>
 
-                <div style="width: 100%; max-width: 800px; margin: 20px 0; box-sizing: border-box;">
-                    <div style="position: relative; width: 100%; aspect-ratio: 16 / 9;">
-                        <iframe
-                            src="https://www.youtube-nocookie.com/embed/{{ video_id }}"
-                            title="YouTube動画"
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin"
-                            allowfullscreen>
-                        </iframe>
-                    </div>
+                <p class="article-comment-content">{{ comment.content }}</p>
+
+            </div>
+
+        {% empty %}
+
+            <p class="article-comment-empty">
+                まだコメントはありません。最初のコメントを投稿してみましょう！
+            </p>
+
+        {% endfor %}
+
+        <!-- コメント投稿フォーム -->
+        <div class="article-comment-form">
+
+            <h3 class="article-comment-form-title">
+                コメントを投稿する
+            </h3>
+
+            {% if comment_error %}
+                <div class="article-comment-error">
+                    {{ comment_error }}
+                </div>
+            {% endif %}
+
+            <form method="post">
+
+                {% csrf_token %}
+
+                <!-- スパム対策用の隠し入力欄 -->
+                <div style="position: absolute; left: -10000px;" aria-hidden="true">
+                    <label for="comment-website">ウェブサイト</label>
+                    <input
+                        type="text"
+                        id="comment-website"
+                        name="website"
+                        tabindex="-1"
+                        autocomplete="off"
+                    >
                 </div>
 
-            {% endwith %}
-        {% endwith %}
-    {% endwith %}
+                <div class="article-comment-group">
 
-{% endif %}
+                    <label
+                        class="article-comment-label"
+                        for="comment-name">
+                        ニックネーム
+                    </label>
 
+                    <input
+                        class="article-comment-input"
+                        type="text"
+                        id="comment-name"
+                        name="name"
+                        maxlength="50"
+                        value="{{ comment_name }}"
+                        required
+                    >
 
+                </div>
 
+                <div class="article-comment-group">
 
+                    <label
+                        class="article-comment-label"
+                        for="comment-content">
+                        コメント本文
+                    </label>
 
-<div class="detail-actions">
+                    <textarea
+                        class="article-comment-textarea"
+                        id="comment-content"
+                        name="content"
+                        maxlength="1000"
+                        rows="5"
+                        required
+                    >{{ comment_content }}</textarea>
 
-    {% if user == article.author %}
+                </div>
 
-        <a class="detail-button"
-           href="/articles/{{ article.id }}/edit/">
-            修正する
-        </a>
+                <button
+                    type="submit"
+                    class="article-comment-submit">
+                    コメントを投稿
+                </button>
 
-        <a class="detail-button"
-           href="/articles/{{ article.id }}/delete/">
-            削除する
-        </a>
+            </form>
 
-    {% endif %}
+        </div>
 
-     {% if from_my_articles %}
-
-    <a class="detail-button detail-back"
-       href="/my-articles/">
-        ← 戻る
-    </a>
-
-{% else %}
-
-    <button class="detail-button detail-back"
-            type="button"
-            onclick="if (document.referrer) { try { const previous = new URL(document.referrer); if (previous.origin === window.location.origin) { window.history.back(); return; } } catch (e) {} } window.location.href = '/';">
-        ← 戻る
-    </button>
-
-{% endif %}
-
-</div>
-
-<!-- いいねボタン -->
-<div class="article-like-area">
-
-    <input
-        type="hidden"
-        class="csrf-token"
-        value="{{ csrf_token }}"
-    >
-
-    <button
-        type="button"
-        class="like-button"
-        data-like-url="{% url 'article_like' article.id %}"
-        aria-label="この記事にいいね"
-    >
-        <span class="like-heart">♡</span>
-        <span class="like-label">いいね</span>
-        <span class="like-count">{{ article.like_count }}</span>
-    </button>
+    </section>
 
 </div>
-
-<hr style="margin: 32px 0;">
-
-<h3>コメント</h3>
-
-{% for comment in comments %}
-    <div style="border-bottom: 1px solid #dddddd; padding: 12px 0;">
-
-        <strong>{{ comment.name }}</strong>
-
-        <p style="font-size: 13px; color: #777;">
-            {{ comment.created_at|date:"Y年n月j日 H:i" }}
-        </p>
-
-        <p style="white-space: pre-wrap; overflow-wrap: anywhere;">{{ comment.content }}</p>
-
-    </div>
-{% empty %}
-    <p>まだコメントはありません。最初のコメントを投稿してみましょう！</p>
-{% endfor %}
-
-<h3 style="margin-top: 28px;">コメントを投稿する</h3>
-
-{% if comment_error %}
-    <p style="color: #c62828;">
-        {{ comment_error }}
-    </p>
-{% endif %}
-
-<form method="post">
-
-    {% csrf_token %}
-
-    <div style="position: absolute; left: -10000px;" aria-hidden="true">
-        <label for="comment-website">ウェブサイト</label>
-        <input
-            type="text"
-            id="comment-website"
-            name="website"
-            tabindex="-1"
-            autocomplete="off"
-        >
-    </div>
-
-    <p>
-        <label for="comment-name">ニックネーム</label><br>
-        <input
-            type="text"
-            id="comment-name"
-            name="name"
-            maxlength="50"
-            value="{{ comment_name }}"
-            required
-            style="width: 100%; max-width: 400px; padding: 10px; box-sizing: border-box;"
-        >
-    </p>
-
-    <p>
-        <label for="comment-content">コメント本文</label><br>
-        <textarea
-            id="comment-content"
-            name="content"
-            maxlength="1000"
-            rows="5"
-            required
-            style="width: 100%; max-width: 600px; padding: 10px; box-sizing: border-box;"
-        >{{ comment_content }}</textarea>
-    </p>
-
-    <button type="submit" class="detail-button">
-        コメントを投稿
-    </button>
-
-</form>
 
 {% endblock %}
-```
