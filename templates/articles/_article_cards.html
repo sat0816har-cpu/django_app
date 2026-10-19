@@ -27,15 +27,21 @@
                     {{ article.title }}
                 </h3>
 
-                <div class="post-card-meta">
-                    <span class="post-genre">
-                        {{ article.get_genre_display }}
-                    </span>
+            <div class="post-card-meta">
+                <span class="post-genre">
+                {{ article.get_genre_display }}
+                </span>
 
-                    <span class="post-category">
-                        {{ article.get_category_display }}
-                    </span>
-                </div>
+                <span class="post-category">
+                {{ article.get_category_display }}
+                </span>
+
+                {% if article.sub_category %}
+                <span class="post-subcategory">
+                {{ article.sub_category }}
+                </span>
+               {% endif %}
+            </div>
 
                 <p class="post-author">
                     {{ article.author.username }}
