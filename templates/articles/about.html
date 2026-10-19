@@ -1,47 +1,152 @@
+```django
 {% extends "base.html" %}
 
 {% block content %}
 
+<style>
+    .info-page {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px 16px 40px;
+        box-sizing: border-box;
+    }
+
+    .info-title {
+        text-align: center;
+        margin-bottom: 28px;
+    }
+
+    .info-title .en {
+        display: block;
+        margin-bottom: 6px;
+        color: #777;
+        font-size: 13px;
+        letter-spacing: 2px;
+    }
+
+    .info-title h1 {
+        margin: 0;
+        font-size: 26px;
+        line-height: 1.5;
+    }
+
+    .info-intro {
+        margin-bottom: 20px;
+        padding: 22px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: #fff;
+        line-height: 1.9;
+    }
+
+    .info-card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .info-card {
+        padding: 20px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: #fff;
+        box-sizing: border-box;
+    }
+
+    .info-card h2 {
+        margin: 0 0 12px;
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    .info-card p {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.9;
+        overflow-wrap: anywhere;
+    }
+
+    @media (max-width: 600px) {
+        .info-page {
+            padding: 16px 12px 30px;
+        }
+
+        .info-title {
+            margin-bottom: 20px;
+        }
+
+        .info-title h1 {
+            font-size: 23px;
+        }
+
+        .info-intro {
+            padding: 18px;
+        }
+
+        .info-card-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .info-card {
+            padding: 18px;
+        }
+    }
+</style>
+
 <div class="info-page">
-    
-    
-<div class="info-title">
-    <span class="en">About Us</span>
-    <h1>このサイトについて</h1>
-</div>
 
+    <div class="info-title">
+        <span class="en">About Us</span>
+        <h1>このサイトについて</h1>
+    </div>
 
-    <p>
+    <div class="info-intro">
         「すきつな」は、好きなことや興味のあることを通じて、
         人と人とのつながりを広げることを目指すコミュニティサイトです。
-    </p>
+    </div>
 
-    <h3>好きなことを共有しよう</h3>
-    <p>
-        音楽、映画、読書、写真、旅行、料理など、
-        自分の好きなことや日々の発見を記事にして共有できます。
-    </p>
+    <div class="info-card-grid">
 
-    <h3>自分の言葉で発信する</h3>
-    <p>
-        特別な知識や経験がなくても大丈夫です。
-        日常の出来事や、おすすめしたい作品など、
-        自分らしい内容を投稿してみてください。
-    </p>
+        <section class="info-card">
+            <h2>好きなことを共有しよう</h2>
+            <p>
+                音楽、映画、読書、写真、旅行、料理など、
+                自分の好きなことや日々の発見を記事にして共有できます。
+            </p>
+        </section>
 
-    <h3>人と人をつなぐ場所へ</h3>
-    <p>
-        誰かの投稿が、新しい趣味や考え方との出会いに
-        つながるかもしれません。
-        お互いを尊重しながら、気持ちよく利用できる場所を
-        みんなで作っていきましょう。
-    </p>
+        <section class="info-card">
+            <h2>自分の言葉で発信する</h2>
+            <p>
+                特別な知識や経験がなくても大丈夫です。
+                日常の出来事や、おすすめしたい作品など、
+                自分らしい内容を投稿してみてください。
+            </p>
+        </section>
 
-    <h3>安心して利用するために</h3>
-    <p>
-        他人への思いやりを忘れず、個人情報や著作権にも配慮して
-        ご利用ください。
-    </p>
+        <section class="info-card">
+            <h2>人と人をつなぐ場所へ</h2>
+            <p>
+                誰かの投稿が、新しい趣味や考え方との出会いに
+                つながるかもしれません。
+                お互いを尊重しながら、気持ちよく利用できる場所を
+                みんなで作っていきましょう。
+            </p>
+        </section>
+
+        <section class="info-card">
+            <h2>安心して利用するために</h2>
+            <p>
+                他人への思いやりを忘れず、個人情報や著作権にも配慮して
+                ご利用ください。
+            </p>
+        </section>
+
+    </div>
+
 </div>
 
 {% endblock %}
+```
