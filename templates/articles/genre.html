@@ -38,6 +38,7 @@
 
 
 
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const button = document.getElementById(
@@ -46,8 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const grid = document.getElementById(
         "genre-article-grid"
     );
+    const status = document.getElementById(
+        "load-more-genre-status"
+    );
 
-    if (!button || !grid) {
+    if (!button || !grid || !status) {
         return;
     }
 
@@ -66,12 +70,10 @@ document.addEventListener("DOMContentLoaded", function () {
             url.searchParams.set("page", nextPage);
             url.searchParams.set("partial", "1");
 
-            const response = await fetch(url.toString());
+            const response = await fetch(url);
 
             if (!response.ok) {
-                throw new Error(
-                    "読み込みに失敗しました: " + response.status
-                );
+                throw new Error("読み込みに失敗しました");
             }
 
             const html = await response.text();
@@ -82,32 +84,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 ".post-card"
             );
 
-            if (cards.length === 0) {
-                button.remove();
-                return;
+            const newStatus = template.content.querySelector(
+                "#load-more-genre-status"
+            );
+
+            if (!newStatus) {
+                throw new Error("読み込み結果を確認できません");
             }
 
             cards.forEach(function (card) {
                 grid.appendChild(card);
             });
 
-            // 取得した記事数が12枚未満なら最後のページ
-            if (cards.length < 12) {
-                button.remove();
-            } else {
+            status.dataset.hasNext = newStatus.dataset.hasNext;
+
+            if (status.dataset.hasNext === "true") {
                 button.dataset.nextPage = nextPage + 1;
                 button.disabled = false;
                 button.textContent = "もっと見る";
+            } else {
+                button.parentElement.remove();
             }
 
         } catch (error) {
-            console.error(error);
             button.disabled = false;
             button.textContent = "もう一度試す";
+            console.error(error);
         }
     });
 });
 </script>
+
 
 
 {% endblock %}
