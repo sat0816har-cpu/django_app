@@ -1,51 +1,246 @@
-
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 
-<h1>プロフィール編集</h1>
+<style>
+    .profile-edit-container {
+        width: 100%;
+        max-width: 680px;
+        margin: 24px auto;
+        padding: 0 16px;
+        box-sizing: border-box;
+    }
 
-<form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
+    .profile-edit-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 28px;
+        box-sizing: border-box;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
 
-   
-<p>プロフィール画像</p>
+    .profile-edit-title {
+        margin: 0 0 8px;
+        font-size: 24px;
+        color: #333;
+    }
 
-{% if profile.image %}
-    <img
-        src="{{ profile.image.url }}"
-        alt="プロフィール画像"
-        width="150"
-    >
-{% else %}
-    {% load static %}
-    <img
-        src="{% static 'images/default_profile2.jpg' %}"
-        alt="デフォルトのプロフィール画像"
-        width="150"
-    >
-{% endif %}
+    .profile-edit-description {
+        margin: 0 0 26px;
+        color: #666;
+        font-size: 14px;
+        line-height: 1.8;
+    }
 
-<p>
-    <input type="file" name="image" accept="image/*">
-</p>
+    .profile-edit-group {
+        margin-bottom: 24px;
+    }
 
+    .profile-edit-label {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+        font-size: 15px;
+        font-weight: bold;
+    }
 
-    <p>自己紹介</p>
-    <textarea name="introduction" rows="5" cols="40">{{ profile.introduction }}</textarea>
+    .profile-image-area {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
 
-    <p>好きなこと・趣味</p>
-    <input
-        type="text"
-        name="favorite_things"
-        value="{{ profile.favorite_things }}"
-        maxlength="300"
-    >
+    .profile-edit-image {
+        width: 120px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 50%;
+        border: 1px solid #e5e7eb;
+        background: #f8fafc;
+    }
 
-    <p>
-        <button type="submit">プロフィールを保存</button>
-    </p>
-</form>
+    .profile-edit-file {
+        width: 100%;
+        max-width: 340px;
+        font-size: 14px;
+    }
 
+    .profile-edit-input,
+    .profile-edit-textarea {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background: #fff;
+        color: #333;
+        font-size: 15px;
+        line-height: 1.7;
+        box-sizing: border-box;
+    }
+
+    .profile-edit-textarea {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .profile-edit-input:focus,
+    .profile-edit-textarea:focus {
+        outline: none;
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+    }
+
+    .profile-edit-help {
+        margin: 7px 0 0;
+        color: #777;
+        font-size: 12px;
+    }
+
+    .profile-edit-actions {
+        margin-top: 28px;
+    }
+
+    .profile-save-button {
+        display: block;
+        width: 100%;
+        padding: 13px 20px;
+        border: none;
+        border-radius: 8px;
+        background: #2563eb;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .profile-save-button:hover {
+        background: #1d4ed8;
+    }
+
+    @media (max-width: 480px) {
+        .profile-edit-container {
+            margin: 16px auto;
+            padding: 0 10px;
+        }
+
+        .profile-edit-card {
+            padding: 22px 16px;
+        }
+
+        .profile-edit-title {
+            font-size: 22px;
+        }
+
+        .profile-image-area {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 14px;
+        }
+
+        .profile-edit-image {
+            width: 110px;
+            height: 110px;
+        }
+    }
+</style>
+
+<div class="profile-edit-container">
+    <div class="profile-edit-card">
+
+        <h1 class="profile-edit-title">プロフィール編集</h1>
+
+        <p class="profile-edit-description">
+            あなたの好きなことや趣味を紹介して、
+            ほかのユーザーとのつながりを広げましょう。
+        </p>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="profile-edit-group">
+                <label class="profile-edit-label">
+                    プロフィール画像
+                </label>
+
+                <div class="profile-image-area">
+                    {% if profile.image %}
+                        <img
+                            src="{{ profile.image.url }}"
+                            alt="プロフィール画像"
+                            class="profile-edit-image"
+                        >
+                    {% else %}
+                        <img
+                            src="{% static 'images/default_profile2.jpg' %}"
+                            alt="デフォルトのプロフィール画像"
+                            class="profile-edit-image"
+                        >
+                    {% endif %}
+
+                    <div>
+                        <input
+                            type="file"
+                            name="image"
+                            accept="image/*"
+                            class="profile-edit-file"
+                        >
+                        <p class="profile-edit-help">
+                            新しい画像を選ぶと、プロフィール画像を変更できます。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-edit-group">
+                <label for="introduction" class="profile-edit-label">
+                    自己紹介
+                </label>
+
+                <textarea
+                    id="introduction"
+                    name="introduction"
+                    rows="5"
+                    class="profile-edit-textarea"
+                >{{ profile.introduction }}</textarea>
+
+                <p class="profile-edit-help">
+                    あなた自身のことを自由に紹介してください。
+                </p>
+            </div>
+
+            <div class="profile-edit-group">
+                <label for="favorite_things" class="profile-edit-label">
+                    好きなこと・趣味
+                </label>
+
+                <input
+                    type="text"
+                    id="favorite_things"
+                    name="favorite_things"
+                    value="{{ profile.favorite_things }}"
+                    maxlength="300"
+                    class="profile-edit-input"
+                >
+
+                <p class="profile-edit-help">
+                    300文字以内で入力できます。
+                </p>
+            </div>
+
+            <div class="profile-edit-actions">
+                <button type="submit" class="profile-save-button">
+                    プロフィールを保存
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
 
 {% endblock %}
