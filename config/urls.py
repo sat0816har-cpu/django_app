@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import path
 
 from main import views
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -67,6 +68,33 @@ urlpatterns = [
         "login/",
         views.login_view
     ),
+
+    
+    # パスワード再設定
+    path(
+        "password-reset/",
+        views.password_reset_request,
+        name="password_reset",
+    ),
+
+    path(
+        "password-reset/done/",
+        views.password_reset_done,
+        name="password_reset_done",
+    ),
+
+    path(
+        "password-reset/<uidb64>/<token>/",
+        views.password_reset_confirm,
+        name="password_reset_confirm",
+    ),
+
+    path(
+        "password-reset/complete/",
+        views.password_reset_complete,
+        name="password_reset_complete",
+    ),
+
 
     path(
     "my-articles/",
