@@ -70,3 +70,14 @@
 
     </article>
 {% endfor %}
+
+{% if page_obj.has_next %}
+    <button
+        id="load-more-category-articles"
+        data-next-page="{{ page_obj.next_page_number }}"
+        type="button"
+    >
+        もっと見る
+    </button>
+{% endif %}
+
