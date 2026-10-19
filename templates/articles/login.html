@@ -1,82 +1,241 @@
+```html
 {% extends "base.html" %}
 
 {% block content %}
 
-<h2>
-    ログイン
-</h2>
+<style>
+    .login-page {
+        max-width: 420px;
+        margin: 35px auto;
+        padding: 30px 25px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+        box-sizing: border-box;
+    }
 
+    .login-brand {
+        margin-bottom: 25px;
+        text-align: center;
+    }
 
-<form method="post">
+    .login-brand h2 {
+        margin: 0 0 8px;
+        color: #2563eb;
+        font-size: 28px;
+    }
 
-    {% csrf_token %}
+    .login-brand p {
+        margin: 0;
+        color: #64748b;
+        font-size: 14px;
+    }
 
-    <p>
+    .login-title {
+        margin: 0 0 10px;
+        color: #1e293b;
+        font-size: 22px;
+        text-align: center;
+    }
 
-        <label>
-            ユーザー名
-        </label>
+    .login-description {
+        margin-bottom: 25px;
+        color: #64748b;
+        font-size: 14px;
+        line-height: 1.7;
+        text-align: center;
+    }
 
-    </p>
+    .login-form-group {
+        margin-bottom: 18px;
+    }
 
-    <p>
-
-        <input
-            type="text"
-            name="username"
-        >
-
-    </p>
-
-
-    <p>
-
-        <label>
-            パスワード
-        </label>
-
-    </p>
-
-    <p>
-
-        <input
-            type="password"
-            name="password"
-        >
-
-    </p>
-
-
-    <button type="submit">
-        ログイン
-    </button>
-
-</form>
-
-
-
-{% if error %}
-    <p style="
-        color: red;
+    .login-form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #334155;
+        font-size: 14px;
         font-weight: bold;
-        margin: 15px 0;
-        text-align: left;
-        writing-mode: horizontal-tb;
-    ">
-        {{ error }}
+    }
+
+    .login-form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #1e293b;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .login-form-group input:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .login-submit {
+        width: 100%;
+        margin-top: 5px;
+        padding: 13px;
+        border: none;
+        border-radius: 8px;
+        background: #2563eb;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .login-submit:hover {
+        background: #1d4ed8;
+    }
+
+    .login-error {
+        margin: 18px 0;
+        padding: 12px;
+        border: 1px solid #fecaca;
+        border-radius: 8px;
+        background: #fef2f2;
+        color: #b91c1c;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .login-forgot {
+        margin-top: 18px;
+        text-align: right;
+        font-size: 14px;
+    }
+
+    .login-forgot a,
+    .login-register a {
+        color: #2563eb;
+        text-decoration: none;
+    }
+
+    .login-forgot a:hover,
+    .login-register a:hover {
+        text-decoration: underline;
+    }
+
+    .login-divider {
+        margin: 25px 0 18px;
+        border: none;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .login-register {
+        color: #64748b;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .login-register p {
+        margin-bottom: 12px;
+    }
+
+    .register-button {
+        display: block;
+        padding: 12px;
+        border: 1px solid #2563eb;
+        border-radius: 8px;
+        color: #2563eb;
+        font-weight: bold;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .register-button:hover {
+        background: #eff6ff;
+    }
+
+    @media (max-width: 480px) {
+        .login-page {
+            margin: 20px auto;
+            padding: 25px 18px;
+        }
+    }
+</style>
+
+<div class="login-page">
+
+    <div class="login-brand">
+        <h2>すきつな</h2>
+        <p>好きでつながる。世界が広がる。</p>
+    </div>
+
+    <h2 class="login-title">
+        ログイン
+    </h2>
+
+    <p class="login-description">
+        ログインして、好きなことを共有しましょう。
     </p>
-{% endif %}
 
+    <form method="post">
 
+        {% csrf_token %}
 
-<p>
+        <div class="login-form-group">
+            <label for="username">
+                ユーザー名
+            </label>
 
-   
-<a href="/register/" class="register-button">
-    ユーザー登録はこちら
-</a>
+            <input
+                type="text"
+                id="username"
+                name="username"
+                autocomplete="username"
+                required
+            >
+        </div>
 
+        <div class="login-form-group">
+            <label for="password">
+                パスワード
+            </label>
 
-</p>
+            <input
+                type="password"
+                id="password"
+                name="password"
+                autocomplete="current-password"
+                required
+            >
+        </div>
+
+        <button type="submit" class="login-submit">
+            ログイン
+        </button>
+
+    </form>
+
+    {% if error %}
+        <div class="login-error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <div class="login-forgot">
+        <a href="/password-reset/">
+            パスワードをお忘れの方
+        </a>
+    </div>
+
+    <hr class="login-divider">
+
+    <div class="login-register">
+        <p>アカウントをお持ちでない方は</p>
+
+        <a href="/register/" class="register-button">
+            新規登録
+        </a>
+    </div>
+
+</div>
 
 {% endblock %}
+```
