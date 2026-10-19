@@ -761,6 +761,139 @@ def public_profile(request, username):
 
 
 
+# パスワード再設定メールの送信
+def password_reset_request(request):
+    if request.method == "POST":
+        email = request.POST.get("email", "").strip()
+
+        users = User.objects.filter(
+            email__iexact=email,
+            is_active=True,
+        )
+
+        for user in users:
+            if not user.has_usable_password():
+                continue
+
+            try:
+                uid = urlsafe_base64_encode(
+                    force_bytes(user.pk)
+                )
+
+                token = default_token_generator.make_token(user)
+
+                reset_url = request.build_absolute_uri(
+                    reverse(
+                        "password_reset_confirm",
+                        kwargs={
+                            "uidb64": uid,
+                            "token": token,
+                        },
+                    )
+                )
+
+                resend.api_key = os.environ["RESEND_API_KEY"]
+
+                sender = os.environ.get(
+                    "RESEND_FROM_EMAIL",
+                    "onboarding@resend.dev",
+                )
+
+                resend.Emails.send({
+                    "from": sender,
+                    "to": [user.email],
+                    "subject": "すきつな：パスワード再設定",
+                    "text": (
+                        f"{user.username} 様\n\n"
+                        "パスワード再設定のリクエストを受け付けました。\n"
+                        "次のリンクから、新しいパスワードを設定してください。\n\n"
+                        f"{reset_url}\n\n"
+                        "このメールに心当たりがない場合は、"
+                        "このメールを無視してください。\n"
+                        "このリンクには有効期限があります。"
+                    ),
+                })
+
+            except Exception:
+                logger.exception(
+                    "パスワード再設定メールの送信に失敗しました"
+                )
+
+        return redirect("password_reset_done")
+
+    return render(
+        request,
+        "articles/password_reset_form.html",
+    )
+
+
+# メール送信後の案内画面
+def password_reset_done(request):
+    return render(
+        request,
+        "articles/password_reset_done.html",
+    )
+
+
+# 新しいパスワードを設定
+def password_reset_confirm(request, uidb64, token):
+    user = None
+    validlink = False
+
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+
+        user = User.objects.get(
+            pk=uid,
+            is_active=True,
+        )
+
+    except (
+        TypeError,
+        ValueError,
+        OverflowError,
+        User.DoesNotExist,
+    ):
+        user = None
+
+    if (
+        user is not None
+        and default_token_generator.check_token(user, token)
+    ):
+        validlink = True
+
+        if request.method == "POST":
+            form = SetPasswordForm(user, request.POST)
+
+            if form.is_valid():
+                form.save()
+                return redirect("password_reset_complete")
+        else:
+            form = SetPasswordForm(user)
+
+    else:
+        form = None
+
+    return render(
+        request,
+        "articles/password_reset_confirm.html",
+        {
+            "validlink": validlink,
+            "form": form,
+        },
+    )
+
+
+# パスワード変更完了画面
+def password_reset_complete(request):
+    return render(
+        request,
+        "articles/password_reset_complete.html",
+    )
+
+
+
+
 
 
 
