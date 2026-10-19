@@ -64,9 +64,11 @@ urlpatterns = [
         views.register
     ),
 
+    
     path(
         "login/",
-        views.login_view
+        views.login_view,
+        name="login",
     ),
 
     
