@@ -1334,7 +1334,7 @@ article {
 }
 
 .post-card .post-card-meta .post-genre,
-.post-card .post-card-meta .post-category
+.post-card .post-card-meta .post-category,
 .post-card .post-card-meta .post-subcategory {
     display: inline-block;
     margin: 0;
