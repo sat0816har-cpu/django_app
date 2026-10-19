@@ -33,8 +33,6 @@ from django.utils.http import (
 from django.utils.encoding import force_bytes
 from django.utils import timezone
 from django.urls import reverse
-from django.contrib.auth.password_validation import validate_password
-from django.core.exceptions import ValidationError
 
 
 logger = logging.getLogger(__name__)
