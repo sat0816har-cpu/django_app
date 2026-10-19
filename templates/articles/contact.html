@@ -3,13 +3,11 @@
 {% block content %}
 
 <div class="info-page">
-    
 
-<div class="info-title">
-    <span class="en">Contact</span>
-    <h1>お問い合わせ</h1>
-</div>
-
+    <div class="info-title">
+        <span class="en">Contact</span>
+        <h1>お問い合わせ</h1>
+    </div>
 
     <p>
         「すきつな」をご利用いただきありがとうございます。
@@ -17,20 +15,125 @@
 
     <p>
         サイトについてのご質問、不具合の報告、
-        ご意見・ご要望などがありましたら、運営者までご連絡ください。
+        ご意見・ご要望などがありましたら、こちらからご連絡ください。
     </p>
 
-    <h3>お問い合わせ方法</h3>
+    {% if success %}
+        <p class="contact-success" role="status">
+            {{ success }}
+        </p>
+    {% endif %}
+
+    {% if error %}
+        <p class="contact-error" role="alert">
+            {{ error }}
+        </p>
+    {% endif %}
+
+    <form method="post" class="contact-form">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="contact-name">お名前</label>
+            <input
+                type="text"
+                id="contact-name"
+                name="name"
+                maxlength="100"
+                required
+                value="{{ request.POST.name|default:'' }}"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="contact-email">メールアドレス</label>
+            <input
+                type="email"
+                id="contact-email"
+                name="email"
+                maxlength="254"
+                required
+                value="{{ request.POST.email|default:'' }}"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="contact-message">お問い合わせ内容</label>
+            <textarea
+                id="contact-message"
+                name="message"
+                rows="7"
+                maxlength="5000"
+                required
+            >{{ request.POST.message|default:'' }}</textarea>
+        </div>
+
+        <button type="submit" class="contact-submit">
+            送信する
+        </button>
+    </form>
 
     <p>
-        お問い合わせ先のメールアドレスは、
-        運営者が連絡を受け取れるアドレスを設定してください。
+        ※ お問い合わせへの返信には時間がかかる場合があります。
     </p>
 
-    <p>
-        ※メールアドレスを公開する場合は、迷惑メール対策にも
-        ご注意ください。
-    </p>
 </div>
+
+<style>
+.contact-form {
+    margin-top: 24px;
+}
+
+.contact-form .form-group {
+    margin-bottom: 20px;
+}
+
+.contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.contact-form input,
+.contact-form textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font: inherit;
+    background: #fff;
+    color: #222;
+}
+
+.contact-form textarea {
+    resize: vertical;
+}
+
+.contact-submit {
+    padding: 12px 28px;
+    border: none;
+    border-radius: 8px;
+    background: #315f8c;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.contact-success {
+    padding: 12px;
+    border-radius: 8px;
+    background: #e8f5e9;
+    color: #256029;
+}
+
+.contact-error {
+    padding: 12px;
+    border-radius: 8px;
+    background: #fff0f0;
+    color: #a12626;
+}
+</style>
 
 {% endblock %}
