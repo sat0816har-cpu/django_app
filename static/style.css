@@ -1516,7 +1516,7 @@ article {
 /* パソコン：ヘッダーのSNSアイコンの位置を微調整 */
 @media (min-width: 601px) {
     .site-header .header-social-links {
-        transform: translateY(3px);
+        transform: translateY(5px);
     }
 }
 
