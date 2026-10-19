@@ -1,62 +1,225 @@
+```html
 {% extends "base.html" %}
 
 {% block content %}
 
-<h2>
-    ユーザー登録
-</h2>
+<style>
+    .register-page {
+        max-width: 420px;
+        margin: 35px auto;
+        padding: 30px 25px;
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 14px;
+        box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+        box-sizing: border-box;
+    }
 
+    .register-brand {
+        margin-bottom: 25px;
+        text-align: center;
+    }
 
-<form method="post">
+    .register-brand h2 {
+        margin: 0 0 8px;
+        color: #2563eb;
+        font-size: 28px;
+    }
 
-    {% csrf_token %}
+    .register-brand p {
+        margin: 0;
+        color: #64748b;
+        font-size: 14px;
+    }
 
+    .register-title {
+        margin: 0 0 10px;
+        color: #1e293b;
+        font-size: 22px;
+        text-align: center;
+    }
 
-<p>
-    <label for="username">ユーザー名</label>
-</p>
+    .register-description {
+        margin-bottom: 25px;
+        color: #64748b;
+        font-size: 14px;
+        line-height: 1.7;
+        text-align: center;
+    }
 
-<p>
-    <input type="text" id="username" name="username">
-</p>
+    .register-form-group {
+        margin-bottom: 18px;
+    }
 
-<p>
-    <label for="email">メールアドレス</label>
-</p>
-
-<p>
-    <input type="email" id="email" name="email" required>
-</p>
-
-<p>
-    <label for="password">パスワード</label>
-</p>
-
-<p>
-    <input type="password" id="password" name="password">
-</p>
-
-
-    <button type="submit">
-        登録する
-    </button>
-
-</form>
-
-
-
-{% if error %}
-    <p style="
-        color: red;
+    .register-form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #334155;
+        font-size: 14px;
         font-weight: bold;
-        margin: 15px 0;
-        text-align: left;
-        writing-mode: horizontal-tb;
-    ">
-        {{ error }}
+    }
+
+    .register-form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #1e293b;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    .register-form-group input:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .register-submit {
+        width: 100%;
+        margin-top: 5px;
+        padding: 13px;
+        border: none;
+        border-radius: 8px;
+        background: #2563eb;
+        color: #ffffff;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .register-submit:hover {
+        background: #1d4ed8;
+    }
+
+    .register-error {
+        margin: 18px 0;
+        padding: 12px;
+        border: 1px solid #fecaca;
+        border-radius: 8px;
+        background: #fef2f2;
+        color: #b91c1c;
+        font-size: 14px;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+    }
+
+    .register-divider {
+        margin: 25px 0 18px;
+        border: none;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .register-login {
+        color: #64748b;
+        font-size: 14px;
+        text-align: center;
+    }
+
+    .register-login a {
+        color: #2563eb;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .register-login a:hover {
+        text-decoration: underline;
+    }
+
+    @media (max-width: 480px) {
+        .register-page {
+            margin: 20px auto;
+            padding: 25px 18px;
+        }
+    }
+</style>
+
+<div class="register-page">
+
+    <div class="register-brand">
+        <h2>すきつな</h2>
+        <p>好きでつながる。世界が広がる。</p>
+    </div>
+
+    <h2 class="register-title">
+        ユーザー登録
+    </h2>
+
+    <p class="register-description">
+        アカウントを作って、好きなことを共有しましょう。
     </p>
-{% endif %}
 
+    <form method="post">
 
+        {% csrf_token %}
+
+        <div class="register-form-group">
+            <label for="username">
+                ユーザー名
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                name="username"
+                autocomplete="username"
+                required
+            >
+        </div>
+
+        <div class="register-form-group">
+            <label for="email">
+                メールアドレス
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                autocomplete="email"
+                required
+            >
+        </div>
+
+        <div class="register-form-group">
+            <label for="password">
+                パスワード
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                autocomplete="new-password"
+                required
+            >
+        </div>
+
+        <button type="submit" class="register-submit">
+            登録する
+        </button>
+
+    </form>
+
+    {% if error %}
+        <div class="register-error">
+            {{ error }}
+        </div>
+    {% endif %}
+
+    <hr class="register-divider">
+
+    <div class="register-login">
+        すでにアカウントをお持ちの方は
+        <p>
+            <a href="/login/">
+                ログインはこちら
+            </a>
+        </p>
+    </div>
+
+</div>
 
 {% endblock %}
+```
