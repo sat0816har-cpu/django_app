@@ -298,6 +298,7 @@ def article_create(request):
         content = request.POST["content"]
         genre = request.POST.get("genre", "other")
         category = request.POST.get("category", "other")
+        sub_category = request.POST.get("sub_category", "").strip()
 
         image = request.FILES.get("image")
         youtube_url = request.POST.get(
@@ -321,14 +322,15 @@ def article_create(request):
             genre = "other"
 
         article = Article.objects.create(
-            author=request.user,
-            title=title,
-            content=content,
-            genre=genre,
-            category=category,
-            image=image,
-            youtube_url=youtube_url,
-        )
+        author=request.user,
+        title=title,
+        content=content,
+        genre=genre,
+        category=category,
+        sub_category=sub_category,
+        image=image,
+        youtube_url=youtube_url,
+    )
 
         return redirect("my_articles")
 
@@ -379,6 +381,11 @@ def article_edit(request, article_id):
 
         if category in valid_categories:
             article.category = category
+
+        article.sub_category = request.POST.get(
+            "sub_category",
+            article.sub_category
+        ).strip()
 
         # YouTube動画は1本
         youtube_url = request.POST.get(
