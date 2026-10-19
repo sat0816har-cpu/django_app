@@ -2,78 +2,208 @@
 
 {% block content %}
 
-<div class="info-page">
+<style>
+    .terms-page {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px 16px 40px;
+        box-sizing: border-box;
+    }
 
+    .terms-page .info-title {
+        margin-bottom: 28px;
+        text-align: center;
+    }
 
-<div class="info-title">
-    <span class="en">Terms of Use</span>
-    <h1>利用規約</h1>
-</div>
+    .terms-page .info-title .en {
+        display: block;
+        margin-bottom: 6px;
+        color: #777;
+        font-size: 13px;
+        letter-spacing: 2px;
+    }
 
+    .terms-page .info-title h1 {
+        margin: 0;
+        font-size: 26px;
+        line-height: 1.5;
+    }
 
-    <p>
+    .terms-intro {
+        margin-bottom: 20px;
+        padding: 20px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: #fff;
+        font-size: 15px;
+        line-height: 1.9;
+    }
+
+    .terms-card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .terms-card {
+        padding: 20px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: #fff;
+        box-sizing: border-box;
+    }
+
+    .terms-card h2 {
+        margin: 0 0 12px;
+        font-size: 17px;
+        line-height: 1.6;
+    }
+
+    .terms-card p {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.9;
+        overflow-wrap: anywhere;
+    }
+
+    .terms-card ul {
+        margin: 0;
+        padding-left: 22px;
+        font-size: 15px;
+        line-height: 1.9;
+    }
+
+    .terms-card li {
+        margin-bottom: 6px;
+    }
+
+    .terms-card li:last-child {
+        margin-bottom: 0;
+    }
+
+    .terms-date {
+        margin-top: 24px;
+        color: #777;
+        font-size: 13px;
+        text-align: right;
+    }
+
+    @media (max-width: 600px) {
+        .terms-page {
+            padding: 16px 12px 30px;
+        }
+
+        .terms-page .info-title h1 {
+            font-size: 23px;
+        }
+
+        .terms-intro {
+            padding: 18px;
+        }
+
+        .terms-card-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .terms-card {
+            padding: 18px;
+        }
+    }
+</style>
+
+<div class="terms-page">
+
+    <div class="info-title">
+        <span class="en">Terms of Use</span>
+        <h1>利用規約</h1>
+    </div>
+
+    <div class="terms-intro">
         この利用規約は、「すきつな」の利用条件を定めるものです。
         利用者は、本規約に同意したうえで当サイトをご利用ください。
-    </p>
+    </div>
 
-    <h3>1. サービスの目的</h3>
-    <p>
-        当サイトは、利用者が記事や画像などを投稿し、
-        趣味や関心を共有するためのサービスです。
-    </p>
+    <div class="terms-card-grid">
 
-    <h3>2. ユーザー登録</h3>
-    <p>
-        利用者は、正確な情報を登録し、自分のアカウントを
-        適切に管理するものとします。
-        他人のアカウントを無断で利用してはいけません。
-    </p>
+        <section class="terms-card">
+            <h2>1. サービスの目的</h2>
+            <p>
+                当サイトは、利用者が記事や画像などを投稿し、
+                趣味や関心を共有するためのサービスです。
+            </p>
+        </section>
 
-    <h3>3. 禁止事項</h3>
-    <ul>
-        <li>法律に違反する行為</li>
-        <li>他人への誹謗中傷や嫌がらせ</li>
-        <li>他人の個人情報を無断で公開する行為</li>
-        <li>著作権や肖像権など、他人の権利を侵害する行為</li>
-        <li>不正アクセスやサイトの運営を妨害する行為</li>
-        <li>その他、運営者が不適切と判断する行為</li>
-    </ul>
+        <section class="terms-card">
+            <h2>2. ユーザー登録</h2>
+            <p>
+                利用者は、正確な情報を登録し、自分のアカウントを
+                適切に管理するものとします。
+                他人のアカウントを無断で利用してはいけません。
+            </p>
+        </section>
 
-    <h3>4. 投稿内容の責任</h3>
-    <p>
-        投稿した記事、画像、動画へのリンクなどについては、
-        投稿した利用者が責任を負うものとします。
-        他人の著作物や画像を利用する際は、必要な許可や
-        利用条件を確認してください。
-    </p>
+        <section class="terms-card">
+            <h2>3. 禁止事項</h2>
+            <ul>
+                <li>法律に違反する行為</li>
+                <li>他人への誹謗中傷や嫌がらせ</li>
+                <li>他人の個人情報を無断で公開する行為</li>
+                <li>著作権や肖像権など、他人の権利を侵害する行為</li>
+                <li>不正アクセスやサイトの運営を妨害する行為</li>
+                <li>その他、運営者が不適切と判断する行為</li>
+            </ul>
+        </section>
 
-    <h3>5. 投稿の削除・利用制限</h3>
-    <p>
-        規約違反などが確認された場合、運営者は必要に応じて
-        投稿の削除やアカウントの利用制限などを行うことがあります。
-    </p>
+        <section class="terms-card">
+            <h2>4. 投稿内容の責任</h2>
+            <p>
+                投稿した記事、画像、動画へのリンクなどについては、
+                投稿した利用者が責任を負うものとします。
+                他人の著作物や画像を利用する際は、必要な許可や
+                利用条件を確認してください。
+            </p>
+        </section>
 
-    <h3>6. サービスの変更・停止</h3>
-    <p>
-        保守、障害、その他の事情により、サービスの内容を変更したり、
-        一時的に停止したりする場合があります。
-    </p>
+        <section class="terms-card">
+            <h2>5. 投稿の削除・利用制限</h2>
+            <p>
+                規約違反などが確認された場合、運営者は必要に応じて
+                投稿の削除やアカウントの利用制限などを行うことがあります。
+            </p>
+        </section>
 
-    <h3>7. 免責事項</h3>
-    <p>
-        運営者は、サービスの正確性や継続的な提供に努めますが、
-        すべての内容について完全性や無停止を保証するものではありません。
-        法令上認められる範囲で、サービスの利用によって生じた損害について
-        責任を負わないものとします。
-    </p>
+        <section class="terms-card">
+            <h2>6. サービスの変更・停止</h2>
+            <p>
+                保守、障害、その他の事情により、サービスの内容を変更したり、
+                一時的に停止したりする場合があります。
+            </p>
+        </section>
 
-    <h3>8. 規約の変更</h3>
-    <p>
-        必要に応じて本規約を変更することがあります。
-        変更後の規約は、当サイト上に掲載した時点から適用します。
-    </p>
+        <section class="terms-card">
+            <h2>7. 免責事項</h2>
+            <p>
+                運営者は、サービスの正確性や継続的な提供に努めますが、
+                すべての内容について完全性や無停止を保証するものではありません。
+                法令上認められる範囲で、サービスの利用によって生じた損害について
+                責任を負わないものとします。
+            </p>
+        </section>
 
-    <p>制定日：2026年10月16日</p>
+        <section class="terms-card">
+            <h2>8. 規約の変更</h2>
+            <p>
+                必要に応じて本規約を変更することがあります。
+                変更後の規約は、当サイト上に掲載した時点から適用します。
+            </p>
+        </section>
+
+    </div>
+
+    <p class="terms-date">制定日：2026年10月16日</p>
+
 </div>
 
 {% endblock %}
