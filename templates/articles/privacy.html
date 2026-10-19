@@ -2,61 +2,172 @@
 
 {% block content %}
 
-<div class="info-page">
-    
-   
-<div class="info-title">
-    <span class="en">Privacy Policy</span>
-    <h1>プライバシーポリシー</h1>
-</div>
+<style>
+    .privacy-page {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 20px 16px 40px;
+        box-sizing: border-box;
+    }
 
+    .privacy-page .info-title {
+        margin-bottom: 28px;
+        text-align: center;
+    }
 
-    <p>
+    .privacy-page .info-title .en {
+        display: block;
+        margin-bottom: 6px;
+        color: #777;
+        font-size: 13px;
+        letter-spacing: 2px;
+    }
+
+    .privacy-page .info-title h1 {
+        margin: 0;
+        font-size: 26px;
+        line-height: 1.5;
+    }
+
+    .privacy-intro {
+        margin-bottom: 20px;
+        padding: 20px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: #fff;
+        font-size: 15px;
+        line-height: 1.9;
+    }
+
+    .privacy-card-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .privacy-card {
+        padding: 20px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: #fff;
+        box-sizing: border-box;
+    }
+
+    .privacy-card h2 {
+        margin: 0 0 12px;
+        font-size: 17px;
+        line-height: 1.6;
+    }
+
+    .privacy-card p {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.9;
+        overflow-wrap: anywhere;
+    }
+
+    .privacy-date {
+        margin-top: 24px;
+        color: #777;
+        font-size: 13px;
+        text-align: right;
+    }
+
+    @media (max-width: 600px) {
+        .privacy-page {
+            padding: 16px 12px 30px;
+        }
+
+        .privacy-page .info-title h1 {
+            font-size: 23px;
+        }
+
+        .privacy-intro {
+            padding: 18px;
+        }
+
+        .privacy-card-grid {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+
+        .privacy-card {
+            padding: 18px;
+        }
+    }
+</style>
+
+<div class="privacy-page">
+
+    <div class="info-title">
+        <span class="en">Privacy Policy</span>
+        <h1>プライバシーポリシー</h1>
+    </div>
+
+    <div class="privacy-intro">
         「すきつな」（以下「当サイト」といいます）は、
         利用者の個人情報を適切に取り扱うことを大切にしています。
-    </p>
+    </div>
 
-    <h3>1. 取得する情報</h3>
-    <p>
-        当サイトでは、ユーザー登録や記事の投稿などに際して、
-        ユーザー名、メールアドレス、投稿内容、画像などの情報を
-        取得する場合があります。
-    </p>
+    <div class="privacy-card-grid">
 
-    <h3>2. 個人情報の利用目的</h3>
-    <p>
-        取得した情報は、ユーザー認証、記事の投稿・表示、
-        サイトの運営、問い合わせへの対応などに利用します。
-    </p>
+        <section class="privacy-card">
+            <h2>1. 取得する情報</h2>
+            <p>
+                当サイトでは、ユーザー登録や記事の投稿などに際して、
+                ユーザー名、メールアドレス、投稿内容、画像などの情報を
+                取得する場合があります。
+            </p>
+        </section>
 
-    <h3>3. 投稿内容について</h3>
-    <p>
-        利用者が投稿した記事、画像などは、サイトの機能や
-        公開設定に応じて、ほかの利用者に表示される場合があります。
-        個人情報や公開したくない情報を投稿しないようご注意ください。
-    </p>
+        <section class="privacy-card">
+            <h2>2. 個人情報の利用目的</h2>
+            <p>
+                取得した情報は、ユーザー認証、記事の投稿・表示、
+                サイトの運営、問い合わせへの対応などに利用します。
+            </p>
+        </section>
 
-    <h3>4. 外部サービスについて</h3>
-    <p>
-        当サイトでは、サイトの運営や画像の保存などに、
-        Render、Cloudinaryなどの外部サービスを利用する場合があります。
-        これらのサービスでは、それぞれの規約やプライバシーポリシーに
-        基づいて情報が取り扱われます。
-    </p>
+        <section class="privacy-card">
+            <h2>3. 投稿内容について</h2>
+            <p>
+                利用者が投稿した記事、画像などは、サイトの機能や
+                公開設定に応じて、ほかの利用者に表示される場合があります。
+                個人情報や公開したくない情報を投稿しないようご注意ください。
+            </p>
+        </section>
 
-    <h3>5. 情報の管理</h3>
-    <p>
-        当サイトは、取得した情報の漏えいや不正利用などを防ぐため、
-        適切な管理に努めます。
-    </p>
+        <section class="privacy-card">
+            <h2>4. 外部サービスについて</h2>
+            <p>
+                当サイトでは、サイトの運営や画像の保存などに、
+                Render、Cloudinaryなどの外部サービスを利用する場合があります。
+                これらのサービスでは、それぞれの規約やプライバシーポリシーに
+                基づいて情報が取り扱われます。
+            </p>
+        </section>
 
-    <h3>6. ポリシーの変更</h3>
-    <p>
-        必要に応じて、本ポリシーの内容を変更することがあります。
-        変更後の内容は当サイト上に掲載します。
-    </p>
+        <section class="privacy-card">
+            <h2>5. 情報の管理</h2>
+            <p>
+                当サイトは、取得した情報の漏えいや不正利用などを防ぐため、
+                適切な管理に努めます。
+            </p>
+        </section>
 
-    <p>制定日：2026年10月16日</p>
+        <section class="privacy-card">
+            <h2>6. ポリシーの変更</h2>
+            <p>
+                必要に応じて、本ポリシーの内容を変更することがあります。
+                変更後の内容は当サイト上に掲載します。
+            </p>
+        </section>
+
+    </div>
+
+    <p class="privacy-date">制定日：2026年10月16日</p>
+
 </div>
 
 {% endblock %}
