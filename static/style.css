@@ -1281,3 +1281,146 @@ article {
     font-size: 15px;
 }
 
+```css
+/* ホーム画面：記事カードのデザイン統一 */
+.post-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.post-card:hover {
+    border-color: #cbdaf0;
+    box-shadow: 0 5px 16px rgba(15, 23, 42, 0.08);
+}
+
+/* 記事画像 */
+.post-card .post-image,
+.post-card .post-no-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 0;
+}
+
+/* カード内の文章 */
+.post-card .post-card-body {
+    padding: 14px;
+}
+
+/* 記事タイトル */
+.post-card .post-card-title {
+    margin: 0 0 12px;
+    color: #1e293b;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+}
+
+/* ジャンル・カテゴリー */
+.post-card .post-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 12px;
+}
+
+.post-card .post-card-meta .post-genre,
+.post-card .post-card-meta .post-category {
+    display: inline-block;
+    margin: 0;
+    padding: 4px 8px;
+    border: 1px solid #dbeafe;
+    border-radius: 6px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* 投稿者 */
+.post-card .post-author {
+    margin: 0 0 6px;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.5;
+    overflow-wrap: anywhere;
+}
+
+/* 投稿日 */
+.post-card .post-date {
+    margin: 0;
+    color: #94a3b8;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+/* いいねボタン */
+.post-card .post-card-likes {
+    padding: 0 14px 14px;
+}
+
+.post-card .like-button {
+    padding: 7px 12px;
+    border-color: #e2e8f0;
+    border-radius: 20px;
+    background: #ffffff;
+    color: #475569;
+}
+
+.post-card .like-button:hover,
+.post-card .like-button.is-liked {
+    border-color: #fecdd3;
+    background: #fff1f2;
+}
+
+/* スマートフォン */
+@media (max-width: 650px) {
+    .post-card {
+        border-radius: 10px;
+    }
+
+    .post-card .post-card-body {
+        padding: 9px;
+    }
+
+    .post-card .post-card-title {
+        margin-bottom: 9px;
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+    .post-card .post-card-meta {
+        gap: 4px;
+        margin-bottom: 9px;
+    }
+
+    .post-card .post-card-meta .post-genre,
+    .post-card .post-card-meta .post-category {
+        padding: 3px 6px;
+        font-size: 11px;
+    }
+
+    .post-card .post-author {
+        font-size: 12px;
+    }
+
+    .post-card .post-date {
+        font-size: 11px;
+    }
+
+    .post-card .post-card-likes {
+        padding: 0 9px 10px;
+    }
+}
+```
+
