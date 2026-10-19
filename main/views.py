@@ -33,6 +33,7 @@ from django.utils.http import (
 from django.utils.encoding import force_bytes
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth.forms import SetPasswordForm
 
 
 logger = logging.getLogger(__name__)
