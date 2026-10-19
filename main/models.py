@@ -43,6 +43,12 @@ class Article(models.Model):
         default="other"
     )
 
+    sub_category = models.CharField(
+        max_length=50,
+        blank=True,
+        default=""
+    )
+
     image = models.ImageField(
         upload_to="articles/",
         blank=True,
