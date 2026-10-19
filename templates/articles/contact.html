@@ -2,18 +2,138 @@
 
 {% block content %}
 
-<div class="info-page">
+<style>
+    .contact-page {
+        width: 100%;
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 20px 16px 40px;
+        box-sizing: border-box;
+    }
+
+    .contact-page .info-title {
+        margin-bottom: 28px;
+        text-align: center;
+    }
+
+    .contact-page .info-title .en {
+        display: block;
+        margin-bottom: 6px;
+        color: #777;
+        font-size: 13px;
+        letter-spacing: 2px;
+    }
+
+    .contact-page .info-title h1 {
+        margin: 0;
+        font-size: 26px;
+        line-height: 1.5;
+    }
+
+    .contact-page .contact-intro {
+        margin-bottom: 12px;
+        font-size: 15px;
+        line-height: 1.9;
+    }
+
+    .contact-form {
+        margin-top: 24px;
+    }
+
+    .contact-form .form-group {
+        margin-bottom: 20px;
+    }
+
+    .contact-form label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font: inherit;
+        background: #fff;
+        color: #222;
+    }
+
+    .contact-form textarea {
+        resize: vertical;
+    }
+
+    .contact-form .contact-submit-wrap {
+        text-align: center;
+    }
+
+    .contact-submit {
+        padding: 12px 32px;
+        border: none;
+        border-radius: 8px;
+        background: #315f8c;
+        color: #fff;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .contact-submit:hover {
+        opacity: 0.9;
+    }
+
+    .contact-success,
+    .contact-error {
+        margin: 20px 0;
+        padding: 12px;
+        border-radius: 8px;
+        line-height: 1.7;
+    }
+
+    .contact-success {
+        background: #e8f5e9;
+        color: #256029;
+    }
+
+    .contact-error {
+        background: #fff0f0;
+        color: #a12626;
+    }
+
+    .contact-note {
+        margin-top: 24px;
+        color: #666;
+        font-size: 13px;
+        line-height: 1.8;
+        text-align: center;
+    }
+
+    @media (max-width: 600px) {
+        .contact-page {
+            padding: 16px 12px 30px;
+        }
+
+        .contact-page .info-title h1 {
+            font-size: 23px;
+        }
+    }
+</style>
+
+<div class="contact-page">
 
     <div class="info-title">
         <span class="en">Contact</span>
         <h1>お問い合わせ</h1>
     </div>
 
-    <p>
+    <p class="contact-intro">
         「すきつな」をご利用いただきありがとうございます。
     </p>
 
-    <p>
+    <p class="contact-intro">
         サイトについてのご質問、不具合の報告、
         ご意見・ご要望などがありましたら、こちらからご連絡ください。
     </p>
@@ -68,72 +188,17 @@
             >{{ request.POST.message|default:'' }}</textarea>
         </div>
 
-        <button type="submit" class="contact-submit">
-            送信する
-        </button>
+        <div class="contact-submit-wrap">
+            <button type="submit" class="contact-submit">
+                送信する
+            </button>
+        </div>
     </form>
 
-    <p>
+    <p class="contact-note">
         ※ お問い合わせへの返信には時間がかかる場合があります。
     </p>
 
 </div>
-
-<style>
-.contact-form {
-    margin-top: 24px;
-}
-
-.contact-form .form-group {
-    margin-bottom: 20px;
-}
-
-.contact-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 600;
-}
-
-.contact-form input,
-.contact-form textarea {
-    display: block;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font: inherit;
-    background: #fff;
-    color: #222;
-}
-
-.contact-form textarea {
-    resize: vertical;
-}
-
-.contact-submit {
-    padding: 12px 28px;
-    border: none;
-    border-radius: 8px;
-    background: #315f8c;
-    color: #fff;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.contact-success {
-    padding: 12px;
-    border-radius: 8px;
-    background: #e8f5e9;
-    color: #256029;
-}
-
-.contact-error {
-    padding: 12px;
-    border-radius: 8px;
-    background: #fff0f0;
-    color: #a12626;
-}
-</style>
 
 {% endblock %}
