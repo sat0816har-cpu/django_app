@@ -1,4 +1,3 @@
-
 /* ページ全体 */
 * {
     box-sizing: border-box;
@@ -1422,5 +1421,72 @@ article {
         padding: 0 9px 10px;
     }
 }
-```
+
+/* SNSリンク共通 */
+.social-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    color: #444;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.social-link svg {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
+
+.social-link:hover {
+    background-color: #e9edf2;
+    color: #111;
+}
+
+/* ヘッダー */
+.header-social-links {
+    margin-right: 4px;
+}
+
+/* フッター */
+.footer-social-links {
+    margin-top: 12px;
+}
+
+.footer-social-links .social-link {
+    width: 36px;
+    height: 36px;
+    background-color: #f0f2f5;
+}
+
+.footer-social-links .social-link:hover {
+    background-color: #dfe4eb;
+}
+
+/* スマートフォン */
+@media (max-width: 600px) {
+    .header-social-links {
+        gap: 4px;
+        margin-right: 2px;
+    }
+
+    .header-social-links .social-link {
+        width: 30px;
+        height: 30px;
+    }
+
+    .header-social-links .social-link svg {
+        width: 18px;
+        height: 18px;
+    }
+}
 
