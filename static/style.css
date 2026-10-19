@@ -992,6 +992,17 @@ article {
     margin-bottom: 0;
 }
 
+/* サブカテゴリ */
+.post-card-meta .post-subcategory {
+    display: inline-block;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    padding: 3px 8px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    margin: 0;
+}
+
 
 /* スマホ：投稿関連メニューを上部に独立表示 */
 @media (max-width: 650px) {
@@ -1333,19 +1344,7 @@ article {
     margin: 0 0 12px;
 }
 
-.post-card .post-card-meta .post-genre,
-.post-card .post-card-meta .post-category,
-.post-card .post-card-meta .post-subcategory {
-    display: inline-block;
-    margin: 0;
-    padding: 4px 8px;
-    border: 1px solid #dbeafe;
-    border-radius: 6px;
-    background: #eff6ff;
-    color: #1d4ed8;
-    font-size: 12px;
-    line-height: 1.5;
-}
+
 
 /* 投稿者 */
 .post-card .post-author {
