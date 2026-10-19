@@ -389,4 +389,107 @@
 
 </div>
 
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const categorySelect = document.getElementById(
+        "article-category"
+    );
+
+    const subCategorySelect = document.getElementById(
+        "sub_category"
+    );
+
+    if (!categorySelect || !subCategorySelect) {
+        return;
+    }
+
+    const savedSubCategory =
+        "{{ article.sub_category|default:''|escapejs }}";
+
+    const subCategories = {
+        music: [
+            "ジャズ",
+            "クラシック",
+            "ロック",
+            "ポップス",
+            "ボサノヴァ",
+            "その他"
+        ],
+        movie: [
+            "邦画",
+            "洋画",
+            "アニメ映画",
+            "SF",
+            "その他"
+        ],
+        book: [
+            "小説",
+            "ミステリー",
+            "SF",
+            "ビジネス",
+            "漫画",
+            "その他"
+        ],
+        photo: [
+            "風景",
+            "人物",
+            "動物",
+            "花・植物",
+            "街並み",
+            "その他"
+        ],
+        travel: [
+            "国内旅行",
+            "海外旅行",
+            "街歩き",
+            "自然・風景",
+            "その他"
+        ],
+        cooking: [
+            "和食",
+            "洋食",
+            "中華",
+            "お菓子",
+            "コーヒー・飲み物",
+            "その他"
+        ],
+        other: [
+            "その他"
+        ]
+    };
+
+    function updateSubCategories(selectedValue) {
+        const category = categorySelect.value;
+        const options = subCategories[category] || [];
+
+        subCategorySelect.replaceChildren();
+
+        const emptyOption = document.createElement("option");
+        emptyOption.value = "";
+        emptyOption.textContent = "選択しない";
+        subCategorySelect.appendChild(emptyOption);
+
+        options.forEach(function (name) {
+            const option = document.createElement("option");
+            option.value = name;
+            option.textContent = name;
+
+            if (name === selectedValue) {
+                option.selected = true;
+            }
+
+            subCategorySelect.appendChild(option);
+        });
+    }
+
+    updateSubCategories(savedSubCategory);
+
+    categorySelect.addEventListener("change", function () {
+        updateSubCategories("");
+    });
+});
+</script>
+
+
 {% endblock %}
