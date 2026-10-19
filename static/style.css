@@ -1490,3 +1490,26 @@ article {
     }
 }
 
+
+/* ヘッダーのSNSアイコンとユーザーメニューを縦中央にそろえる */
+.site-header .user-menu {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.site-header .header-social-links {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+.site-header .user-menu > a,
+.site-header .user-menu > .user-name {
+    display: inline-flex;
+    align-items: center;
+    line-height: 1.5;
+}
+
+
