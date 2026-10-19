@@ -77,3 +77,9 @@
         もっと見る
     </button>
 {% endif %}
+
+<span
+    id="load-more-genre-status"
+    data-has-next="{{ page_obj.has_next|yesno:'true,false' }}"
+    hidden
+></span>
