@@ -629,9 +629,65 @@ def about(request):
     return render(request, "articles/about.html")
 
 
+
 # お問い合わせ
 def contact(request):
+    if request.method == "POST":
+        name = request.POST.get("name", "").strip()
+        email = request.POST.get("email", "").strip()
+        message = request.POST.get("message", "").strip()
+
+        if not name or not email or not message:
+            return render(
+                request,
+                "articles/contact.html",
+                {"error": "すべての項目を入力してください。"},
+            )
+
+        if len(name) > 100 or len(email) > 254 or len(message) > 5000:
+            return render(
+                request,
+                "articles/contact.html",
+                {"error": "入力できる文字数を超えています。"},
+            )
+
+        try:
+            resend.api_key = os.environ["RESEND_API_KEY"]
+
+            sender = os.environ.get(
+                "RESEND_FROM_EMAIL",
+                "onboarding@resend.dev",
+            )
+
+            resend.Emails.send({
+                "from": sender,
+                "to": ["sukitsuna.info@gmail.com"],
+                "reply_to": [email],
+                "subject": f"【すきつな】お問い合わせ：{name}",
+                "text": (
+                    f"お名前：{name}\n"
+                    f"メールアドレス：{email}\n\n"
+                    f"お問い合わせ内容：\n{message}"
+                ),
+            })
+
+            return render(
+                request,
+                "articles/contact.html",
+                {"success": "お問い合わせを送信しました。ありがとうございます。"},
+            )
+
+        except Exception:
+            logger.exception("お問い合わせメールの送信に失敗しました")
+
+            return render(
+                request,
+                "articles/contact.html",
+                {"error": "送信に失敗しました。時間をおいて再度お試しください。"},
+            )
+
     return render(request, "articles/contact.html")
+
 
 
 # ご利用ガイド
