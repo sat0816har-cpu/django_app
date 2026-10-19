@@ -36,6 +36,7 @@
 {% endif %}
 
 
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const button = document.getElementById(
@@ -81,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             if (cards.length === 0) {
-                button.parentElement.remove();
+                button.remove();
                 return;
             }
 
@@ -89,14 +90,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 grid.appendChild(card);
             });
 
-            // 次のページがあるか確認する
-            const hasNextPage =
-                template.content.querySelector(
-                    "#load-more-category-articles"
-                ) !== null;
-
-            if (!hasNextPage) {
-                button.parentElement.remove();
+            // 12枚未満なら最後のページ
+            if (cards.length < 12) {
+                button.remove();
             } else {
                 button.dataset.nextPage = nextPage + 1;
                 button.disabled = false;
@@ -111,6 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
+
 
 
 {% endblock %}
