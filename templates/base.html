@@ -178,12 +178,14 @@
             {% endif %}
         </span>
 
-      {% if category.slug == "other" %}
-    <span class="category-other-pc">その他</span>
-    <span class="category-other-mobile">カテゴリ<br>その他</span>
-{% else %}
-    <span>{{ category.name }}</span>
-{% endif %}
+     <span class="category-label">
+    {% if category.slug == "other" %}
+        <span class="category-other-pc">その他</span>
+        <span class="category-other-mobile">カテゴリ<br>その他</span>
+    {% else %}
+        {{ category.name }}
+    {% endif %}
+</span>
 
     <!-- サブカテゴリー -->
     {% if category.sub_categories %}
