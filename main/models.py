@@ -73,6 +73,25 @@ class Article(models.Model):
         return self.title
 
 
+class ArticleLike(models.Model):
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE,
+        related_name="likes"
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return f"{self.article.title}へのいいね"
+
+    class Meta:
+        ordering = ["-created_at"]
+
+
+
 class Profile(models.Model):
     user = models.OneToOneField(
         User,
