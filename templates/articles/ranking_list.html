@@ -1,0 +1,50 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2>{{ ranking_title }}</h2>
+
+    <div class="post-grid" id="post-grid">
+
+        {% include "articles/_article_cards.html" %}
+
+        {% if not articles %}
+            <p class="empty-message">
+                まだランキングに表示できる記事がありません。
+            </p>
+        {% endif %}
+
+    </div>
+
+    {% if page_obj.has_other_pages %}
+        <div class="pagination">
+
+            {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}">
+                    前へ
+                </a>
+            {% endif %}
+
+            <span>
+                {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">
+                    次へ
+                </a>
+            {% endif %}
+
+        </div>
+    {% endif %}
+
+    <p>
+        <a href="/">ホームに戻る</a>
+    </p>
+
+</div>
+
+{% endblock %}
