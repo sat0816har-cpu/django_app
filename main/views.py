@@ -34,6 +34,9 @@ from django.utils.http import (
 from django.utils.encoding import force_bytes
 from django.utils import timezone
 from django.urls import reverse
+from datetime import timedelta
+from django.db.models import Count, Q
+from django.utils import timezone
 
 
 
@@ -1056,6 +1059,40 @@ def category_ranking(request, category_slug):
         "articles/category_ranking.html",
         context
     )
+
+
+def recent_ranking(request):
+    # 7日前の日時を取得
+    since = timezone.now() - timedelta(days=7)
+
+    # 直近7日間のいいね数を集計
+    articles = Article.objects.annotate(
+        recent_like_count=Count(
+            "likes",
+            filter=Q(likes__created_at__gte=since)
+        )
+    ).filter(
+        recent_like_count__gt=0
+    ).order_by(
+        "-recent_like_count",
+        "-created_at"
+    )
+
+    # 1ページに12記事表示
+    paginator = Paginator(articles, 12)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
+    return render(
+        request,
+        "articles/recent_ranking.html",
+        {
+            "articles": page_obj,
+            "page_obj": page_obj,
+            "ranking_title": "最近人気の記事",
+        }
+    )
+
 
 
 
