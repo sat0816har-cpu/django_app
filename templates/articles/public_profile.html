@@ -236,9 +236,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 hasNextElement.dataset.hasNext === "true";
 
             const addedArticles =
-                template.content.querySelectorAll(
-                    ".public-profile-card"
-                ).length;
+            template.content.querySelectorAll(
+                ".post-card"
+            ).length;
 
             if (addedArticles === 0) {
                 button.remove();
