@@ -59,12 +59,19 @@ def article_like(request, article_id):
             "like_count": article.like_count,
         })
 
-    # データベース側で安全に1増やす
+    
+    # いいねの日時を記録する
+    ArticleLike.objects.create(
+        article=article
+    )
+
+    # 累計いいね数を安全に1増やす
     Article.objects.filter(
         id=article.id
     ).update(
         like_count=F("like_count") + 1
     )
+
 
     article.refresh_from_db()
 
