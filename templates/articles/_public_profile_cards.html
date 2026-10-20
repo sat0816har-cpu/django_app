@@ -1,52 +1,62 @@
 {% load static %}
-{% for article in articles %}
-    <div class="public-profile-card">
 
-        
-        <a href="/articles/{{ article.id }}/">
+{% for article in articles %}
+    <article class="post-card">
+
+        <a href="/articles/{{ article.id }}/"
+           class="post-card-link">
+
             {% if article.image %}
                 <img
+                    class="post-image"
                     src="{{ article.image.url }}"
                     alt="{{ article.title }}"
                     loading="lazy"
                 >
             {% else %}
                 <img
+                    class="post-image"
                     src="{% static 'images/default_article.jpg' %}"
                     alt="記事のイメージ画像"
                     loading="lazy"
                 >
             {% endif %}
-        </a>
 
+            <div class="post-card-body">
 
-        <h3>
-            <a
-                href="/articles/{{ article.id }}/"
-                style="color: inherit;"
-            >
-                {{ article.title }}
-            </a>
-        </h3>
+                <h3 class="post-card-title">
+                    {{ article.title }}
+                </h3>
 
-        <p style="color: #777777; font-size: 12px;">
-            {{ article.created_at|date:"Y年n月j日" }}
-        </p>
+                <div class="post-card-meta">
+                    <span class="post-genre">
+                        {{ article.get_genre_display }}
+                    </span>
 
-        <p style="font-size: 12px;">
-            {{ article.get_genre_display }} /
-            {{ article.get_category_display }}
-        </p>
+                    <span class="post-category">
+                        {{ article.get_category_display }}
+                    </span>
 
-        <p style="font-size: 14px;">
-            {{ article.content|truncatechars:70 }}
-        </p>
+                    {% if article.sub_category %}
+                        <span class="post-subcategory">
+                            {{ article.sub_category }}
+                        </span>
+                    {% endif %}
+                </div>
 
-        <a
-            href="/articles/{{ article.id }}/"
-            style="font-size: 14px;"
-        >
-            記事を読む →
+                <p class="post-author">
+                    {{ article.author.username }}
+                </p>
+
+                <p class="post-date">
+                    {{ article.created_at|date:"Y年n月j日" }}
+                </p>
+
+                <p class="public-profile-card-excerpt">
+                    {{ article.content|truncatechars:70 }}
+                </p>
+
+            </div>
         </a>
 
         <div class="post-card-likes">
@@ -68,7 +78,11 @@
             </button>
         </div>
 
-    </div>
+    </article>
 {% endfor %}
 
-<div id="has-next-page" data-has-next="{{ has_next|yesno:'true,false' }}" hidden></div>
+<div
+    id="has-next-page"
+    data-has-next="{{ has_next|yesno:'true,false' }}"
+    hidden
+></div>
