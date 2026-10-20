@@ -897,14 +897,21 @@ article {
     }
 
     /* スマホ用ラベルを表示 */
-    .genre-mobile,
-    .category-other-mobile {
-        display: inline;
-        line-height: 1.4;
-        overflow-wrap: anywhere;
-    }
+.genre-mobile {
+    display: inline;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
 }
 
+.category-other-mobile {
+    display: block;
+    width: 100%;
+    line-height: 1.4;
+    text-align: center;
+    overflow-wrap: anywhere;
+}
+
+}
 
 
 
