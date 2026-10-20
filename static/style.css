@@ -1520,3 +1520,53 @@ article {
     }
 }
 
+/* 公開プロフィールの記事カードの枠線を維持 */
+.public-profile-container .post-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #ffffff;
+    overflow: hidden;
+}
+
+/* 公開プロフィール：記事カードの文字サイズ */
+.public-profile-container .post-card-title {
+    font-size: 16px;
+    line-height: 1.65;
+}
+
+.public-profile-container .post-genre,
+.public-profile-container .post-category,
+.public-profile-container .post-subcategory {
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+.public-profile-container .post-author {
+    font-size: 13px;
+}
+
+.public-profile-container .post-date {
+    font-size: 12px;
+}
+
+@media (max-width: 650px) {
+    .public-profile-container .post-card-title {
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+    .public-profile-container .post-genre,
+    .public-profile-container .post-category,
+    .public-profile-container .post-subcategory {
+        font-size: 11px;
+    }
+
+    .public-profile-container .post-author {
+        font-size: 12px;
+    }
+
+    .public-profile-container .post-date {
+        font-size: 11px;
+    }
+}
+
