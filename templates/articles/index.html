@@ -5,6 +5,52 @@
 
 {% block content %}
 
+
+<div class="ranking-section">
+
+    <h2 class="ranking-section-title">
+        人気ランキング
+    </h2>
+
+    <div class="ranking-card-grid">
+
+        <a href="{% url 'article_ranking' %}" class="ranking-card">
+            <span class="ranking-card-icon">🏆</span>
+            <span class="ranking-card-title">総合ランキング</span>
+            <span class="ranking-card-description">
+                これまでの人気記事
+            </span>
+        </a>
+
+        <a href="#" class="ranking-card">
+            <span class="ranking-card-icon">🔥</span>
+            <span class="ranking-card-title">最近の人気</span>
+            <span class="ranking-card-description">
+                最近注目されている記事
+            </span>
+        </a>
+
+        <a href="#" class="ranking-card">
+            <span class="ranking-card-icon">🎨</span>
+            <span class="ranking-card-title">ジャンル別</span>
+            <span class="ranking-card-description">
+                好きなジャンルから探す
+            </span>
+        </a>
+
+        <a href="#" class="ranking-card">
+            <span class="ranking-card-icon">📚</span>
+            <span class="ranking-card-title">カテゴリー別</span>
+            <span class="ranking-card-description">
+                興味のあるテーマから探す
+            </span>
+        </a>
+
+    </div>
+
+</div>
+
+
 <div class="feed-header">
     <h2 class="feed-title">みんなの投稿</h2>
     <p class="feed-description">
