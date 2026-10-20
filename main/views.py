@@ -974,6 +974,31 @@ def password_reset_complete(request):
 
 
 
+def article_ranking(request):
+    articles = Article.objects.all().order_by(
+        "-like_count",
+        "-created_at"
+    )
+
+    paginator = Paginator(articles, 12)
+    page_obj = paginator.get_page(
+        request.GET.get("page", 1)
+    )
+
+    context = {
+        "articles": page_obj.object_list,
+        "page_obj": page_obj,
+        "has_next": page_obj.has_next(),
+        "ranking_title": "総合ランキング",
+    }
+
+    return render(
+        request,
+        "articles/ranking_list.html",
+        context
+    )
+
+
 
 
 
