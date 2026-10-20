@@ -32,6 +32,14 @@ urlpatterns = [
     name="genre_ranking"
     ),
 
+    
+    path(
+    "ranking/category/<slug:category_slug>/",
+    views.category_ranking,
+    name="category_ranking"
+    ),
+
+
 
        # カテゴリー別ページ
     path(
