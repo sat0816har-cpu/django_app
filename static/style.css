@@ -425,10 +425,9 @@ article {
     box-sizing: border-box;
 }
 
-    /* スマホの「カテゴリその他」の文字位置を調整 */
-.category-other-mobile {
-    display: block;
-    line-height: 1.2;
+ .category-other-mobile {
+    display: inline;
+    line-height: 1.5;
     margin: 0;
     padding: 0;
     text-align: center;
