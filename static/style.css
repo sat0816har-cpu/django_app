@@ -321,6 +321,40 @@ article {
     padding: 0;
 }
 
+
+    /* サブカテゴリーは横4列にせず、縦に並べる */
+    .sidebar-sub-categories {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        flex: 0 0 100%;
+        box-sizing: border-box;
+        margin: 0 0 8px 0;
+        padding: 2px 0 4px 12px;
+        border-left: 2px solid #e5e7eb;
+        gap: 2px;
+    }
+
+    .sidebar-sub-category {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        padding: 7px 10px;
+        color: #64748b;
+        font-size: 13px;
+        line-height: 1.5;
+        text-align: left;
+        text-decoration: none;
+        overflow-wrap: anywhere;
+        border-radius: 6px;
+    }
+
+    .sidebar-sub-category:hover {
+        background-color: #f1f5f9;
+        color: #2563eb;
+    }
+
+
 /* タブレットでは3列 */
 @media (max-width: 1000px) {
     .post-grid {
