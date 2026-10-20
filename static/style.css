@@ -1520,12 +1520,12 @@ article {
     }
 }
 
-/* 公開プロフィールの記事カードの枠線を維持 */
+/* 公開プロフィールの記事カード：枠線を確実に表示 */
 .public-profile-container .post-card {
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    background: #ffffff;
-    overflow: hidden;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    background-color: #ffffff;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
 }
 
 /* 公開プロフィール：記事カードの文字サイズ */
