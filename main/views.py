@@ -118,6 +118,7 @@ def article_list(request):
 
 
 
+
 def category_list(request, category_slug):
     category_names = {
         "music": "音楽",
@@ -137,9 +138,24 @@ def category_list(request, category_slug):
             status=404
         )
 
+    # 選択されたサブカテゴリーを取得
+    sub_category = request.GET.get(
+        "sub_category",
+        ""
+    ).strip()
+
+    # まずカテゴリー全体の記事を取得
     articles = Article.objects.filter(
         category=category_slug
-    ).order_by("-created_at")
+    )
+
+    # サブカテゴリーが選択されている場合は絞り込む
+    if sub_category:
+        articles = articles.filter(
+            sub_category=sub_category
+        )
+
+    articles = articles.order_by("-created_at")
 
     paginator = Paginator(articles, 12)
     page_obj = paginator.get_page(
@@ -151,6 +167,7 @@ def category_list(request, category_slug):
         "page_obj": page_obj,
         "category_name": category_name,
         "category_slug": category_slug,
+        "sub_category": sub_category,
     }
 
     if request.GET.get("partial") == "1":
@@ -165,6 +182,7 @@ def category_list(request, category_slug):
         "articles/category.html",
         context
     )
+
 
 
 
