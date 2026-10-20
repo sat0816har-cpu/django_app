@@ -425,8 +425,10 @@ article {
     box-sizing: border-box;
 }
 
- .category-other-mobile {
-    display: inline;
+.category-other-mobile {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
     line-height: 1.5;
     margin: 0;
     padding: 0;
