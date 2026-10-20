@@ -22,7 +22,7 @@ from django.core.mail import send_mail
 from django.views.decorators.http import require_http_methods
 
 
-from .models import Article, Profile, Comment
+from .models import Article, ArticleLike, Profile, Comment
 
 from django.core.paginator import Paginator
 
