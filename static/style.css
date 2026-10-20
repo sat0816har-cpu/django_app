@@ -472,10 +472,67 @@ article {
         padding: 9px;
     }
 
+
     .post-card-title {
         font-size: 14px;
     }
+
+    /* サブカテゴリー全体 */
+    .sidebar-sub-categories {
+        display: block;
+        flex: 0 0 100%;
+        width: 100%;
+        min-width: 0;
+        box-sizing: border-box;
+        margin: 0 0 12px;
+        padding: 8px;
+        border-radius: 8px;
+        background-color: #f8fafc;
+    }
+
+    /* 親カテゴリーの見出し */
+    .sidebar-sub-category-heading {
+        margin-bottom: 6px;
+        color: #475569;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    /* サブカテゴリーを4列で表示 */
+    .sidebar-sub-category-grid {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 5px;
+        width: 100%;
+    }
+
+    /* サブカテゴリーのリンク */
+    .sidebar-sub-category {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+        min-height: 34px;
+        margin: 0;
+        padding: 5px 2px;
+        box-sizing: border-box;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        background-color: #ffffff;
+        color: #374151;
+        font-size: 11px;
+        line-height: 1.4;
+        text-align: center;
+        text-decoration: none;
+        overflow-wrap: anywhere;
+    }
+
+    .sidebar-sub-category:hover {
+        background-color: #eff6ff;
+        color: #2563eb;
+    }
 }
+
 
 
 /* フッター */
