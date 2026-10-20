@@ -11,7 +11,9 @@ from .models import (
 )
 
 
-admin.site.register(Article)
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ("title", "author", "created_at", "like_count")
 admin.site.register(Profile)
 admin.site.register(Comment)
 admin.site.register(ArticleImage)
