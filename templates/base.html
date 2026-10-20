@@ -71,6 +71,7 @@
 <div class="page-layout">
 
     
+
 <aside class="sidebar">
 
     {% if user.is_authenticated %}
@@ -95,117 +96,114 @@
         <span>ホーム</span>
     </a>
 
-        
+    <!-- ジャンル -->
+    <div class="menu-section-title">
+        ジャンル
+    </div>
 
-        <!-- ジャンルメニュー -->
-        <div class="menu-section-title">
-            ジャンル
-        </div>
+    <a href="/genre/hobby/" class="menu-item genre-item">
+        <span class="genre-pc">趣味・エンタメ</span>
+        <span class="genre-mobile">趣味<br>エンタメ</span>
+    </a>
 
+    <a href="/genre/people/" class="menu-item genre-item">
+        <span class="genre-pc">人・社会</span>
+        <span class="genre-mobile">人<br>社会</span>
+    </a>
 
-<a href="/genre/hobby/" class="menu-item genre-item">
-    <span class="genre-pc">趣味・エンタメ</span>
-    <span class="genre-mobile">趣味<br>エンタメ</span>
-</a>
+    <a href="/genre/life/" class="menu-item genre-item">
+        <span class="genre-pc">暮らし</span>
+        <span class="genre-mobile">暮らし</span>
+    </a>
 
-<a href="/genre/people/" class="menu-item genre-item">
-    <span class="genre-pc">人・社会</span>
-    <span class="genre-mobile">人<br>社会</span>
-</a>
+    <a href="/genre/learning/" class="menu-item genre-item">
+        <span class="genre-pc">学び・仕事</span>
+        <span class="genre-mobile">学び<br>仕事</span>
+    </a>
 
-<a href="/genre/life/" class="menu-item genre-item">
-    <span class="genre-pc">暮らし</span>
-    <span class="genre-mobile">暮らし</span>
-</a>
+    <a href="/genre/creative/" class="menu-item genre-item">
+        <span class="genre-pc">創作・表現</span>
+        <span class="genre-mobile">創作<br>表現</span>
+    </a>
 
-<a href="/genre/learning/" class="menu-item genre-item">
-    <span class="genre-pc">学び・仕事</span>
-    <span class="genre-mobile">学び<br>仕事</span>
-</a>
+    <a href="/genre/other/" class="menu-item genre-item">
+        <span class="genre-pc">その他</span>
+        <span class="genre-mobile">ジャンル<br>その他</span>
+    </a>
 
-<a href="/genre/creative/" class="menu-item genre-item">
-    <span class="genre-pc">創作・表現</span>
-    <span class="genre-mobile">創作<br>表現</span>
-</a>
+    <!-- カテゴリーとサブカテゴリー -->
+    <div class="menu-section-title">
+        カテゴリー
+    </div>
 
-<a href="/genre/other/" class="menu-item genre-item">
-    <span class="genre-pc">その他</span>
-    <span class="genre-mobile">ジャンル<br>その他</span>
-</a>
+    {% for category in sidebar_categories %}
 
+        <a href="/category/{{ category.slug }}/"
+           class="menu-item">
 
-        <!-- ジャンルメニューここまで -->
+            <span class="menu-icon">
+                {% if category.slug == "music" %}
+                    ♫
+                {% elif category.slug == "movie" %}
+                    ▣
+                {% elif category.slug == "book" %}
+                    ▤
+                {% elif category.slug == "photo" %}
+                    ▧
+                {% elif category.slug == "travel" %}
+                    <svg viewBox="0 0 24 24"
+                         width="24"
+                         height="24"
+                         xmlns="http://www.w3.org/2000/svg"
+                         aria-hidden="true">
+                        <path
+                            d="M21 3 14 21l-4-8-7-4 18-6Z"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"/>
+                        <path
+                            d="M10 13 21 3"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"/>
+                    </svg>
+                {% elif category.slug == "cooking" %}
+                    🍴
+                {% endif %}
+            </span>
 
-　　
+            <span>
+                {% if category.slug == "other" %}
+                    <span class="category-other-pc">その他</span>
+                    <span class="category-other-mobile">カテゴリ<br>その他</span>
+                {% else %}
+                    {{ category.name }}
+                {% endif %}
+            </span>
 
-        <div class="menu-section-title">
-            カテゴリー
-        </div>
-
-
-        <a href="/category/music/" class="menu-item">
-            <span class="menu-icon">♫</span>
-            <span>音楽</span>
         </a>
 
-        <a href="/category/movie/" class="menu-item">
-            <span class="menu-icon">▣</span>
-            <span>映画</span>
-        </a>
+        {% if category.sub_categories %}
+            <div class="sidebar-sub-categories">
+                {% for sub_category in category.sub_categories %}
+                    <a
+                        href="/category/{{ category.slug }}/?sub_category={{ sub_category|urlencode }}"
+                        class="sidebar-sub-category"
+                    >
+                        {{ sub_category }}
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
 
-        <a href="/category/book/" class="menu-item">
-            <span class="menu-icon">▤</span>
-            <span>読書</span>
-        </a>
+    {% endfor %}
 
-        <a href="/category/photo/" class="menu-item">
-            <span class="menu-icon">▧</span>
-            <span>写真</span>
-        </a>
+</aside>
 
-        
-<a href="/category/travel/" class="menu-item">
-    <span class="menu-icon travel-icon">
-        <svg viewBox="0 0 24 24"
-             width="24"
-             height="24"
-             xmlns="http://www.w3.org/2000/svg"
-             aria-hidden="true">
-            <path
-                d="M21 3 14 21l-4-8-7-4 18-6Z"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"/>
-            <path
-                d="M10 13 21 3"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.8"
-                stroke-linecap="round"
-                stroke-linejoin="round"/>
-        </svg>
-    </span>
-    <span>旅行</span>
-</a>
-
-        
-        <a href="/category/cooking/" class="menu-item">
-            <span class="menu-icon">🍴</span>
-            <span>料理</span>
-        </a>
-
-
-
-        <a href="/category/other/" class="menu-item">
-            <span class="category-other-pc">その他</span>
-<span class="category-other-mobile">カテゴリ<br>その他</span>
-        </a>
-
-
-        
-    </aside>
 
     <main class="main-content">
         {% block content %}
