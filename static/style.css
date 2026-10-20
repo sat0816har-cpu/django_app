@@ -531,6 +531,16 @@ article {
         background-color: #eff6ff;
         color: #2563eb;
     }
+
+        /* 親カテゴリーを先に並べる */
+    .sidebar > a[href^="/category/"] {
+        order: 1;
+    }
+
+    /* サブカテゴリーは親カテゴリー一覧の後ろへ */
+    .sidebar > .sidebar-sub-categories {
+        order: 2;
+    }
 }
 
 
