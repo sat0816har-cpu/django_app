@@ -16,4 +16,6 @@ admin.site.register(Profile)
 admin.site.register(Comment)
 admin.site.register(ArticleImage)
 admin.site.register(ArticleVideo)
-admin.site.register(ArticleLike)
+@admin.register(ArticleLike)
+class ArticleLikeAdmin(admin.ModelAdmin):
+    list_display = ("article", "created_at")
