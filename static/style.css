@@ -888,7 +888,7 @@ article {
 
     /* ジャンルもカテゴリーと同じ配置 */
     .sidebar > .genre-item {
-        justify-content: center;
+        justify-content: flex-start;
         padding-left: 2px;
     }
 
