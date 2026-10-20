@@ -131,64 +131,73 @@
         <span class="genre-mobile">ジャンル<br>その他</span>
     </a>
 
-    <!-- カテゴリーとサブカテゴリー -->
-    <div class="menu-section-title">
-        カテゴリー
-    </div>
 
-    {% for category in sidebar_categories %}
+<!-- カテゴリーとサブカテゴリー -->
+<div class="menu-section-title">
+    カテゴリー
+</div>
 
-        <a href="/category/{{ category.slug }}/"
-           class="menu-item">
+{% for category in sidebar_categories %}
 
-            <span class="menu-icon">
-                {% if category.slug == "music" %}
-                    ♫
-                {% elif category.slug == "movie" %}
-                    ▣
-                {% elif category.slug == "book" %}
-                    ▤
-                {% elif category.slug == "photo" %}
-                    ▧
-                {% elif category.slug == "travel" %}
-                    <svg viewBox="0 0 24 24"
-                         width="24"
-                         height="24"
-                         xmlns="http://www.w3.org/2000/svg"
-                         aria-hidden="true">
-                        <path
-                            d="M21 3 14 21l-4-8-7-4 18-6Z"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"/>
-                        <path
-                            d="M10 13 21 3"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="1.8"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"/>
-                    </svg>
-                {% elif category.slug == "cooking" %}
-                    🍴
-                {% endif %}
-            </span>
+    <!-- 親カテゴリー -->
+    <a href="/category/{{ category.slug }}/"
+       class="menu-item">
 
-            <span>
-                {% if category.slug == "other" %}
-                    <span class="category-other-pc">その他</span>
-                    <span class="category-other-mobile">カテゴリ<br>その他</span>
-                {% else %}
-                    {{ category.name }}
-                {% endif %}
-            </span>
+        <span class="menu-icon">
+            {% if category.slug == "music" %}
+                ♫
+            {% elif category.slug == "movie" %}
+                ▣
+            {% elif category.slug == "book" %}
+                ▤
+            {% elif category.slug == "photo" %}
+                ▧
+            {% elif category.slug == "travel" %}
+                <svg viewBox="0 0 24 24"
+                     width="24"
+                     height="24"
+                     xmlns="http://www.w3.org/2000/svg"
+                     aria-hidden="true">
+                    <path
+                        d="M21 3 14 21l-4-8-7-4 18-6Z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"/>
+                    <path
+                        d="M10 13 21 3"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"/>
+                </svg>
+            {% elif category.slug == "cooking" %}
+                🍴
+            {% endif %}
+        </span>
 
-        </a>
+        <span>
+            {% if category.slug == "other" %}
+                <span class="category-other-pc">その他</span>
+                <span class="category-other-mobile">カテゴリ<br>その他</span>
+            {% else %}
+                {{ category.name }}
+            {% endif %}
+        </span>
 
-        {% if category.sub_categories %}
-            <div class="sidebar-sub-categories">
+    </a>
+
+    <!-- サブカテゴリー -->
+    {% if category.sub_categories %}
+        <div class="sidebar-sub-categories">
+
+            <div class="sidebar-sub-category-heading">
+                {{ category.name }}のサブカテゴリー
+            </div>
+
+            <div class="sidebar-sub-category-grid">
                 {% for sub_category in category.sub_categories %}
                     <a
                         href="/category/{{ category.slug }}/?sub_category={{ sub_category|urlencode }}"
@@ -198,9 +207,12 @@
                     </a>
                 {% endfor %}
             </div>
-        {% endif %}
 
-    {% endfor %}
+        </div>
+    {% endif %}
+
+{% endfor %}
+
 
 </aside>
 
