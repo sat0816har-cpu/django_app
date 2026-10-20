@@ -437,6 +437,19 @@ article {
     text-align: center;
 }
 
+    
+    .category-other-mobile {
+        display: block;
+        width: 100%;
+        text-align: center;
+        line-height: 1.3;
+    }
+
+    .category-other-pc {
+        display: none;
+    }
+
+
     .menu-icon {
         display: inline-flex;
         align-items: center;
