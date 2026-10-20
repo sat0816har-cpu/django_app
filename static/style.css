@@ -1872,3 +1872,50 @@ article {
 }
 
 
+/* カテゴリー別ランキング */
+
+.category-ranking-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 18px 0 24px;
+}
+
+.category-ranking-link {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #fff;
+    color: #555;
+    font-size: 13px;
+    text-decoration: none;
+    transition: background .2s, border-color .2s;
+}
+
+.category-ranking-link:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+}
+
+.category-ranking-link.active {
+    border-color: #64748b;
+    background: #f1f5f9;
+    color: #333;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .category-ranking-menu {
+        gap: 7px;
+        margin: 14px 0 20px;
+    }
+
+    .category-ranking-link {
+        padding: 7px 10px;
+        font-size: 12px;
+    }
+}
+
+
+
