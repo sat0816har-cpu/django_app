@@ -39,6 +39,12 @@ urlpatterns = [
     name="category_ranking"
     ),
 
+    path(
+    "ranking/recent/",
+    views.recent_ranking,
+    name="recent_ranking"
+    ),
+
 
 
        # カテゴリー別ページ
