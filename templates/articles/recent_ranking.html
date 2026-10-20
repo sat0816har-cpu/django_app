@@ -1,0 +1,41 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="feed-header">
+    <h2 class="feed-title">最近人気の記事</h2>
+    <p>直近7日間に「いいね」された記事をランキング表示します。</p>
+</div>
+
+<div class="article-grid">
+    {% include "articles/_article_cards.html" with articles=articles %}
+</div>
+
+{% if page_obj.has_other_pages %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">
+                前へ
+            </a>
+        {% endif %}
+
+        <span>
+            {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}ページ
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">
+                次へ
+            </a>
+        {% endif %}
+    </div>
+{% endif %}
+
+<div class="ranking-back">
+    <a href="/">トップページへ戻る</a>
+</div>
+
+{% endblock %}
