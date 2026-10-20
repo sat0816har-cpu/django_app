@@ -425,6 +425,19 @@ article {
     box-sizing: border-box;
 }
 
+    /* スマホの「カテゴリその他」の文字位置を調整 */
+.category-other-mobile {
+    display: block;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.category-other-pc {
+    display: none;
+}
+
     .menu-section-title {
     width: 100%;
     flex: 0 0 100%;
