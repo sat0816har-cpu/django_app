@@ -1826,3 +1826,49 @@ article {
     }
 }
 
+
+/* ジャンル別ランキングの選択メニュー */
+.genre-ranking-menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 18px 0 24px;
+}
+
+.genre-ranking-link {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #555555;
+    font-size: 13px;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.genre-ranking-link:hover {
+    border-color: #cbd5e1;
+    background: #f8fafc;
+}
+
+.genre-ranking-link.active {
+    border-color: #64748b;
+    background: #f1f5f9;
+    color: #333333;
+    font-weight: 600;
+}
+
+@media (max-width: 600px) {
+    .genre-ranking-menu {
+        gap: 7px;
+        margin: 14px 0 20px;
+    }
+
+    .genre-ranking-link {
+        padding: 7px 10px;
+        font-size: 12px;
+    }
+}
+
+
