@@ -1,0 +1,35 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+
+    <h2>{{ ranking_title }}</h2>
+
+    <div class="category-ranking-menu">
+        {% for slug, name in category_choices %}
+            <a
+                href="{% url 'category_ranking' category_slug=slug %}"
+                class="category-ranking-link {% if selected_category == slug %}active{% endif %}"
+            >
+                {{ name }}
+            </a>
+        {% endfor %}
+    </div>
+
+    <div class="post-grid" id="post-grid">
+        {% include "articles/_article_cards.html" %}
+
+        {% if not articles %}
+            <p class="empty-message">
+                このカテゴリーには、まだ記事がありません。
+            </p>
+        {% endif %}
+    </div>
+
+    <p><a href="/">ホームに戻る</a></p>
+
+</div>
+
+{% endblock %}
