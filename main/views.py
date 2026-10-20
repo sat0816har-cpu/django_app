@@ -1025,6 +1025,33 @@ def genre_ranking(request, genre_slug):
     )
 
 
+def category_ranking(request, category_slug):
+    articles = Article.objects.filter(
+        category=category_slug
+    ).order_by(
+        "-like_count",
+        "-created_at"
+    )
+
+    category_name = dict(
+        Article.CATEGORY_CHOICES
+    ).get(category_slug, "カテゴリー別")
+
+    context = {
+        "articles": articles,
+        "ranking_title": f"{category_name}ランキング",
+        "selected_category": category_slug,
+        "category_choices": Article.CATEGORY_CHOICES,
+    }
+
+    return render(
+        request,
+        "articles/category_ranking.html",
+        context
+    )
+
+
+
 
 
 
