@@ -19,6 +19,12 @@ urlpatterns = [
         views.article_list
     ),
 
+    path(
+    "ranking/",
+    views.article_ranking,
+    name="article_ranking"
+    ),
+
        # カテゴリー別ページ
     path(
         "category/<slug:category_slug>/",
