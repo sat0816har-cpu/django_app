@@ -447,7 +447,7 @@ article {
 
 .genre-item {
     justify-content: center;
-    padding-left: 2px;
+    padding-left: 0;
     text-align: center;
 }
 
