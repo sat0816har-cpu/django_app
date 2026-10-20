@@ -886,11 +886,12 @@ article {
     text-align: center;
 }
 
-    /* ジャンルもカテゴリーと同じ配置 */
-    .sidebar > .genre-item {
-        justify-content: flex-start;
-        padding-left: 2px;
-    }
+ .sidebar > .genre-item {
+    justify-content: center;
+    align-items: center;
+    padding-left: 0;
+    text-align: center;
+}
 
     /* スマホではPC用ラベルを隠す */
     .genre-pc,
