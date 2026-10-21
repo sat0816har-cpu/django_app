@@ -1,0 +1,172 @@
+
+{% load static %}
+
+<style>
+    .ranking-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        width: 100%;
+        max-width: 900px;
+        margin: 20px auto;
+    }
+
+    .ranking-item {
+        display: flex;
+        align-items: stretch;
+        gap: 12px;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .ranking-position {
+        flex: 0 0 58px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        align-self: flex-start;
+        min-height: 58px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        background: #f7f7f7;
+        font-size: 17px;
+        font-weight: bold;
+        box-sizing: border-box;
+    }
+
+    .ranking-position.rank-1 {
+        background: #fff1c2;
+        border-color: #e5c56a;
+    }
+
+    .ranking-position.rank-2 {
+        background: #edf0f5;
+        border-color: #c7ced8;
+    }
+
+    .ranking-position.rank-3 {
+        background: #f8e5d8;
+        border-color: #ddb69d;
+    }
+
+    .ranking-card {
+        flex: 1;
+        min-width: 0;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        box-sizing: border-box;
+    }
+
+    .ranking-card .post-card {
+        width: 100%;
+        min-width: 0;
+    }
+
+    @media (max-width: 480px) {
+        .ranking-list {
+            gap: 12px;
+        }
+
+        .ranking-item {
+            gap: 8px;
+        }
+
+        .ranking-position {
+            flex-basis: 44px;
+            min-height: 44px;
+            font-size: 14px;
+        }
+
+        .ranking-card {
+            padding: 6px;
+        }
+    }
+</style>
+
+<div class="ranking-list">
+    {% for article in articles %}
+        <div class="ranking-item">
+            <div class="ranking-position rank-{{ forloop.counter }}">
+                {{ forloop.counter }}位
+            </div>
+
+            <div class="ranking-card">
+                <article class="post-card">
+                    <a href="/articles/{{ article.id }}/"
+                       class="post-card-link">
+
+                        {% if article.image %}
+                            <img
+                                class="post-image"
+                                src="{{ article.image.url }}"
+                                alt="{{ article.title }}"
+                                loading="lazy"
+                            >
+                        {% else %}
+                            <img
+                                class="post-image"
+                                src="{% static 'images/default_article.jpg' %}"
+                                alt="記事のイメージ画像"
+                                loading="lazy"
+                            >
+                        {% endif %}
+
+                        <div class="post-card-body">
+                            <h3 class="post-card-title">
+                                {{ article.title }}
+                            </h3>
+
+                            <div class="post-card-meta">
+                                <span class="post-genre">
+                                    {{ article.get_genre_display }}
+                                </span>
+
+                                <span class="post-category">
+                                    {{ article.get_category_display }}
+                                </span>
+
+                                {% if article.sub_category %}
+                                    <span class="post-subcategory">
+                                        {{ article.sub_category }}
+                                    </span>
+                                {% endif %}
+                            </div>
+
+                            <p class="post-author">
+                                {{ article.author.username }}
+                            </p>
+
+                            <p class="post-date">
+                                {{ article.created_at|date:"Y年n月j日" }}
+                            </p>
+                        </div>
+                    </a>
+
+                    <div class="post-card-likes">
+                        <input
+                            type="hidden"
+                            class="csrf-token"
+                            value="{{ csrf_token }}"
+                        >
+
+                        <button
+                            type="button"
+                            class="like-button"
+                            data-like-url="{% url 'article_like' article.id %}"
+                            aria-label="この記事にいいね"
+                        >
+                            <span class="like-heart">♡</span>
+                            <span class="like-label">いいね</span>
+                            <span class="like-count">{{ article.like_count }}</span>
+                        </button>
+                    </div>
+                </article>
+            </div>
+        </div>
+    {% empty %}
+        <p class="empty-message">
+            ランキングに表示できる記事はまだありません。
+        </p>
+    {% endfor %}
+</div>
