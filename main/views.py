@@ -1078,8 +1078,8 @@ def recent_ranking(request):
         "-created_at"
     )
 
-    # 1ページに12記事表示
-    paginator = Paginator(articles, 12)
+    # 最近人気のベスト10を表示
+    articles = articles[:10]
     page_number = request.GET.get("page")
     page_obj = paginator.get_page(page_number)
 
