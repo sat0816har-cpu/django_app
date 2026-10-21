@@ -3,12 +3,20 @@
 
 {% load static %}
 
+{% block content %}
+
+<div class="feed-header">
+    <h2 class="feed-title">最近人気の記事 TOP 10</h2>
+    <p>直近7日間に「いいね」された記事をランキング表示します。</p>
+</div>
+
+
 
 <style>
     .recent-ranking-list {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 16px;
+        gap: 12px;
         width: 100%;
         max-width: 1200px;
         margin: 20px auto;
@@ -32,6 +40,13 @@
         font-weight: bold;
     }
 
+    .recent-ranking-card {
+        min-width: 0;
+        width: 100%;
+        padding: 0;
+        border: none;
+    }
+
     @media (max-width: 600px) {
         .recent-ranking-list {
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -40,72 +55,6 @@
     }
 </style>
 
-
-{% block content %}
-
-<div class="feed-header">
-    <h2 class="feed-title">最近人気の記事 TOP 10</h2>
-    <p>直近7日間に「いいね」された記事をランキング表示します。</p>
-</div>
-
-<style>
-    .recent-ranking-list {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        max-width: 900px;
-        margin: 0 auto;
-    }
-
-    .recent-ranking-item {
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-    }
-
-    .recent-ranking-rank {
-        flex: 0 0 52px;
-        min-height: 52px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border: 1px solid #ddd;
-        border-radius: 10px;
-        background: #f7f7f7;
-        font-size: 18px;
-        font-weight: bold;
-        box-sizing: border-box;
-    }
-
-    .recent-ranking-card {
-        flex: 1;
-        min-width: 0;
-        border: 1px solid #ddd;
-        border-radius: 12px;
-        padding: 12px;
-        box-sizing: border-box;
-    }
-
-    .recent-ranking-card .article-card {
-        width: 100%;
-    }
-
-    @media (max-width: 480px) {
-        .recent-ranking-item {
-            gap: 8px;
-        }
-
-        .recent-ranking-rank {
-            flex-basis: 44px;
-            min-height: 44px;
-            font-size: 15px;
-        }
-
-        .recent-ranking-card {
-            padding: 8px;
-        }
-    }
-</style>
 
 
 {% include "articles/_ranking_cards.html" with articles=articles %}
