@@ -6,33 +6,84 @@
 {% block content %}
 
 <div class="feed-header">
-    <h2 class="feed-title">最近人気の記事</h2>
+    <h2 class="feed-title">最近人気の記事 TOP 10</h2>
     <p>直近7日間に「いいね」された記事をランキング表示します。</p>
 </div>
 
-<div class="article-grid">
-    {% include "articles/_article_cards.html" with articles=articles %}
+<style>
+    .recent-ranking-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .recent-ranking-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .recent-ranking-rank {
+        flex: 0 0 52px;
+        min-height: 52px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background: #f7f7f7;
+        font-size: 18px;
+        font-weight: bold;
+        box-sizing: border-box;
+    }
+
+    .recent-ranking-card {
+        flex: 1;
+        min-width: 0;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        padding: 12px;
+        box-sizing: border-box;
+    }
+
+    .recent-ranking-card .article-card {
+        width: 100%;
+    }
+
+    @media (max-width: 480px) {
+        .recent-ranking-item {
+            gap: 8px;
+        }
+
+        .recent-ranking-rank {
+            flex-basis: 44px;
+            min-height: 44px;
+            font-size: 15px;
+        }
+
+        .recent-ranking-card {
+            padding: 8px;
+        }
+    }
+</style>
+
+<div class="recent-ranking-list">
+    {% for article in articles %}
+        <div class="recent-ranking-item">
+            <div class="recent-ranking-rank">
+                {{ forloop.counter }}位
+            </div>
+
+            <div class="recent-ranking-card">
+                {% include "articles/_article_cards.html" with articles=article|make_list %}
+            </div>
+        </div>
+    {% empty %}
+        <p>直近7日間に「いいね」された記事はまだありません。</p>
+    {% endfor %}
 </div>
-
-{% if page_obj.has_other_pages %}
-    <div class="pagination">
-        {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}">
-                前へ
-            </a>
-        {% endif %}
-
-        <span>
-            {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}ページ
-        </span>
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">
-                次へ
-            </a>
-        {% endif %}
-    </div>
-{% endif %}
 
 <div class="ranking-back">
     <a href="/">トップページへ戻る</a>
