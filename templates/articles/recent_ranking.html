@@ -3,6 +3,44 @@
 
 {% load static %}
 
+
+<style>
+    .recent-ranking-list {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 16px;
+        width: 100%;
+        max-width: 1200px;
+        margin: 20px auto;
+    }
+
+    .recent-ranking-item {
+        position: relative;
+        min-width: 0;
+    }
+
+    .recent-ranking-rank {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        z-index: 2;
+        padding: 4px 7px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background: #fff;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    @media (max-width: 600px) {
+        .recent-ranking-list {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+        }
+    }
+</style>
+
+
 {% block content %}
 
 <div class="feed-header">
