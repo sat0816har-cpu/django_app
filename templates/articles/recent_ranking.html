@@ -53,11 +53,27 @@
             gap: 10px;
         }
     }
+
+    
+    /* 最近人気ランキングだけPC横5列 */
+    .recent-ranking-page .ranking-list {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    /* スマホは今までどおり横2列 */
+    @media (max-width: 600px) {
+        .recent-ranking-page .ranking-list {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
 </style>
 
 
 
-{% include "articles/_ranking_cards.html" with articles=articles %}
+<div class="recent-ranking-page">
+    {% include "articles/_ranking_cards.html" with articles=articles %}
+</div>
 
 
 <div class="ranking-back">
