@@ -1061,6 +1061,7 @@ def category_ranking(request, category_slug):
     )
 
 
+
 def recent_ranking(request):
     # 7日前の日時を取得
     since = timezone.now() - timedelta(days=7)
@@ -1080,15 +1081,12 @@ def recent_ranking(request):
 
     # 最近人気のベスト10を表示
     articles = articles[:10]
-    page_number = request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
 
     return render(
         request,
         "articles/recent_ranking.html",
         {
-            "articles": page_obj,
-            "page_obj": page_obj,
+            "articles": articles,
             "ranking_title": "最近人気の記事",
         }
     )
