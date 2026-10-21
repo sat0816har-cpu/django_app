@@ -4,6 +4,7 @@ from django.contrib import admin
 from .models import (
     Article,
     ArticleLike,
+    ArticleView,
     Profile,
     Comment,
     ArticleImage,
