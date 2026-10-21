@@ -191,4 +191,23 @@ class ArticleVideo(models.Model):
         return f"{self.article.title}の追加動画"
 
 
+class ArticleView(models.Model):
+    article = models.ForeignKey(
+        Article,
+        on_delete=models.CASCADE,
+        related_name="views"
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    def __str__(self):
+        return f"{self.article.title}の閲覧"
+    
+    class Meta:
+        ordering = ["-created_at"]
+
+
+
 
