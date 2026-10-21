@@ -22,3 +22,9 @@ admin.site.register(ArticleVideo)
 @admin.register(ArticleLike)
 class ArticleLikeAdmin(admin.ModelAdmin):
     list_display = ("article", "created_at")
+
+
+@admin.register(ArticleView)
+class ArticleViewAdmin(admin.ModelAdmin):
+    list_display = ("article", "created_at")
+
