@@ -14,37 +14,39 @@
 
     <div class="ranking-card-grid">
 
-        <a href="{% url 'article_ranking' %}" class="ranking-card">
-            <span class="ranking-card-icon">🏆</span>
-            <span class="ranking-card-title">総合ランキング</span>
-            <span class="ranking-card-description">
-                これまでの人気記事
-            </span>
-        </a>
 
-        <a href="{% url 'recent_ranking' %}" class="ranking-card">
-            <span class="ranking-card-icon">🔥</span>
-            <span class="ranking-card-title">最近の人気</span>
-            <span class="ranking-card-description">
-                最近注目されている記事
-            </span>
-        </a>
+<a href="{% url 'article_ranking' %}" class="ranking-card">
+    <span class="ranking-card-icon ranking-icon-total">🏆</span>
+    <span class="ranking-card-title">総合ランキング</span>
+    <span class="ranking-card-description">
+        これまでの人気記事
+    </span>
+</a>
 
-        <a href="{% url 'genre_ranking' genre_slug='hobby' %}" class="ranking-card">
-    <span class="ranking-card-icon">🎨</span>
+<a href="{% url 'recent_ranking' %}" class="ranking-card">
+    <span class="ranking-card-icon ranking-icon-recent">🏆</span>
+    <span class="ranking-card-title">最近の人気</span>
+    <span class="ranking-card-description">
+        最近注目されている記事
+    </span>
+</a>
+
+<a href="{% url 'genre_ranking' genre_slug='hobby' %}" class="ranking-card">
+    <span class="ranking-card-icon ranking-icon-genre">🏆</span>
     <span class="ranking-card-title">ジャンル別</span>
     <span class="ranking-card-description">
         好きなジャンルから探す
     </span>
 </a>
 
-        <a href="{% url 'category_ranking' category_slug='music' %}" class="ranking-card">
-    <span class="ranking-card-icon">📚</span>
+<a href="{% url 'category_ranking' category_slug='music' %}" class="ranking-card">
+    <span class="ranking-card-icon ranking-icon-category">🏆</span>
     <span class="ranking-card-title">カテゴリー別</span>
     <span class="ranking-card-description">
         興味のあるテーマから探す
     </span>
 </a>
+
 
     </div>
 
