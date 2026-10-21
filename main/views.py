@@ -256,6 +256,17 @@ def article_detail(request, article_id):
         id=article_id
     )
 
+    
+    # 記事の閲覧日時を記録
+    ArticleView.objects.create(
+        article=article
+    )
+
+    # 累計閲覧数を1増やす
+    article.view_count += 1
+    article.save(update_fields=["view_count"])
+
+
     error = ""
 
     # コメント投稿処理
