@@ -26,5 +26,5 @@ class ArticleLikeAdmin(admin.ModelAdmin):
 
 @admin.register(ArticleView)
 class ArticleViewAdmin(admin.ModelAdmin):
-    list_display = ("article", "created_at")
+    list_display = ("id",)
 
