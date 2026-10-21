@@ -5,8 +5,8 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("main", "0011_articleview"),
-    ]
+    ("main", "0011_article_view_count"),
+]
 
     operations = [
         migrations.AddField(
