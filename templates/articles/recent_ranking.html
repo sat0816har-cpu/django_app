@@ -70,73 +70,7 @@
 </style>
 
 
-<div class="recent-ranking-list">
-    {% for article in articles %}
-        <div class="recent-ranking-item">
-            <div class="recent-ranking-rank">
-                {{ forloop.counter }}位
-            </div>
-
-            <div class="recent-ranking-card">
-                <a href="/articles/{{ article.id }}/"
-                   class="post-card-link">
-
-                    {% if article.image %}
-                        <img
-                            class="post-image"
-                            src="{{ article.image.url }}"
-                            alt="{{ article.title }}"
-                            loading="lazy"
-                        >
-                    {% else %}
-                        <img
-                            class="post-image"
-                            src="{% static 'images/default_article.jpg' %}"
-                            alt="記事のイメージ画像"
-                            loading="lazy"
-                        >
-                    {% endif %}
-
-                    <div class="post-card-body">
-                        <h3 class="post-card-title">
-                            {{ article.title }}
-                        </h3>
-
-                        <div class="post-card-meta">
-                            <span class="post-genre">
-                                {{ article.get_genre_display }}
-                            </span>
-
-                            <span class="post-category">
-                                {{ article.get_category_display }}
-                            </span>
-
-                            {% if article.sub_category %}
-                                <span class="post-subcategory">
-                                    {{ article.sub_category }}
-                                </span>
-                            {% endif %}
-                        </div>
-
-                        <p class="post-author">
-                            {{ article.author.username }}
-                        </p>
-
-                        <p class="post-date">
-                            {{ article.created_at|date:"Y年n月j日" }}
-                        </p>
-                    </div>
-                </a>
-
-                <p class="post-card-likes">
-                    ♡ いいね {{ article.like_count }}
-                </p>
-            </div>
-        </div>
-    {% empty %}
-        <p>直近7日間に「いいね」された記事はまだありません。</p>
-    {% endfor %}
-</div>
+{% include "articles/_ranking_cards.html" with articles=articles %}
 
 
 <div class="ranking-back">
