@@ -1919,3 +1919,20 @@ article {
 
 
 
+/* ランキングアイコンの色 */
+.ranking-icon-total {
+    color: #D99A00;
+}
+
+.ranking-icon-recent {
+    color: #3478D4;
+}
+
+.ranking-icon-genre {
+    color: #D94D72;
+}
+
+.ranking-icon-category {
+    color: #278653;
+}
+
