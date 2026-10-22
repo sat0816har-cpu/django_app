@@ -43,17 +43,19 @@
 
     <h2>{{ ranking_title }}</h2>
 
-    <div class="post-grid" id="post-grid">
+    
+<div class="overall-ranking-page">
 
-        {% include "articles/_article_cards.html" %}
+    {% if articles %}
+        {% include "articles/_ranking_cards.html" with articles=articles %}
+    {% else %}
+        <p class="empty-message">
+            まだランキングに表示できる記事がありません。
+        </p>
+    {% endif %}
 
-        {% if not articles %}
-            <p class="empty-message">
-                まだランキングに表示できる記事がありません。
-            </p>
-        {% endif %}
+</div>
 
-    </div>
 
   
     {% if page_obj.has_other_pages %}
