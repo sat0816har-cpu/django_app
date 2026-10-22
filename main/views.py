@@ -1151,7 +1151,7 @@ def follow_user(request, username):
     )
 
 
-@login_required
+
 def follower_list(request, username):
     profile_user = get_object_or_404(
         User,
