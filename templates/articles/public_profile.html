@@ -81,10 +81,18 @@
         overflow: hidden;
     }
 
-    .public-profile-info {
-        flex: 1;
-        min-width: 0;
-    }
+   .public-profile-info {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: normal;
+    word-break: normal;
+}
+
+.public-profile-info p {
+    white-space: normal;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+}
 
     @media (max-width: 600px) {
         .public-profile-header {
