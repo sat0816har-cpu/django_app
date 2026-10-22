@@ -1004,9 +1004,10 @@ def password_reset_complete(request):
 
 
 
+
 def article_ranking(request):
     articles = Article.objects.all().order_by(
-        "-like_count",
+        "-view_count",
         "-created_at"
     )[:10]
 
@@ -1020,6 +1021,7 @@ def article_ranking(request):
         "articles/ranking_list.html",
         context
     )
+
 
 
 
