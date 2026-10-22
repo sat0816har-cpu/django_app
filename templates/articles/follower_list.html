@@ -1,0 +1,47 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h2>{{ profile_user.username }} さんのフォロワー</h2>
+
+{% if followers %}
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+
+        {% for follower in followers %}
+            <div style="border: 1px solid #dddddd; border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 12px;">
+
+                {% if follower.profile.image %}
+                    <img
+                        src="{{ follower.profile.image.url }}"
+                        alt="プロフィール画像"
+                        style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;"
+                    >
+                {% else %}
+                    {% load static %}
+                    <img
+                        src="{% static 'images/default_profile2.jpg' %}"
+                        alt="プロフィール画像"
+                        style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;"
+                    >
+                {% endif %}
+
+                <div>
+                    <a href="{% url 'public_profile' follower.username %}" style="font-weight: bold; text-decoration: none;">
+                        {{ follower.username }}
+                    </a>
+                </div>
+
+            </div>
+        {% endfor %}
+
+    </div>
+{% else %}
+    <p>まだフォロワーはいません。</p>
+{% endif %}
+
+<p style="margin-top: 24px;">
+    <a href="{% url 'public_profile' profile_user.username %}">プロフィールに戻る</a>
+</p>
+
+{% endblock %}
