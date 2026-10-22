@@ -1028,11 +1028,8 @@ def article_ranking(request):
 
 def genre_ranking(request, genre_slug):
     articles = Article.objects.filter(
-        genre=genre_slug
-    ).order_by(
-        "-like_count",
-        "-created_at"
-    )[:10]
+        genre=genre_slug)
+    .order_by("-view_count", "-created_at")[:10]
 
     genre_name = dict(
         Article.GENRE_CHOICES
@@ -1057,10 +1054,7 @@ def genre_ranking(request, genre_slug):
 def category_ranking(request, category_slug):
     articles = Article.objects.filter(
         category=category_slug
-    ).order_by(
-        "-like_count",
-        "-created_at"
-    )[:10]
+    ).order_by("-view_count", "-created_at")[:10]
 
     category_name = dict(
         Article.CATEGORY_CHOICES
