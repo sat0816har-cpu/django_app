@@ -9,6 +9,7 @@ from .models import (
     Comment,
     ArticleImage,
     ArticleVideo,
+    Follow,
 )
 
 
@@ -27,4 +28,8 @@ class ArticleLikeAdmin(admin.ModelAdmin):
 @admin.register(ArticleView)
 class ArticleViewAdmin(admin.ModelAdmin):
     list_display = ("article", "created_at")
+
+@admin.register(Follow)
+class FollowAdmin(admin.ModelAdmin):
+    list_display = ("follower", "following", "created_at")
 
