@@ -40,8 +40,13 @@
     <p>まだフォロワーはいません。</p>
 {% endif %}
 
+
 <p style="margin-top: 24px;">
-    <a href="{% url 'public_profile' profile_user.username %}">プロフィールに戻る</a>
+    <a href="{% url 'public_profile' profile_user.username %}"
+       style="display: inline-block; padding: 9px 14px; border: 1px solid #cccccc; border-radius: 8px; background-color: #f5f5f5; color: #333333; text-decoration: none; font-size: 14px;">
+        プロフィールに戻る
+    </a>
 </p>
+
 
 {% endblock %}
