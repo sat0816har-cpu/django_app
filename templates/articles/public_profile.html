@@ -76,14 +76,18 @@
 .public-profile-info {
     flex: 1 1 180px;
     min-width: 0;
+    overflow-wrap: normal;
 }
 
 .public-profile-info p {
+    display: block;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
     writing-mode: horizontal-tb;
-    overflow-wrap: break-word;
+    white-space: normal;
+    word-break: normal;
+    overflow-wrap: anywhere;
 }
 
     .public-profile-avatar {
@@ -95,18 +99,7 @@
         overflow: hidden;
     }
 
-   .public-profile-info {
-    flex: 1;
-    min-width: 0;
-    overflow-wrap: normal;
-    word-break: normal;
-}
-
-.public-profile-info p {
-    white-space: normal;
-    word-break: keep-all;
-    overflow-wrap: break-word;
-}
+ 
 
     @media (max-width: 600px) {
         .public-profile-header {
