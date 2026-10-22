@@ -1,0 +1,47 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<h2>{{ profile_user.username }} さんがフォロー中のユーザー</h2>
+
+{% if following_users %}
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px;">
+
+        {% for followed_user in following_users %}
+            <div style="border: 1px solid #dddddd; border-radius: 10px; padding: 16px; display: flex; align-items: center; gap: 12px;">
+
+                {% if followed_user.profile.image %}
+                    <img
+                        src="{{ followed_user.profile.image.url }}"
+                        alt="プロフィール画像"
+                        style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;"
+                    >
+                {% else %}
+                    <img
+                        src="{% static 'images/default_profile2.jpg' %}"
+                        alt="プロフィール画像"
+                        style="width: 56px; height: 56px; border-radius: 50%; object-fit: cover;"
+                    >
+                {% endif %}
+
+                <div>
+                    <a href="{% url 'public_profile' followed_user.username %}" style="font-weight: bold; text-decoration: none;">
+                        {{ followed_user.username }}
+                    </a>
+                </div>
+
+            </div>
+        {% endfor %}
+
+    </div>
+{% else %}
+    <p>まだ誰もフォローしていません。</p>
+{% endif %}
+
+<p style="margin-top: 24px;">
+    <a href="{% url 'public_profile' profile_user.username %}">プロフィールに戻る</a>
+</p>
+
+{% endblock %}
