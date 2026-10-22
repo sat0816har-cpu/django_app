@@ -1111,6 +1111,10 @@ def recent_ranking(request):
     )
 
 
+# 退会について
+def withdrawal(request):
+    return render(request, "articles/withdrawal.html")
+
 
 
 
