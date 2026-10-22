@@ -146,6 +146,12 @@ urlpatterns = [
         name="public_profile"
     ),
 
+    path(
+        "users/<str:username>/follow/",
+        views.follow_user,
+        name="follow_user"
+    ),
+
 
 
     path(
