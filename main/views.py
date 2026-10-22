@@ -1151,6 +1151,34 @@ def follow_user(request, username):
     )
 
 
+@login_required
+def follower_list(request, username):
+    profile_user = get_object_or_404(
+        User,
+        username=username
+    )
+
+    follows = Follow.objects.filter(
+        following=profile_user
+    ).select_related("follower").order_by("-created_at")
+
+    followers = [
+        follow.follower
+        for follow in follows
+    ]
+
+    context = {
+        "profile_user": profile_user,
+        "followers": followers,
+    }
+
+    return render(
+        request,
+        "articles/follower_list.html",
+        context
+    )
+
+
 
 
 
