@@ -842,6 +842,14 @@ def public_profile(request, username):
         author=profile_user
     ).order_by("-created_at")
 
+    follower_count = Follow.objects.filter(
+    following=profile_user
+    ).count()
+
+    following_count = Follow.objects.filter(
+        follower=profile_user
+    ).count()
+
     paginator = Paginator(articles, 8)
 
     page_obj = paginator.get_page(
@@ -851,6 +859,8 @@ def public_profile(request, username):
     context = {
     "profile_user": profile_user,
     "profile": profile,
+    "follower_count": follower_count,
+    "following_count": following_count,
     "articles": page_obj.object_list,
     "page_obj": page_obj,
     "has_next": page_obj.has_next(),
