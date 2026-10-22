@@ -1936,3 +1936,51 @@ article {
     color: #278653;
 }
 
+
+/* 退会についてのページ */
+.withdrawal-page {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 24px;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+}
+
+.withdrawal-page h2 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #e5e7eb;
+    font-size: 1.5rem;
+}
+
+.withdrawal-page h3 {
+    margin-top: 28px;
+    margin-bottom: 12px;
+    font-size: 1.1rem;
+}
+
+.withdrawal-page p {
+    margin-bottom: 16px;
+    color: #374151;
+}
+
+/* スマートフォン表示 */
+@media (max-width: 600px) {
+    .withdrawal-page {
+        padding: 16px;
+        border-radius: 8px;
+    }
+
+    .withdrawal-page h2 {
+        font-size: 1.3rem;
+    }
+
+    .withdrawal-page h3 {
+        font-size: 1.05rem;
+    }
+}
+
