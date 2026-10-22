@@ -3,7 +3,64 @@
 
 {% block content %}
 
-<div class="container">
+<style>
+    /* PCは横5列 */
+    .category-ranking-page .ranking-list {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    /* スマホは横2列 */
+    @media (max-width: 600px) {
+        .category-ranking-page .ranking-list {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    /* カテゴリー選択メニュー */
+    .category-ranking-menu {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 16px 0 20px;
+    }
+
+    .category-ranking-link {
+        display: inline-block;
+        padding: 7px 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .category-ranking-link.active {
+        background: #3478D4;
+        color: #fff;
+        border-color: #3478D4;
+    }
+
+    /* トップページへ戻るボタン */
+    .category-ranking-page .ranking-back {
+        text-align: center;
+        margin: 28px auto 16px;
+    }
+
+    .category-ranking-page .ranking-back-button {
+        display: inline-block;
+        padding: 10px 24px;
+        border-radius: 8px;
+        background: #3478D4;
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .category-ranking-page .ranking-back-button:hover {
+        background: #245ca8;
+    }
+</style>
+
+<div class="container category-ranking-page">
 
     <h2>{{ ranking_title }}</h2>
 
@@ -18,17 +75,19 @@
         {% endfor %}
     </div>
 
-    <div class="post-grid" id="post-grid">
-        {% include "articles/_article_cards.html" %}
+    {% if articles %}
+        {% include "articles/_ranking_cards.html" with articles=articles %}
+    {% else %}
+        <p class="empty-message">
+            このカテゴリーには、まだ記事がありません。
+        </p>
+    {% endif %}
 
-        {% if not articles %}
-            <p class="empty-message">
-                このカテゴリーには、まだ記事がありません。
-            </p>
-        {% endif %}
+    <div class="ranking-back">
+        <a href="/" class="ranking-back-button">
+            トップページへ戻る
+        </a>
     </div>
-
-    <p><a href="/">ホームに戻る</a></p>
 
 </div>
 
