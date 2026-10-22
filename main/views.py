@@ -1117,6 +1117,34 @@ def withdrawal(request):
     return render(request, "articles/withdrawal.html")
 
 
+@login_required
+@require_POST
+def follow_user(request, username):
+    target_user = get_object_or_404(
+        User,
+        username=username
+    )
+
+    # 自分自身はフォローできない
+    if request.user == target_user:
+        return redirect(
+            "public_profile",
+            username=username
+        )
+
+    # すでにフォローしている場合は重複登録しない
+    Follow.objects.get_or_create(
+        follower=request.user,
+        following=target_user
+    )
+
+    return redirect(
+        "public_profile",
+        username=username
+    )
+
+
+
 
 
 
