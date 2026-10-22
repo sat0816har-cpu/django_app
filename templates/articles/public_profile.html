@@ -172,6 +172,23 @@
     {% endif %}
 </div>
 
+
+        
+<div style="display: flex; flex-wrap: wrap; gap: 18px; margin-top: 16px; font-size: 14px;">
+
+    <a href="{% url 'follower_list' profile_user.username %}"
+       style="color: #333333; text-decoration: none;">
+        <strong>{{ follower_count }}</strong> フォロワー
+    </a>
+
+    <a href="{% url 'following_list' profile_user.username %}"
+       style="color: #333333; text-decoration: none;">
+        <strong>{{ following_count }}</strong> フォロー中
+    </a>
+
+</div>
+
+
         
 <div style="display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px;">
 
