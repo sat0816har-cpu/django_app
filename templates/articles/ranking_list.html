@@ -55,6 +55,7 @@
 
     </div>
 
+  
     {% if page_obj.has_other_pages %}
         <div class="pagination">
 
@@ -73,6 +74,20 @@
                     次へ
                 </a>
             {% endif %}
+
+        </div>
+    {% endif %}
+
+    <div class="ranking-back">
+        <a href="/" class="ranking-back-button">
+            トップページへ戻る
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
+
 
        
 <div class="ranking-back">
