@@ -1051,13 +1051,14 @@ def genre_ranking(request, genre_slug):
 
 
 
+
 def category_ranking(request, category_slug):
     articles = Article.objects.filter(
         category=category_slug
     ).order_by(
         "-like_count",
         "-created_at"
-    )
+    )[:10]
 
     category_name = dict(
         Article.CATEGORY_CHOICES
@@ -1075,6 +1076,7 @@ def category_ranking(request, category_slug):
         "articles/category_ranking.html",
         context
     )
+
 
 
 
