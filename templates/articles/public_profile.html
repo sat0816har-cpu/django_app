@@ -138,11 +138,40 @@
 {% endif %}
 
 
-        <div class="public-profile-info">
-            <h3 style="margin: 0;">
-                {{ profile_user.username }}
-            </h3>
-        </div>
+        
+<div class="public-profile-info">
+    <h3 style="margin: 0;">
+        {{ profile_user.username }}
+    </h3>
+
+    {% if user.is_authenticated and user != profile_user %}
+        <form method="post" action="{% url 'follow_user' profile_user.username %}" style="margin-top: 12px;">
+            {% csrf_token %}
+
+            {% if is_following %}
+                <button
+                    type="submit"
+                    style="padding: 8px 20px; border: 1px solid #cccccc; border-radius: 20px; background: #ffffff; color: #555555; cursor: pointer;"
+                    disabled
+                >
+                    フォロー中
+                </button>
+            {% else %}
+                <button
+                    type="submit"
+                    style="padding: 8px 20px; border: none; border-radius: 20px; background: #2678d4; color: #ffffff; cursor: pointer;"
+                >
+                    フォローする
+                </button>
+            {% endif %}
+        </form>
+    {% elif not user.is_authenticated %}
+        <p style="margin-top: 12px; font-size: 14px;">
+            フォローするにはログインしてください。
+        </p>
+    {% endif %}
+</div>
+
 
     </div>
 
