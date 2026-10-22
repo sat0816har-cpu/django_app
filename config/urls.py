@@ -164,6 +164,7 @@ urlpatterns = [
     path("about/", views.about, name="about"),
     path("contact/", views.contact, name="contact"),
     path("guide/", views.guide, name="guide"),
+    path("withdrawal/", views.withdrawal, name="withdrawal"),
 
     
 ]
