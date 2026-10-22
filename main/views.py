@@ -28,6 +28,7 @@ from .models import (
     ArticleView,
     Profile,
     Comment,
+    Follow,
 )
 
 from django.core.paginator import Paginator
