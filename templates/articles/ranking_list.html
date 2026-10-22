@@ -3,6 +3,42 @@
 
 {% block content %}
 
+
+<style>
+    /* 総合ランキング：PCは横5列 */
+    .overall-ranking-page #post-grid {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    /* スマホは横2列 */
+    @media (max-width: 600px) {
+        .overall-ranking-page #post-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+    }
+
+    /* トップページへ戻るボタン */
+    .overall-ranking-page .ranking-back {
+        text-align: center;
+        margin: 28px auto 16px;
+    }
+
+    .overall-ranking-page .ranking-back-button {
+        display: inline-block;
+        padding: 10px 24px;
+        border-radius: 8px;
+        background: #3478D4;
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .overall-ranking-page .ranking-back-button:hover {
+        background: #245ca8;
+    }
+</style>
+
+
 <div class="container overall-ranking-page">
 
     <h2>{{ ranking_title }}</h2>
@@ -38,13 +74,12 @@
                 </a>
             {% endif %}
 
-        </div>
-    {% endif %}
-
-    <p>
-        <a href="/">ホームに戻る</a>
-    </p>
-
+       
+<div class="ranking-back">
+    <a href="/" class="ranking-back-button">
+        トップページへ戻る
+    </a>
 </div>
+
 
 {% endblock %}
