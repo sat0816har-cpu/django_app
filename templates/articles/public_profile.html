@@ -67,10 +67,24 @@
 
     
     .public-profile-header {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-    }
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+}
+
+.public-profile-info {
+    flex: 1 1 180px;
+    min-width: 0;
+}
+
+.public-profile-info p {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    writing-mode: horizontal-tb;
+    overflow-wrap: break-word;
+}
 
     .public-profile-avatar {
         flex-shrink: 0;
