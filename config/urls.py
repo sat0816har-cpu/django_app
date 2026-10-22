@@ -158,6 +158,12 @@ urlpatterns = [
     name="follower_list"
     ),
 
+    path(
+    "users/<str:username>/following/",
+    views.following_list,
+    name="following_list"
+    ),
+
 
 
     path(
