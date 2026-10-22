@@ -849,12 +849,19 @@ def public_profile(request, username):
     )
 
     context = {
-        "profile_user": profile_user,
-        "profile": profile,
-        "articles": page_obj.object_list,
-        "page_obj": page_obj,
-        "has_next": page_obj.has_next(),
-    }
+    "profile_user": profile_user,
+    "profile": profile,
+    "articles": page_obj.object_list,
+    "page_obj": page_obj,
+    "has_next": page_obj.has_next(),
+    "is_following": (
+        request.user.is_authenticated
+        and Follow.objects.filter(
+            follower=request.user,
+            following=profile_user
+        ).exists()
+    ),
+}
 
     if request.GET.get("partial") == "1":
         return render(
