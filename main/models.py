@@ -209,5 +209,38 @@ class ArticleView(models.Model):
         ordering = ["-created_at"]
 
 
+class Follow(models.Model):
+    # フォローするユーザー
+    follower = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="following"
+    )
+
+    # フォローされるユーザー
+    following = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="followers"
+    )
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        # 同じ相手を重複してフォローできないようにする
+        constraints = [
+            models.UniqueConstraint(
+                fields=["follower", "following"],
+                name="unique_user_follow"
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.follower.username} → {self.following.username}"
+
+
+
 
 
