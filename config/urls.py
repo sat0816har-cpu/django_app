@@ -153,6 +153,12 @@ urlpatterns = [
     ),
 
     path(
+    "users/<str:username>/unfollow/",
+    views.unfollow_user,
+    name="unfollow_user"
+    ),
+
+    path(
     "users/<str:username>/followers/",
     views.follower_list,
     name="follower_list"
