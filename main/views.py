@@ -760,6 +760,14 @@ def my_articles(request):
         user=request.user
     )
 
+    follower_count = Follow.objects.filter(
+    following=request.user
+    ).count()
+
+    following_count = Follow.objects.filter(
+        follower=request.user
+    ).count()
+
     articles = Article.objects.filter(
         author=request.user
     ).order_by("-created_at")
@@ -774,6 +782,8 @@ def my_articles(request):
         "page_obj": page_obj,
         "has_next": page_obj.has_next(),
         "profile": profile,
+        "follower_count": follower_count,
+        "following_count": following_count,
         "page_title": f"{request.user.username}さんの投稿",
     }
 
