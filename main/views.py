@@ -1217,6 +1217,34 @@ def follower_list(request, username):
 
 
 
+def following_list(request, username):
+    profile_user = get_object_or_404(
+        User,
+        username=username
+    )
+
+    follows = Follow.objects.filter(
+        follower=profile_user
+    ).select_related("following").order_by("-created_at")
+
+    following_users = [
+        follow.following
+        for follow in follows
+    ]
+
+    context = {
+        "profile_user": profile_user,
+        "following_users": following_users,
+    }
+
+    return render(
+        request,
+        "articles/following_list.html",
+        context
+    )
+
+
+
 
 
 
