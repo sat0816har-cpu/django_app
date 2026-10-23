@@ -159,32 +159,35 @@
         {{ profile_user.username }}
     </h3>
 
-    {% if user.is_authenticated and user != profile_user %}
+    
+{% if user.is_authenticated and user != profile_user %}
+    {% if is_following %}
+        <form method="post" action="{% url 'unfollow_user' profile_user.username %}" style="margin-top: 12px;">
+            {% csrf_token %}
+            <button
+                type="submit"
+                style="padding: 8px 20px; border: 1px solid #cccccc; border-radius: 20px; background: #ffffff; color: #555555; cursor: pointer;"
+            >
+                フォロー解除
+            </button>
+        </form>
+    {% else %}
         <form method="post" action="{% url 'follow_user' profile_user.username %}" style="margin-top: 12px;">
             {% csrf_token %}
-
-            {% if is_following %}
-                <button
-                    type="submit"
-                    style="padding: 8px 20px; border: 1px solid #cccccc; border-radius: 20px; background: #ffffff; color: #555555; cursor: pointer;"
-                    disabled
-                >
-                    フォロー中
-                </button>
-            {% else %}
-                <button
-                    type="submit"
-                    style="padding: 8px 20px; border: none; border-radius: 20px; background: #2678d4; color: #ffffff; cursor: pointer;"
-                >
-                    フォローする
-                </button>
-            {% endif %}
+            <button
+                type="submit"
+                style="padding: 8px 20px; border: none; border-radius: 20px; background: #2678d4; color: #ffffff; cursor: pointer;"
+            >
+                フォローする
+            </button>
         </form>
-    {% elif not user.is_authenticated %}
+    {% endif %}
+{% elif not user.is_authenticated %}
     <p style="margin-top: 12px; font-size: 14px; width: 220px; max-width: 100%; writing-mode: horizontal-tb; white-space: normal; word-break: normal;">
         フォローするにはログインしてください。
     </p>
 {% endif %}
+
 </div>
 
 
