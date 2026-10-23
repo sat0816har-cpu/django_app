@@ -1161,6 +1161,33 @@ def follow_user(request, username):
     )
 
 
+@login_required
+@require_POST
+def unfollow_user(request, username):
+    target_user = get_object_or_404(
+        User,
+        username=username
+    )
+
+    # 自分自身はフォロー解除の対象にしない
+    if request.user == target_user:
+        return redirect(
+            "public_profile",
+            username=username
+        )
+
+    # フォロー関係を削除する
+    Follow.objects.filter(
+        follower=request.user,
+        following=target_user
+    ).delete()
+
+    return redirect(
+        "public_profile",
+        username=username
+    )
+
+
 
 def follower_list(request, username):
     profile_user = get_object_or_404(
