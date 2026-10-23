@@ -4,9 +4,21 @@
 {% block content %}
 
 <div class="feed-header">
-    <h2 class="feed-title">{{ category_name }}</h2>
+    <h2 class="feed-title">
+        {{ category_name }}
+        {% if sub_category %}
+            <span style="font-size: 0.75em; font-weight: normal; margin-left: 8px;">
+                {{ sub_category }}
+            </span>
+        {% endif %}
+    </h2>
+
     <p class="feed-description">
-        {{ category_name }}の投稿を見てみましょう。
+        {% if sub_category %}
+            {{ category_name }}の「{{ sub_category }}」の投稿を見てみましょう。
+        {% else %}
+            {{ category_name }}の投稿を見てみましょう。
+        {% endif %}
     </p>
 </div>
 
