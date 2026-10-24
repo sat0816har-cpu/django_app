@@ -121,8 +121,12 @@
 
     {% include "articles/_my_article_cards.html" %}
 
-    {% if not articles %}
-        <p>まだ投稿した記事はありません。</p>
+        {% if not articles %}
+        {% if status == "draft" %}
+            <p>下書きがありません。</p>
+        {% else %}
+            <p>まだ投稿した記事はありません。</p>
+        {% endif %}
     {% endif %}
 
 </div>
