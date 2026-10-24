@@ -389,12 +389,12 @@ article {
     }
 
     .header-search {
-    width: 160px;
+    width: 190px;
     max-width: 100%;
     min-width: 0;
-    height: 36px;
+    height: 38px;
     margin: 0;
-    flex: 0 1 160px;
+    flex: 0 1 190px;
 }
 
     .user-menu {
