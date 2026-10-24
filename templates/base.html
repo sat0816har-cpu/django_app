@@ -19,6 +19,18 @@
     </div>
 
 
+    <form action="/" method="get" class="header-search">
+        <input
+            type="search"
+            name="q"
+            placeholder="記事を検索..."
+            value="{{ request.GET.q|default:'' }}"
+            aria-label="記事を検索"
+        >
+        <button type="submit" aria-label="検索">⌕</button>
+    </form>
+
+
 <nav class="user-menu">
     <!--<div class="social-links header-social-links">
         <a href="https://x.com/SatoruHarada"
