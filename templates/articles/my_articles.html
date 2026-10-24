@@ -76,9 +76,45 @@
 <hr>
 
 
+
 <h2 class="mobile-articles-title">{{ user.username }}さんの投稿</h2>
 
+<div style="display: flex; gap: 10px; margin: 20px 0;">
+    <a
+        href="{% url 'my_articles' %}?status=published"
+        style="
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid #2563eb;
+            border-radius: 8px;
+            background: {% if status == 'published' %}#2563eb{% else %}#ffffff{% endif %};
+            color: {% if status == 'published' %}#ffffff{% else %}#374151{% endif %};
+        "
+    >
+        公開済み
+    </a>
+
+    <a
+        href="{% url 'my_articles' %}?status=draft"
+        style="
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid #2563eb;
+            border-radius: 8px;
+            background: {% if status == 'draft' %}#2563eb{% else %}#ffffff{% endif %};
+            color: {% if status == 'draft' %}#ffffff{% else %}#374151{% endif %};
+        "
+    >
+        下書き
+    </a>
+</div>
+
 <hr>
+
 
 
 <div class="my-articles-grid" id="my-articles-grid">
