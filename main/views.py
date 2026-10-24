@@ -1,6 +1,7 @@
 import os
 import secrets
 import resend
+from django.db.models import Q
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.http import require_POST
 from django.db.models import F
