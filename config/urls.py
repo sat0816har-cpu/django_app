@@ -190,7 +190,8 @@ urlpatterns = [
     path("contact/", views.contact, name="contact"),
     path("guide/", views.guide, name="guide"),
     path("withdrawal/", views.withdrawal, name="withdrawal"),
-    path("withdrawal/confirm/", views.withdrawal_confirm, name="withdrawal_confirm"),
+    path("withdrawal/confirm/", views.withdrawal_confirm_page, name="withdrawal_confirm_page"),
+    path("withdrawal/submit/", views.withdrawal_confirm, name="withdrawal_confirm"),
 
     
 ]
