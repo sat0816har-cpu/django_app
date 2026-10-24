@@ -368,7 +368,8 @@ article {
 @media (max-width: 650px) {
     .site-header {
         display: grid;
-        grid-template-columns: minmax(120px, 1fr) minmax(120px, 1fr);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        padding: 12px 8px;
         grid-template-rows: auto auto;
         align-items: center;
         gap: 8px;
