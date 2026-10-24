@@ -891,7 +891,8 @@ def public_profile(request, username):
     ).order_by("-created_at")
 
     follower_count = Follow.objects.filter(
-    following=profile_user
+    following=profile_user,
+    follower__is_active=True
     ).count()
 
     following_count = Follow.objects.filter(
