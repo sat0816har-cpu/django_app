@@ -406,7 +406,7 @@ article {
     height: 38px;
     margin: 0;
     box-sizing: border-box;
-    justify-self: start;
+    justify-self: end;
     background-color: red;
 }
 
