@@ -64,6 +64,10 @@ class Article(models.Model):
         auto_now_add=True
     )
 
+    is_published = models.BooleanField(
+        default=True
+    )
+
 
     like_count = models.PositiveIntegerField(
         default=0
