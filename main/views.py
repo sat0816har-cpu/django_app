@@ -353,6 +353,10 @@ def article_create(request):
             "youtube_url", ""
         ).strip()
 
+        is_published = (
+            request.POST.get("action") != "draft"
+        )
+
         valid_categories = [
             "music", "movie", "book", "photo",
             "travel", "cooking", "other",
@@ -369,16 +373,17 @@ def article_create(request):
         if genre not in valid_genres:
             genre = "other"
 
-        article = Article.objects.create(
-        author=request.user,
-        title=title,
-        content=content,
-        genre=genre,
-        category=category,
-        sub_category=sub_category,
-        image=image,
-        youtube_url=youtube_url,
-    )
+        Article.objects.create(
+            author=request.user,
+            title=title,
+            content=content,
+            genre=genre,
+            category=category,
+            sub_category=sub_category,
+            image=image,
+            youtube_url=youtube_url,
+            is_published=is_published,
+        )
 
         return redirect("my_articles")
 
