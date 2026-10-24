@@ -391,15 +391,15 @@
 
         </form>
 
-        <div class="article-form-actions">
-            <button
-                class="article-form-back"
-                type="button"
-                onclick="if (document.referrer) { try { const previous = new URL(document.referrer); if (previous.origin === window.location.origin) { window.history.back(); return; } } catch (e) {} } window.location.href = '/';"
-            >
-                ← 戻る
-            </button>
-        </div>
+<div class="article-form-actions">
+    <button
+        class="article-form-back"
+        type="button"
+        onclick="window.location.href='/my-articles/';"
+    >
+        ← マイページに戻る
+    </button>
+</div>
 
     </div>
 
