@@ -401,15 +401,14 @@ def article_create(request):
 
 
 
+
 @login_required
 def article_edit(request, article_id):
     article = get_object_or_404(
         Article,
-        id=article_id
+        id=article_id,
+        author=request.user
     )
-
-    if article.author != request.user:
-        return redirect("/")
 
     if request.method == "POST":
 
@@ -445,29 +444,37 @@ def article_edit(request, article_id):
             article.sub_category
         ).strip()
 
-        # YouTube動画は1本
-        youtube_url = request.POST.get(
-            "youtube_url", article.youtube_url
+        article.youtube_url = request.POST.get(
+            "youtube_url",
+            article.youtube_url
         ).strip()
 
-        # 新しい画像が選ばれた場合だけ差し替える
         image = request.FILES.get("image")
-
         if image:
             article.image = image
 
-        article.youtube_url = youtube_url
+        action = request.POST.get("action", "publish")
+
+        if action == "draft":
+            article.is_published = False
+        else:
+            article.is_published = True
+
         article.save()
 
-        return redirect(
-            f"/articles/{article.id}/"
-        )
+        if article.is_published:
+            return redirect(
+                f"/articles/{article.id}/"
+            )
+
+        return redirect("/my-articles/?status=draft")
 
     return render(
         request,
         "articles/form.html",
         {"article": article}
     )
+
 
 
 
