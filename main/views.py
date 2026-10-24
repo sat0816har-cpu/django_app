@@ -1190,6 +1190,14 @@ def withdrawal(request):
 @require_POST
 def withdrawal_confirm(request):
     user = request.user
+    password = request.POST.get("password", "")
+
+    if not user.check_password(password):
+        return render(
+            request,
+            "articles/withdrawal.html",
+            {"withdrawal_error": "パスワードが正しくありません。"}
+        )
 
     user.is_active = False
     user.save(update_fields=["is_active"])
