@@ -787,7 +787,8 @@ def my_articles(request):
     ).count()
 
     following_count = Follow.objects.filter(
-        follower=request.user
+    follower=request.user,
+    following__is_active=True
     ).count()
 
     status = request.GET.get("status", "published")
