@@ -365,17 +365,36 @@ article {
 
 /* スマートフォンでは2列 */
 @media (max-width: 650px) {
-    .site-header {
-        align-items: flex-start;
-        flex-direction: column;
-        padding: 16px;
-    }
+    
+.site-header {
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 12px;
+    gap: 12px;
+}
 
-    .site-brand {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 4px;
-    }
+.site-brand {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+    flex-shrink: 0;
+}
+
+.site-title {
+    font-size: 26px;
+}
+
+.header-search {
+    width: 140px;
+    height: 36px;
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.user-menu {
+    gap: 14px;
+}
 
     .site-title {
         font-size: 26px;
