@@ -1066,7 +1066,9 @@ def password_reset_complete(request):
 
 
 def article_ranking(request):
-    articles = Article.objects.all().order_by(
+    articles = Article.objects.filter(
+        is_published=True
+    ).order_by(
         "-view_count",
         "-created_at"
     )[:10]
@@ -1089,7 +1091,8 @@ def article_ranking(request):
 
 def genre_ranking(request, genre_slug):
     articles = Article.objects.filter(
-        genre=genre_slug
+        genre=genre_slug,
+        is_published=True
     ).order_by(
         "-view_count",
         "-created_at"
@@ -1118,8 +1121,12 @@ def genre_ranking(request, genre_slug):
 
 def category_ranking(request, category_slug):
     articles = Article.objects.filter(
-        category=category_slug
-    ).order_by("-view_count", "-created_at")[:10]
+        category=category_slug,
+        is_published=True
+    ).order_by(
+        "-view_count",
+        "-created_at"
+    )[:10]
 
     category_name = dict(
         Article.CATEGORY_CHOICES
@@ -1146,7 +1153,9 @@ def recent_ranking(request):
     since = timezone.now() - timedelta(days=7)
 
     # 直近7日間のいいね数を集計
-    articles = Article.objects.annotate(
+    articles = Article.objects.filter(
+        is_published=True
+    ).annotate(
         recent_like_count=Count(
             "likes",
             filter=Q(likes__created_at__gte=since)
