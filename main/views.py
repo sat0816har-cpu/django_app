@@ -259,8 +259,9 @@ def article_detail(request, article_id):
     article = get_object_or_404(
     Article,
     id=article_id,
-    is_published=True
-    )
+    is_published=True,
+    author__is_active=True
+)
 
     
     
