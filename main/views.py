@@ -782,7 +782,8 @@ def my_articles(request):
     )
 
     follower_count = Follow.objects.filter(
-    following=request.user
+    following=request.user,
+    follower__is_active=True
     ).count()
 
     following_count = Follow.objects.filter(
