@@ -364,14 +364,28 @@
             </div>
 
             <div class="article-form-actions">
-                <button class="article-form-submit" type="submit">
-                    {% if article %}
-                        変更を保存する
-                    {% else %}
-                        投稿する
-                    {% endif %}
-                </button>
-            </div>
+    <button
+        class="article-form-back"
+        type="submit"
+        name="action"
+        value="draft"
+    >
+        下書き保存
+    </button>
+
+    <button
+        class="article-form-submit"
+        type="submit"
+        name="action"
+        value="publish"
+    >
+        {% if article %}
+            変更を保存する
+        {% else %}
+            投稿する
+        {% endif %}
+    </button>
+</div>
 
         </form>
 
