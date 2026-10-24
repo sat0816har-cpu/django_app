@@ -1185,6 +1185,19 @@ def recent_ranking(request):
 def withdrawal(request):
     return render(request, "articles/withdrawal.html")
 
+# 退会処理
+@login_required
+@require_POST
+def withdrawal_confirm(request):
+    user = request.user
+
+    user.is_active = False
+    user.save(update_fields=["is_active"])
+
+    logout(request)
+
+    return redirect("/")
+
 
 @login_required
 @require_POST
