@@ -74,5 +74,29 @@
 
 </div>
 
+{% if user.is_authenticated %}
+    <hr>
+
+    <h3>退会手続き</h3>
+
+    <p>
+        退会するとログインできなくなります。
+        この操作は取り消せないため、内容を確認してから進めてください。
+    </p>
+
+    <form method="post" action="{% url 'withdrawal_confirm' %}">
+        {% csrf_token %}
+
+        <button type="submit"
+                onclick="return confirm('本当に退会しますか？');">
+            退会する
+        </button>
+    </form>
+{% else %}
+    <p>
+        退会手続きを行うには、ログインしてください。
+    </p>
+{% endif %}
+
 {% endblock %}
 ```
