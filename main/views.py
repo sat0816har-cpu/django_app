@@ -897,7 +897,8 @@ def public_profile(request, username):
     ).count()
 
     following_count = Follow.objects.filter(
-        follower=profile_user
+    follower=profile_user,
+    following__is_active=True
     ).count()
 
     paginator = Paginator(articles, 8)
