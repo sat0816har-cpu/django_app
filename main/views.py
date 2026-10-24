@@ -1318,8 +1318,8 @@ def following_list(request, username):
     )
 
     follows = Follow.objects.filter(
-        follower=profile_user,
-        follower__is_active=True
+    follower=profile_user,
+    following__is_active=True
     ).select_related("following").order_by("-created_at")
 
     following_users = [
