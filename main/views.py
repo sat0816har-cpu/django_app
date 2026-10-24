@@ -872,9 +872,10 @@ def profile_edit(request):
 
 def public_profile(request, username):
     profile_user = get_object_or_404(
-        User,
-        username=username
-    )
+    User,
+    username=username,
+    is_active=True
+)
 
     profile = Profile.objects.filter(
         user=profile_user
