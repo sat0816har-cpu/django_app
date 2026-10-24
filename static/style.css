@@ -401,7 +401,7 @@ article {
     grid-column: 2;
     grid-row: 1;
     display: flex;
-    width: 80% !important;
+    width: 100% !important;
     min-width: 0;
     height: 38px;
     margin-left: auto;
