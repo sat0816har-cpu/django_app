@@ -85,13 +85,30 @@
     </p>
 
     <form method="post" action="{% url 'withdrawal_confirm' %}">
-        {% csrf_token %}
+    {% csrf_token %}
 
-        <button type="submit"
-                onclick="return confirm('本当に退会しますか？');">
-            退会する
-        </button>
-    </form>
+    <label for="withdrawal-password">
+        現在のパスワード
+    </label>
+
+    <input
+        type="password"
+        id="withdrawal-password"
+        name="password"
+        required
+        autocomplete="current-password"
+    >
+
+    {% if withdrawal_error %}
+        <p class="error-message">{{ withdrawal_error }}</p>
+    {% endif %}
+
+    <button type="submit"
+            onclick="return confirm('本当に退会しますか？');">
+        退会する
+    </button>
+</form>
+
 {% else %}
     <p>
         退会手続きを行うには、ログインしてください。
