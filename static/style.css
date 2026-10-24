@@ -391,11 +391,11 @@ article {
     }
 
     .site-tagline {
-        grid-column: 1;
-        grid-row: 2;
-        margin: 0;
-        overflow-wrap: anywhere;
-    }
+    grid-column: 1;
+    grid-row: 2;
+    margin: 0;
+    white-space: nowrap;
+}
 
     .header-search {
     grid-column: 2;
