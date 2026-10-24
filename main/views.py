@@ -880,7 +880,8 @@ def public_profile(request, username):
     ).first()
 
     articles = Article.objects.filter(
-        author=profile_user
+        author=profile_user,
+        is_published=True
     ).order_by("-created_at")
 
     follower_count = Follow.objects.filter(
