@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="page-container withdrawal-page">
+
+    <h2>退会の最終確認</h2>
+
+    <p>
+        退会すると、アカウントが無効化され、
+        これまでのアカウントでログインできなくなります。
+    </p>
+
+    <p>
+        退会する前に、内容をもう一度確認してください。
+    </p>
+
+    {% if withdrawal_error %}
+        <p class="error-message">{{ withdrawal_error }}</p>
+    {% endif %}
+
+    <form method="post" action="{% url 'withdrawal_confirm' %}">
+        {% csrf_token %}
+
+        <label for="withdrawal-password">
+            現在のパスワード
+        </label>
+
+        <input
+            type="password"
+            id="withdrawal-password"
+            name="password"
+            required
+            autocomplete="current-password"
+        >
+
+        <button
+            type="submit"
+            onclick="return confirm('本当に退会しますか？');"
+        >
+            退会する
+        </button>
+    </form>
+
+    <p>
+        <a href="{% url 'withdrawal' %}">
+            退会についての説明に戻る
+        </a>
+    </p>
+
+</div>
+
+{% endblock %}
