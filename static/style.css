@@ -1984,3 +1984,33 @@ article {
     }
 }
 
+
+/* 自分の投稿一覧：PV数の情報レイヤー */
+.my-article-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    color: #475569;
+    font-size: 13px;
+}
+
+.my-article-info-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.my-article-info-label {
+    color: #64748b;
+}
+
+.my-article-info-value {
+    color: #334155;
+    font-weight: 600;
+}
+
