@@ -363,7 +363,7 @@
 
             </div>
 
-            <div class="article-form-actions">
+           <div class="article-form-actions">
     <button
         class="article-form-back"
         type="submit"
@@ -379,7 +379,9 @@
         name="action"
         value="publish"
     >
-        {% if article %}
+        {% if article and not article.is_published %}
+            公開する
+        {% elif article %}
             変更を保存する
         {% else %}
             投稿する
