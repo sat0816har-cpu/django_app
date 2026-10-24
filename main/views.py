@@ -110,7 +110,19 @@ def article_list(request):
     articles = Article.objects.filter(
         is_published=True,
         author__is_active=True
-    ).order_by("-created_at")
+    )
+
+    # 検索キーワードを取得
+    keyword = request.GET.get("q", "").strip()
+
+    # タイトルまたは本文を検索
+    if keyword:
+        articles = articles.filter(
+            Q(title__icontains=keyword) |
+            Q(content__icontains=keyword)
+        )
+
+    articles = articles.order_by("-created_at")
 
     paginator = Paginator(articles, 12)
     page_obj = paginator.get_page(
@@ -121,6 +133,7 @@ def article_list(request):
         "articles": page_obj.object_list,
         "page_obj": page_obj,
         "has_next": page_obj.has_next(),
+        "keyword": keyword,
     }
 
     if request.GET.get("partial") == "1":
