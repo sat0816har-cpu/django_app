@@ -368,31 +368,39 @@ article {
 @media (max-width: 650px) {
     .site-header {
         display: grid;
-        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-columns: minmax(105px, 0.9fr) minmax(135px, 1.1fr);
+        grid-template-rows: auto auto;
         align-items: center;
         gap: 8px;
-        padding: 12px 8px;
+        padding: 12px;
         box-sizing: border-box;
         width: 100%;
     }
 
     .site-brand {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 2px;
-        min-width: 0;
+        display: contents;
     }
 
     .site-title {
+        grid-column: 1;
+        grid-row: 1;
         font-size: 26px;
         white-space: nowrap;
+        margin: 0;
+    }
+
+    .site-tagline {
+        grid-column: 1;
+        grid-row: 2;
+        margin: 0;
+        overflow-wrap: anywhere;
     }
 
     .header-search {
+        grid-column: 2;
+        grid-row: 1;
         display: flex;
         width: 100%;
-        max-width: 100%;
         min-width: 0;
         height: 38px;
         margin: 0;
@@ -403,7 +411,7 @@ article {
         flex: 1;
         width: 0;
         min-width: 0;
-        padding: 0 4px;
+        padding: 0 6px;
         box-sizing: border-box;
         font-size: 12px;
     }
@@ -411,11 +419,27 @@ article {
     .header-search button {
         flex: 0 0 32px;
         width: 32px;
+        padding: 0;
     }
 
     .user-menu {
-        gap: 14px;
+        grid-column: 2;
+        grid-row: 2;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        gap: 6px;
+        min-width: 0;
+        font-size: 12px;
     }
+
+    .user-menu a {
+        margin: 0 !important;
+        padding: 6px 8px !important;
+    }
+
+
 
 
     .page-layout {
