@@ -167,8 +167,9 @@ def category_list(request, category_slug):
     # まずカテゴリー全体の記事を取得
     articles = Article.objects.filter(
     category=category_slug,
-    is_published=True
-    )
+    is_published=True,
+    author__is_active=True
+)
 
     # サブカテゴリーが選択されている場合は絞り込む
     if sub_category:
