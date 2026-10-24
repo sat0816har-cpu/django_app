@@ -367,11 +367,20 @@ article {
 @media (max-width: 650px) {
     
 .site-header {
+    display: flex;
     align-items: center;
+    justify-content: flex-start;
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    gap: 10px;
     padding: 12px;
-    gap: 12px;
+}
+
+.header-search {
+    width: 140px;
+    min-width: 0;
+    margin: 0;
+    flex-shrink: 1;
 }
 
 .site-brand {
@@ -385,12 +394,6 @@ article {
     font-size: 26px;
 }
 
-.header-search {
-    width: 140px;
-    height: 36px;
-    margin: 0;
-    flex-shrink: 0;
-}
 
 .user-menu {
     gap: 14px;
