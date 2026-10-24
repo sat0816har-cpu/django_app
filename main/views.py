@@ -816,6 +816,7 @@ def my_articles(request):
         "follower_count": follower_count,
         "following_count": following_count,
         "page_title": f"{request.user.username}さんの投稿",
+        "status": status,
     }
 
     if request.GET.get("partial") == "1":
