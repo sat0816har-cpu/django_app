@@ -404,7 +404,8 @@ article {
     width: 80% !important;
     min-width: 0;
     height: 38px;
-    margin: 0;
+    margin-left: auto;
+    margin-right: 0;
     box-sizing: border-box;
     justify-self: end;
     background-color: red;
