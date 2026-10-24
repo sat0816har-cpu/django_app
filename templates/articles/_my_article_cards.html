@@ -2,6 +2,8 @@
 {% load static %}
 
 {% for article in articles %}
+    <div class="my-article-wrapper">
+        {% include "articles/_my_article_info.html" %}
     <article class="post-card">
         <a href="{% if article.is_published %}/articles/{{ article.id }}/?from=my-articles{% else %}{% url 'article_edit' article.id %}{% endif %}"
     class="post-card-link"
@@ -73,6 +75,7 @@
             </button>
         </div>
     </article>
+            </div>
 {% endfor %}
 
 <span id="my-articles-load-more-status" data-has-next="{{ has_next|yesno:'true,false' }}" hidden></span>
