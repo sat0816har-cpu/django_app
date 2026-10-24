@@ -224,8 +224,9 @@ def genre_list(request, genre_slug):
         return HttpResponse("ジャンルが見つかりません。", status=404)
 
     articles = Article.objects.filter(
-    genre=genre_slug,
-    is_published=True
+        genre=genre_slug,
+        is_published=True,
+        author__is_active=True
     ).order_by("-created_at")
 
     paginator = Paginator(articles, 12)
