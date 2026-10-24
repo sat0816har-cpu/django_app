@@ -107,7 +107,8 @@ def article_like(request, article_id):
 
 def article_list(request):
     articles = Article.objects.filter(
-    is_published=True
+        is_published=True,
+        author__is_active=True
     ).order_by("-created_at")
 
     paginator = Paginator(articles, 12)
