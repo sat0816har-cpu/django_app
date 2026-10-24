@@ -397,16 +397,16 @@ article {
     }
 
     .header-search {
-        grid-column: 2;
-        grid-row: 1;
-        display: flex;
-        width: 30%;
-        min-width: 0;
-        height: 38px;
-        margin: 0;
-        box-sizing: border-box;
-        justify-self: start;
-    }
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    width: 100%;
+    min-width: 0;
+    height: 38px;
+    margin: 0;
+    box-sizing: border-box;
+    justify-self: stretch;
+}
 
     .header-search input {
         flex: 1;
