@@ -541,17 +541,17 @@
 
             <div class="article-comment-item">
 
-                <p class="article-comment-name">
-                    {{ comment.name }}
-                </p>
+    <p class="article-comment-date">
+        {{ comment.created_at|date:"Y年n月j日 H:i" }}
+    </p>
 
-                <p class="article-comment-date">
-                    {{ comment.created_at|date:"Y年n月j日 H:i" }}
-                </p>
+    <p class="article-comment-name">
+        {{ comment.name }}
+    </p>
 
-                <p class="article-comment-content">{{ comment.content }}</p>
+    <p class="article-comment-content">{{ comment.content }}</p>
 
-            </div>
+</div>
 
         {% empty %}
 
