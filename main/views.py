@@ -257,8 +257,9 @@ def genre_list(request, genre_slug):
 
 def article_detail(request, article_id):
     article = get_object_or_404(
-        Article,
-        id=article_id
+    Article,
+    id=article_id,
+    is_published=True
     )
 
     
