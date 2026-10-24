@@ -778,9 +778,23 @@ def my_articles(request):
         follower=request.user
     ).count()
 
-    articles = Article.objects.filter(
-        author=request.user
-    ).order_by("-created_at")
+    status = request.GET.get("status", "published")
+
+articles = Article.objects.filter(
+    author=request.user
+)
+
+if status == "draft":
+    articles = articles.filter(
+        is_published=False
+    )
+else:
+    status = "published"
+    articles = articles.filter(
+        is_published=True
+    )
+
+articles = articles.order_by("-created_at")
 
     paginator = Paginator(articles, 12)
     page_obj = paginator.get_page(
