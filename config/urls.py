@@ -79,7 +79,8 @@ urlpatterns = [
 
     path(
         "articles/<int:article_id>/edit/",
-        views.article_edit
+        views.article_edit,
+        name="article_edit"
     ),
 
     path(
