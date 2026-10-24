@@ -367,16 +367,15 @@ article {
 /* スマートフォン用ヘッダー */
 @media (max-width: 650px) {
     .site-header {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        padding: 12px 8px;
-        grid-template-rows: auto auto;
-        align-items: center;
-        gap: 8px;
-        padding: 12px;
-        box-sizing: border-box;
-        width: 100%;
-    }
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 8px;
+    box-sizing: border-box;
+    width: 100%;
+}
 
     .site-brand {
         display: contents;
