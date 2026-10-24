@@ -366,46 +366,40 @@ article {
 /* スマートフォンでは2列 */
 @media (max-width: 650px) {
     
-.site-header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 10px;
-    padding: 12px;
-}
+    .site-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 12px;
+    }
 
-.header-search {
-    width: 140px;
-    min-width: 0;
-    margin: 0;
-    flex-shrink: 1;
-}
-
-.site-brand {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 4px;
-    flex-shrink: 0;
-}
-
-.site-title {
-    font-size: 26px;
-}
-
-
-.user-menu {
-    gap: 14px;
-}
+    .site-brand {
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 4px;
+        flex-shrink: 0;
+    }
 
     .site-title {
         font-size: 26px;
     }
 
+    .header-search {
+        width: 140px;
+        max-width: calc(100% - 120px);
+        height: 36px;
+        margin: 0;
+        flex: 0 1 140px;
+    }
+
     .user-menu {
         gap: 14px;
     }
+
 
     .page-layout {
         grid-template-columns: 1fr;
