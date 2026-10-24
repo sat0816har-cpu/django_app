@@ -1285,10 +1285,10 @@ def follower_list(request, username):
         username=username
     )
 
-follows = Follow.objects.filter(
-    following=profile_user,
-    follower__is_active=True
-).select_related("follower").order_by("-created_at")
+    follows = Follow.objects.filter(
+        following=profile_user,
+        follower__is_active=True
+    ).select_related("follower").order_by("-created_at")
 
     followers = [
         follow.follower
