@@ -1205,35 +1205,7 @@ article {
 }
 
 
-/* スマホ：ヘッダーの位置を整える */
-@media (max-width: 650px) {
-    .site-header {
-    display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
-    align-items: center;
-    gap: 8px 12px;
-    padding: 12px;
-}
 
-    .site-brand {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-        min-width: 0;
-    }
-
-.user-menu {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    flex-wrap: nowrap;
-    gap: 12px;
-    font-size: 15px;
-    white-space: nowrap;
-　　}
-    
-}
 
 
 /* スマホ：ユーザー名とログアウトの位置を統一 */
