@@ -594,25 +594,51 @@
                     >
                 </div>
 
-                <div class="article-comment-group">
+                {% if user.is_authenticated %}
 
-                    <label
-                        class="article-comment-label"
-                        for="comment-name">
-                        ニックネーム
-                    </label>
+    <div class="article-comment-group">
 
-                    <input
-                        class="article-comment-input"
-                        type="text"
-                        id="comment-name"
-                        name="name"
-                        maxlength="50"
-                        value="{{ comment_name }}"
-                        required
-                    >
+        <label class="article-comment-label" for="comment-name">
+            ニックネーム
+        </label>
 
-                </div>
+        <input
+            class="article-comment-input"
+            type="text"
+            id="comment-name"
+            value="{{ user.username }}"
+            readonly
+        >
+
+        <p class="article-comment-empty">
+            ログイン中のユーザー名が表示されています。
+        </p>
+
+    </div>
+
+{% else %}
+
+    <div class="article-comment-group">
+
+        <label
+            class="article-comment-label"
+            for="comment-name">
+            ニックネーム
+        </label>
+
+        <input
+            class="article-comment-input"
+            type="text"
+            id="comment-name"
+            name="name"
+            maxlength="50"
+            value="{{ comment_name }}"
+            required
+        >
+
+    </div>
+
+{% endif %}
 
                 <div class="article-comment-group">
 
