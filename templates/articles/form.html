@@ -313,8 +313,7 @@
     id="article-content"
     name="content"
     hidden
->{{ editor_content|default:article.content|default:'' }}</textarea>
-
+>{% if article %}{{ article.content }}{% endif %}</textarea>
 <!-- Quillの編集画面 -->
 <!-- Quillの編集ボタン -->
 <div id="article-quill-toolbar">
