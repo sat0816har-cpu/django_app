@@ -45,6 +45,18 @@ body {
     font-size: 12px;
 }
 
+/* PC用：検索アイコンを上下左右の中央に配置 */
+@media (min-width: 651px) {
+    .header-search button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+}
+
 
 .user-menu {
     display: flex;
