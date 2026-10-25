@@ -304,16 +304,48 @@
             </div>
 
             <div class="article-form-group">
-                <label class="article-form-label" for="article-content">
-                    本文
-                </label>
-                <textarea
-                    class="article-form-textarea"
-                    id="article-content"
-                    name="content"
-                    placeholder="伝えたいことを書いてみましょう。"
-                    required
-                >{{ article.content|default:'' }}</textarea>
+                <label class="article-form-label" for="article-content-editor">
+    本文
+</label>
+
+<!-- 保存用：Quillで編集した本文をフォーム送信する -->
+<textarea
+    id="article-content"
+    name="content"
+    hidden
+>{{ article.content|default:'' }}</textarea>
+
+<!-- Quillの編集画面 -->
+<!-- Quillの編集ボタン -->
+<div id="article-quill-toolbar">
+    <span class="ql-formats">
+        <button type="button" class="ql-bold" title="太字"></button>
+        <button type="button" class="ql-italic" title="斜体"></button>
+        <button type="button" class="ql-underline" title="下線"></button>
+    </span>
+
+    <span class="ql-formats">
+        <button type="button" class="ql-header" value="1" title="大見出し"></button>
+        <button type="button" class="ql-header" value="2" title="小見出し"></button>
+    </span>
+
+    <span class="ql-formats">
+        <button type="button" class="ql-list" value="ordered" title="番号付きリスト"></button>
+        <button type="button" class="ql-list" value="bullet" title="箇条書き"></button>
+        <button type="button" class="ql-blockquote" title="引用"></button>
+    </span>
+
+    <span class="ql-formats">
+        <button type="button" class="ql-link" title="リンク"></button>
+        <button type="button" class="ql-clean" title="書式を解除"></button>
+    </span>
+</div>
+
+<!-- Quillの本文編集欄 -->
+<div
+    id="article-content-editor"
+    class="article-form-rich-editor"
+></div>
                 <p class="article-form-help">
                     自分の経験や好きなことを、自由に書いてみましょう。
                 </p>
