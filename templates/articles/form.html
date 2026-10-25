@@ -190,6 +190,61 @@
             width: 100%;
         }
     }
+
+        /* パソコン用：記事投稿画面を左右2列にする */
+    @media (min-width: 601px) {
+
+        .article-form-container {
+            max-width: 1200px;
+        }
+
+        /* 外側のカード枠を外し、内側の2枚をカードにする */
+        .article-form-card {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            box-shadow: none;
+        }
+
+        .article-form-layout {
+            display: grid;
+            grid-template-columns: minmax(260px, 0.85fr) minmax(0, 1.8fr);
+            grid-template-areas: "settings writing";
+            gap: 20px;
+            align-items: start;
+        }
+
+        /* 左側：記事の設定 */
+        .article-form-settings-card {
+            grid-area: settings;
+            min-width: 0;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 24px;
+            box-sizing: border-box;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        /* 右側：タイトルと本文 */
+        .article-form-writing-card {
+            grid-area: writing;
+            min-width: 0;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 28px;
+            box-sizing: border-box;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        /* 本文入力欄を広くする */
+        .article-form-writing-card .article-form-textarea {
+            height: calc(100vh - 360px);
+            min-height: 500px;
+        }
+    }
 </style>
 
 <div class="article-form-container">
@@ -214,10 +269,11 @@
             </div>
         {% endif %}
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" class="article-form-layout">
 
             {% csrf_token %}
 
+            <div class="article-form-writing-card">
             <div class="article-form-group">
                 <label class="article-form-label" for="article-title">
                     タイトル
@@ -248,7 +304,9 @@
                     自分の経験や好きなことを、自由に書いてみましょう。
                 </p>
             </div>
+            </div>
 
+            <div class="article-form-settings-card">
             <div class="article-form-group">
                 <label class="article-form-label" for="article-genre">
                     ジャンル
@@ -387,6 +445,7 @@
             投稿する
         {% endif %}
     </button>
+</div>
 </div>
 
         </form>
