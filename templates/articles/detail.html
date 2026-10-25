@@ -443,7 +443,7 @@
             </div>
         {% endif %}
 
-        <div class="article-detail-content">{{ article.content }}</div>
+        <div class="article-detail-content">{{ article_content|safe }}</div>
 
         {% if article.youtube_url %}
 
