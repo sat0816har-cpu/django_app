@@ -313,7 +313,7 @@
     id="article-content"
     name="content"
     hidden
->{{ article.content|default:'' }}</textarea>
+>{{ editor_content|default:article.content|default:'' }}</textarea>
 
 <!-- Quillの編集画面 -->
 <!-- Quillの編集ボタン -->
