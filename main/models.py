@@ -136,6 +136,14 @@ class Comment(models.Model):
         related_name="comments"
     )
 
+    user = models.ForeignKey(
+        User,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="comments"
+    )
+
     name = models.CharField(
         max_length=50
     )
