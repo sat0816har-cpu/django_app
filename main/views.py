@@ -52,6 +52,42 @@ from django.db.models import Count, Q
 logger = logging.getLogger(__name__)
 
 
+# 記事本文で使用できるHTMLタグ
+ARTICLE_CONTENT_TAGS = {
+    "p",
+    "br",
+    "strong",
+    "b",
+    "em",
+    "i",
+    "u",
+    "s",
+    "h1",
+    "h2",
+    "h3",
+    "ol",
+    "ul",
+    "li",
+    "blockquote",
+    "pre",
+    "code",
+    "a",
+}
+
+
+# 記事本文のHTMLを安全に整える
+def sanitize_article_content(content):
+    return nh3.clean(
+        content,
+        tags=ARTICLE_CONTENT_TAGS,
+        attributes={
+            "a": {"href", "title"},
+        },
+        strip_comments=True,
+        link_rel="noopener noreferrer",
+    )
+
+
 
 @require_POST
 def article_like(request, article_id):
