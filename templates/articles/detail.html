@@ -550,7 +550,7 @@
     </p>
 
     <p class="article-comment-name">
-    {% if comment.user %}
+    {% if comment.user and comment.user.is_active %}
         <a href="/users/{{ comment.user.username }}/">
             {{ comment.name }}
         </a>
