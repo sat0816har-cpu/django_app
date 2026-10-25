@@ -144,6 +144,10 @@ class Comment(models.Model):
         related_name="comments"
     )
 
+    user_was_registered = models.BooleanField(
+        default=False
+    )
+
     name = models.CharField(
         max_length=50
     )
