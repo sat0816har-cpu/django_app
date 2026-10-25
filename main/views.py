@@ -386,6 +386,9 @@ def article_detail(request, article_id):
         "articles/detail.html",
         {
             "article": article,
+            "article_content": sanitize_article_content(
+                article.content
+            ),
             "comments": comments,
             "error": error,
             "from_my_articles": (
@@ -393,7 +396,6 @@ def article_detail(request, article_id):
             ),
         }
     )
-
 
 
 
