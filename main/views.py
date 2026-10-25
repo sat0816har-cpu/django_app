@@ -324,6 +324,7 @@ def article_detail(request, article_id):
             Comment.objects.create(
                 article=article,
                 user=request.user if request.user.is_authenticated else None,
+                user_was_registered=request.user.is_authenticated,
                 name=name,
                 content=content
             )
