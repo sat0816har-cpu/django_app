@@ -323,6 +323,7 @@ def article_detail(request, article_id):
             # コメントをデータベースに保存
             Comment.objects.create(
                 article=article,
+                user=request.user if request.user.is_authenticated else None,
                 name=name,
                 content=content
             )
