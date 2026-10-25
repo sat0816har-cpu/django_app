@@ -267,25 +267,60 @@
         }
     }
 
-    /* Quillのツールバーを中央揃えにする */
+  /* Quillのツールバー：左にスタイル、中央にアイコン */
 #article-quill-toolbar {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* 左端の文字スタイル */
+#article-quill-toolbar .article-quill-style-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+/* スタイルの説明文字 */
+#article-quill-toolbar .article-quill-style-label {
+    font-size: 13px;
+    color: #374151;
+}
+
+/* 編集アイコンを中央に配置 */
+#article-quill-toolbar .article-quill-icon-groups {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 4px;
+    min-width: 0;
 }
 
-/* ボタンのグループ間隔 */
+/* アイコンのグループ間隔 */
 #article-quill-toolbar .ql-formats {
-    margin-right: 4px;
+    margin-right: 0;
+    margin-bottom: 0;
 }
 
-/* スマホでは幅に合わせて折り返す */
+/* スマホでは折り返し、アイコンを中央揃え */
 @media (max-width: 600px) {
     #article-quill-toolbar {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 8px;
+    }
+
+    #article-quill-toolbar .article-quill-style-controls {
+        justify-content: flex-start;
         flex-wrap: wrap;
-        row-gap: 6px;
+    }
+
+    #article-quill-toolbar .article-quill-icon-groups {
+        justify-content: center;
     }
 }
 </style>
@@ -345,31 +380,44 @@
 >{% if article %}{{ article.content }}{% endif %}</textarea>
 <!-- Quillの編集画面 -->
 <!-- Quillの編集ボタン -->
+
 <div id="article-quill-toolbar">
-    <span class="ql-formats">
-        <button type="button" class="ql-bold" title="太字"></button>
-        <button type="button" class="ql-italic" title="斜体"></button>
-        <button type="button" class="ql-underline" title="下線"></button>
-    </span>
 
+    <!-- 左側：文字のスタイル -->
+    <div class="article-quill-style-controls">
+        <span class="article-quill-style-label">
+            文字のスタイル：
+        </span>
 
+        <select class="ql-header" title="文字のスタイル">
+            <option selected value="">本文</option>
+            <option value="1">大きな見出し</option>
+            <option value="2">小さな見出し</option>
+        </select>
+    </div>
 
-<select class="ql-header" title="文字のスタイル">
-    <option selected value="">本文</option>
-    <option value="1">h1</option>
-    <option value="2">h2</option>
-</select>
+    <!-- 中央：文章編集アイコン -->
+    <div class="article-quill-icon-groups">
 
-    <span class="ql-formats">
-        <button type="button" class="ql-list" value="ordered" title="番号付きリスト"></button>
-        <button type="button" class="ql-list" value="bullet" title="箇条書き"></button>
-        <button type="button" class="ql-blockquote" title="引用"></button>
-    </span>
+        <span class="ql-formats">
+            <button type="button" class="ql-bold" title="太字"></button>
+            <button type="button" class="ql-italic" title="斜体"></button>
+            <button type="button" class="ql-underline" title="下線"></button>
+        </span>
 
-    <span class="ql-formats">
-        <button type="button" class="ql-link" title="リンク"></button>
-        <button type="button" class="ql-clean" title="書式を解除"></button>
-    </span>
+        <span class="ql-formats">
+            <button type="button" class="ql-list" value="ordered" title="番号付きリスト"></button>
+            <button type="button" class="ql-list" value="bullet" title="箇条書き"></button>
+            <button type="button" class="ql-blockquote" title="引用"></button>
+        </span>
+
+        <span class="ql-formats">
+            <button type="button" class="ql-link" title="リンク"></button>
+            <button type="button" class="ql-clean" title="書式を解除"></button>
+        </span>
+
+    </div>
+
 </div>
 
 <!-- Quillの本文編集欄 -->
