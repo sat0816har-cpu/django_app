@@ -470,7 +470,9 @@ def article_edit(request, article_id):
     if request.method == "POST":
 
         article.title = request.POST["title"]
-        article.content = request.POST["content"]
+        article.content = sanitize_article_content(
+            request.POST.get("content", "")
+    )
 
         genre = request.POST.get(
             "genre", article.genre
