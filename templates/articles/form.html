@@ -617,6 +617,75 @@ document.addEventListener("DOMContentLoaded", function () {
 
 <script src="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.js"></script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const editorElement = document.getElementById(
+        "article-content-editor"
+    );
+
+    const toolbarElement = document.getElementById(
+        "article-quill-toolbar"
+    );
+
+    const contentInput = document.getElementById(
+        "article-content"
+    );
+
+    const form = editorElement
+        ? editorElement.closest("form")
+        : null;
+
+    if (
+        !editorElement ||
+        !toolbarElement ||
+        !contentInput ||
+        !form ||
+        typeof Quill === "undefined"
+    ) {
+        return;
+    }
+
+    const quill = new Quill(editorElement, {
+        theme: "snow",
+        modules: {
+            toolbar: toolbarElement
+        },
+        formats: [
+            "bold",
+            "italic",
+            "underline",
+            "header",
+            "list",
+            "blockquote",
+            "link"
+        ]
+    });
+
+    // 編集時は、保存されている本文を読み込む
+    if (contentInput.value.trim()) {
+        quill.clipboard.dangerouslyPasteHTML(
+            contentInput.value,
+            "silent"
+        );
+    }
+
+    // 送信前に本文を保存用の欄へ反映する
+    form.addEventListener("submit", function (event) {
+        if (!quill.getText().trim()) {
+            event.preventDefault();
+            alert("本文を入力してください。");
+            quill.focus();
+            return;
+        }
+
+        contentInput.value = quill.getSemanticHTML(
+            0,
+            quill.getLength()
+        );
+    });
+});
+</script>
+
 <link href="https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css" rel="stylesheet">
 
 
