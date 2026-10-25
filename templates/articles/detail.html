@@ -550,8 +550,14 @@
     </p>
 
     <p class="article-comment-name">
+    {% if comment.user %}
+        <a href="/users/{{ comment.user.username }}/">
+            {{ comment.name }}
+        </a>
+    {% else %}
         {{ comment.name }}
-    </p>
+    {% endif %}
+</p>
 
     <p class="article-comment-content">{{ comment.content }}</p>
 
