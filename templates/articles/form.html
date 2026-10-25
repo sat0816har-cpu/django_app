@@ -661,6 +661,50 @@ document.addEventListener("DOMContentLoaded", function () {
         ]
     });
 
+        // 本文ボタンで見出しを通常の文字に戻す
+    const normalTextButton = document.getElementById(
+        "ql-normal-text"
+    );
+
+    if (normalTextButton) {
+        normalTextButton.addEventListener("click", function () {
+            const range = quill.getSelection(true);
+
+            if (!range) {
+                return;
+            }
+
+            const startInfo = quill.getLine(range.index);
+
+            if (!startInfo[0]) {
+                return;
+            }
+
+            const startLine = startInfo[0];
+
+            const endIndex = Math.min(
+                range.index + range.length,
+                quill.getLength() - 1
+            );
+
+            const endInfo = quill.getLine(endIndex);
+            const endLine = endInfo[0] || startLine;
+
+            const startLineIndex = quill.getIndex(startLine);
+
+            const endLineIndex =
+                quill.getIndex(endLine) + endLine.length();
+
+            quill.formatLine(
+                startLineIndex,
+                endLineIndex - startLineIndex,
+                "header",
+                false,
+                "user"
+            );
+        });
+    }
+
     // 編集時は、保存されている本文を読み込む
     if (contentInput.value.trim()) {
         quill.clipboard.dangerouslyPasteHTML(
