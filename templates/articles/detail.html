@@ -554,6 +554,8 @@
         <a href="/users/{{ comment.user.username }}/">
             {{ comment.name }}
         </a>
+    {% elif comment.user_was_registered %}
+        退会したユーザー
     {% else %}
         {{ comment.name }}
     {% endif %}
