@@ -399,6 +399,7 @@ article {
     grid-row: 2;
     margin: 0;
     white-space: nowrap;
+    transform: translateY(-4px);
 }
 
     .header-search {
