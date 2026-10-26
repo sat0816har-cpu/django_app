@@ -411,6 +411,69 @@ document.addEventListener("click", async function(event) {
 });
 </script>
 
+<!-- ページ先頭へ戻るボタン -->
+<button
+    type="button"
+    id="back-to-top"
+    aria-label="ページの先頭へ戻る"
+    title="ページの先頭へ戻る">
+    ↑
+</button>
+
+<style>
+    #back-to-top {
+        display: none;
+        position: fixed;
+        right: 20px;
+        bottom: 24px;
+        z-index: 9999;
+        width: 48px;
+        height: 48px;
+        border: 1px solid #1d4ed8;
+        border-radius: 50%;
+        background: #2563eb;
+        color: #ffffff;
+        font-size: 28px;
+        font-weight: bold;
+        line-height: 1;
+        cursor: pointer;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.18);
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, transform 0.2s;
+    }
+
+    #back-to-top:hover {
+        background: #1d4ed8;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
+        #back-to-top {
+            right: 14px;
+            bottom: 18px;
+            width: 44px;
+            height: 44px;
+        }
+    }
+</style>
+
+<script>
+    const backToTopButton = document.getElementById("back-to-top");
+
+    window.addEventListener("scroll", function () {
+        backToTopButton.style.display =
+            window.scrollY > 300 ? "flex" : "none";
+    });
+
+    backToTopButton.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+</script>
+
 
 </body>
 </html>
