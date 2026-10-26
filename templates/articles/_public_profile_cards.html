@@ -59,8 +59,8 @@
                 </p>
 
                 <p class="public-profile-card-excerpt">
-                    {{ article.content|truncatechars:70 }}
-                </p>
+    {{ article.content|striptags|truncatechars:70 }}
+</p>
 
             </div>
         </a>
