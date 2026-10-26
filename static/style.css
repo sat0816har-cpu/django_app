@@ -45,6 +45,20 @@ body {
     font-size: 12px;
 }
 
+.user-icon-svg {
+    display: inline-block;
+    width: 21px;
+    height: 21px;
+    flex-shrink: 0;
+    vertical-align: middle;
+}
+
+.user-name {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
 /* PC用：検索アイコンを上下左右の中央に配置 */
 @media (min-width: 651px) {
     .header-search button {
