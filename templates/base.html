@@ -41,8 +41,24 @@
     <nav class="user-menu">
         {% if user.is_authenticated %}
             <span class="user-name">
-                <span class="user-icon">👤</span>{{ user.username }}さん
-            </span>
+    <svg
+        class="user-icon-svg"
+        xmlns="http://www.w3.org/2000/svg"
+        width="21"
+        height="21"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#2563eb"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+    >
+        <circle cx="12" cy="8" r="5"></circle>
+        <path d="M20 21a8 8 0 0 0-16 0"></path>
+    </svg>
+    <span>{{ user.username }}さん</span>
+</span>
             <a href="/logout/"
    style="display: inline-flex; align-items: center; justify-content: center; gap: 7px; padding: 9px 18px; background-color: #f3f4f6; color: #374151; border: 1px solid #e5e7eb; border-radius: 7px; text-decoration: none; margin-left: 8px;">
 
