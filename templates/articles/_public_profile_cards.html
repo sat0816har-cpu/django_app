@@ -1,4 +1,4 @@
-{% load static %}
+{% load static text_extras %}
 
 {% for article in articles %}
     <article class="post-card">
@@ -58,8 +58,8 @@
                     {{ article.created_at|date:"Y年n月j日" }}
                 </p>
 
-                <p class="public-profile-card-excerpt">
-    {{ article.content|striptags|truncatechars:70 }}
+               <p class="public-profile-card-excerpt">
+    {{ article.content|plain_text|truncatechars:70 }}
 </p>
 
             </div>
