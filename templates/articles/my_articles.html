@@ -6,6 +6,96 @@
 {% block content %}
 
 
+<style>
+    /* Webサイト・SNS */
+    .my-profile-social {
+        margin-top: 24px;
+    }
+
+    .my-profile-social-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .my-profile-social-card {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+        padding: 12px;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        background: #ffffff;
+        color: #374151;
+        text-decoration: none;
+        box-sizing: border-box;
+    }
+
+    .my-profile-social-card:hover {
+        background: #f8fafc;
+        border-color: #bfdbfe;
+    }
+
+    .my-profile-social-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 34px;
+        height: 34px;
+        border-radius: 9px;
+        background: #eff6ff;
+        color: #2563eb;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .my-profile-social-text {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .my-profile-social-name {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    .my-profile-social-action {
+        display: block;
+        margin-top: 3px;
+        color: #2563eb;
+        font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+        .my-profile-social-grid {
+            gap: 8px;
+        }
+
+        .my-profile-social-card {
+            gap: 7px;
+            padding: 10px 8px;
+        }
+
+        .my-profile-social-icon {
+            width: 28px;
+            height: 28px;
+            font-size: 14px;
+        }
+
+        .my-profile-social-name {
+            font-size: 13px;
+        }
+
+        .my-profile-social-action {
+            font-size: 11px;
+        }
+    }
+</style>
+
+
 <div class="my-profile">
 
     <div class="profile-avatar">
@@ -44,6 +134,68 @@
             <p>{{ profile.introduction|linebreaksbr }}</p>
         {% else %}
             <p>自己紹介はまだ登録されていません。</p>
+        {% endif %}
+
+                {% if profile.website_url or profile.x_url or profile.instagram_url or profile.youtube_url %}
+            <div class="my-profile-social">
+                <h3>Webサイト・SNS</h3>
+
+                <div class="my-profile-social-grid">
+
+                    {% if profile.website_url %}
+                        <a href="{{ profile.website_url }}"
+                           class="my-profile-social-card"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            <span class="my-profile-social-icon">↗</span>
+                            <span class="my-profile-social-text">
+                                <span class="my-profile-social-name">Webサイト</span>
+                                <span class="my-profile-social-action">サイトを見る ↗</span>
+                            </span>
+                        </a>
+                    {% endif %}
+
+                    {% if profile.x_url %}
+                        <a href="{{ profile.x_url }}"
+                           class="my-profile-social-card"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            <span class="my-profile-social-icon">𝕏</span>
+                            <span class="my-profile-social-text">
+                                <span class="my-profile-social-name">X</span>
+                                <span class="my-profile-social-action">プロフィールを見る ↗</span>
+                            </span>
+                        </a>
+                    {% endif %}
+
+                    {% if profile.instagram_url %}
+                        <a href="{{ profile.instagram_url }}"
+                           class="my-profile-social-card"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            <span class="my-profile-social-icon">◎</span>
+                            <span class="my-profile-social-text">
+                                <span class="my-profile-social-name">Instagram</span>
+                                <span class="my-profile-social-action">アカウントを見る ↗</span>
+                            </span>
+                        </a>
+                    {% endif %}
+
+                    {% if profile.youtube_url %}
+                        <a href="{{ profile.youtube_url }}"
+                           class="my-profile-social-card"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            <span class="my-profile-social-icon">▶</span>
+                            <span class="my-profile-social-text">
+                                <span class="my-profile-social-name">YouTube</span>
+                                <span class="my-profile-social-action">チャンネルを見る ↗</span>
+                            </span>
+                        </a>
+                    {% endif %}
+
+                </div>
+            </div>
         {% endif %}
 
 
