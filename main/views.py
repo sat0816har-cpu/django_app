@@ -916,6 +916,22 @@ def profile_edit(request):
             "favorite_things", ""
         ).strip()
 
+        profile.website_url = request.POST.get(
+            "website_url", ""
+        ).strip()
+
+        profile.x_url = request.POST.get(
+            "x_url", ""
+        ).strip()
+
+        profile.instagram_url = request.POST.get(
+            "instagram_url", ""
+        ).strip()
+
+        profile.youtube_url = request.POST.get(
+            "youtube_url", ""
+        ).strip()
+
         image = request.FILES.get("image")
         if image:
             profile.image = image
