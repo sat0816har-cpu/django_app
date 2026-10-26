@@ -232,6 +232,77 @@
                 </p>
             </div>
 
+                        <!-- Webサイト・SNS -->
+            <div class="profile-edit-group">
+                <h2 class="profile-edit-title" style="font-size: 20px; margin-top: 32px;">
+                    Webサイト・SNS
+                </h2>
+
+                <p class="profile-edit-help" style="margin-bottom: 20px;">
+                    WebサイトやSNSのURLを登録できます。すべて任意入力です。
+                </p>
+
+                <div class="profile-edit-group">
+                    <label for="website_url" class="profile-edit-label">
+                        WebサイトURL
+                    </label>
+                    <input
+                        type="url"
+                        id="website_url"
+                        name="website_url"
+                        value="{{ profile.website_url }}"
+                        maxlength="500"
+                        class="profile-edit-input"
+                        placeholder="https://example.com/"
+                    >
+                </div>
+
+                <div class="profile-edit-group">
+                    <label for="x_url" class="profile-edit-label">
+                        X（旧Twitter）
+                    </label>
+                    <input
+                        type="url"
+                        id="x_url"
+                        name="x_url"
+                        value="{{ profile.x_url }}"
+                        maxlength="500"
+                        class="profile-edit-input"
+                        placeholder="https://x.com/yourname"
+                    >
+                </div>
+
+                <div class="profile-edit-group">
+                    <label for="instagram_url" class="profile-edit-label">
+                        Instagram
+                    </label>
+                    <input
+                        type="url"
+                        id="instagram_url"
+                        name="instagram_url"
+                        value="{{ profile.instagram_url }}"
+                        maxlength="500"
+                        class="profile-edit-input"
+                        placeholder="https://www.instagram.com/yourname/"
+                    >
+                </div>
+
+                <div class="profile-edit-group">
+                    <label for="youtube_url" class="profile-edit-label">
+                        YouTube
+                    </label>
+                    <input
+                        type="url"
+                        id="youtube_url"
+                        name="youtube_url"
+                        value="{{ profile.youtube_url }}"
+                        maxlength="500"
+                        class="profile-edit-input"
+                        placeholder="https://www.youtube.com/@yourname"
+                    >
+                </div>
+            </div>
+
             <div class="profile-edit-actions">
                 <button type="submit" class="profile-save-button">
                     プロフィールを保存
