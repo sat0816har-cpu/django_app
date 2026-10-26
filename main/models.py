@@ -124,6 +124,30 @@ class Profile(models.Model):
         default=""
     )
 
+        website_url = models.URLField(
+        max_length=500,
+        blank=True,
+        default=""
+    )
+
+    x_url = models.URLField(
+        max_length=500,
+        blank=True,
+        default=""
+    )
+
+    instagram_url = models.URLField(
+        max_length=500,
+        blank=True,
+        default=""
+    )
+
+    youtube_url = models.URLField(
+        max_length=500,
+        blank=True,
+        default=""
+    )
+
     def __str__(self):
         return f"{self.user.username}のプロフィール"
 
