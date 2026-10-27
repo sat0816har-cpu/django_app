@@ -631,20 +631,26 @@ def register(request):
             password=password
         )
 
-                # Gmailを使って登録完了メールを送信
+                        # Resendを使って登録完了メールを送信
         try:
-            send_mail(
-                subject="ご登録ありがとうございます",
-                message=(
+            resend.api_key = os.environ["RESEND_API_KEY"]
+
+            sender = os.environ.get(
+                "RESEND_FROM_EMAIL",
+                "onboarding@resend.dev",
+            )
+
+            resend.Emails.send({
+                "from": sender,
+                "to": [email],
+                "subject": "ご登録ありがとうございます",
+                "text": (
                     f"{username} 様\n\n"
                     "ご登録ありがとうございます。\n"
                     "会員登録が正常に完了しました。\n\n"
                     "今後ともよろしくお願いいたします。"
                 ),
-                from_email=None,
-                recipient_list=[email],
-                fail_silently=False,
-            )
+            })
 
         except Exception:
             logger.exception(
