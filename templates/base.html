@@ -212,7 +212,17 @@
     {% endif %}
 </span></a>
 
-   
+   {% if category.sub_categories %}
+<button
+    type="button"
+    class="desktop-sub-category-toggle"
+    data-category-slug="{{ category.slug }}"
+    aria-expanded="false"
+>
+    サブカテゴリーを表示
+    <span aria-hidden="true">▾</span>
+</button>
+{% endif %}
 
     <!-- サブカテゴリー -->
     {% if category.sub_categories %}
