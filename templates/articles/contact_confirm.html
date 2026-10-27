@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<style>
+    .contact-confirm-container {
+        width: 100%;
+        max-width: 680px;
+        margin: 24px auto;
+        padding: 0 16px;
+        box-sizing: border-box;
+    }
+
+    .contact-confirm-card {
+        padding: 28px;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        background: #f8fafc;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        box-sizing: border-box;
+    }
+
+    .contact-confirm-title {
+        margin: 0 0 10px;
+        color: #333;
+        font-size: 24px;
+    }
+
+    .contact-confirm-description {
+        margin-bottom: 24px;
+        color: #64748b;
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    .contact-confirm-group {
+        margin-bottom: 20px;
+    }
+
+    .contact-confirm-label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .contact-confirm-value {
+        padding: 12px;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        background: #fff;
+        color: #333;
+        font-size: 15px;
+        line-height: 1.8;
+        overflow-wrap: anywhere;
+        box-sizing: border-box;
+    }
+
+    .contact-confirm-message {
+        white-space: pre-wrap;
+        min-height: 100px;
+    }
+
+    .contact-confirm-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 28px;
+    }
+
+    .contact-confirm-button {
+        flex: 1;
+        min-width: 0;
+        padding: 13px 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        background: #fff;
+        color: #374151;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .contact-confirm-submit {
+        border-color: #2563eb;
+        background: #2563eb;
+        color: #fff;
+    }
+
+    .contact-confirm-submit:hover {
+        background: #1d4ed8;
+    }
+
+    .contact-confirm-button:hover {
+        opacity: 0.85;
+    }
+
+    @media (max-width: 480px) {
+        .contact-confirm-container {
+            margin: 16px auto;
+            padding: 0 10px;
+        }
+
+        .contact-confirm-card {
+            padding: 22px 16px;
+        }
+
+        .contact-confirm-title {
+            font-size: 22px;
+        }
+
+        .contact-confirm-actions {
+            flex-direction: column-reverse;
+        }
+
+        .contact-confirm-button {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="contact-confirm-container">
+    <div class="contact-confirm-card">
+
+        <h1 class="contact-confirm-title">
+            お問い合わせ内容の確認
+        </h1>
+
+        <p class="contact-confirm-description">
+            以下の内容で送信してよろしいですか？
+            内容をご確認のうえ、送信してください。
+        </p>
+
+        <div class="contact-confirm-group">
+            <span class="contact-confirm-label">お名前</span>
+            <div class="contact-confirm-value">{{ name }}</div>
+        </div>
+
+        <div class="contact-confirm-group">
+            <span class="contact-confirm-label">メールアドレス</span>
+            <div class="contact-confirm-value">{{ email }}</div>
+        </div>
+
+        <div class="contact-confirm-group">
+            <span class="contact-confirm-label">お問い合わせ内容</span>
+            <div class="contact-confirm-value contact-confirm-message">{{ message }}</div>
+        </div>
+
+        <form method="post">
+            {% csrf_token %}
+
+            <input type="hidden" name="name" value="{{ name }}">
+            <input type="hidden" name="email" value="{{ email }}">
+            <input type="hidden" name="message" value="{{ message }}">
+
+            <div class="contact-confirm-actions">
+                <button
+                    type="submit"
+                    name="back"
+                    value="yes"
+                    class="contact-confirm-button"
+                >
+                    入力画面に戻る
+                </button>
+
+                <button
+                    type="submit"
+                    name="confirm"
+                    value="yes"
+                    class="contact-confirm-button contact-confirm-submit"
+                >
+                    送信する
+                </button>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
