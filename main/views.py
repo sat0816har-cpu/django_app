@@ -824,17 +824,17 @@ def contact(request):
                     ),
                 })
 
-            return render(
-                request,
-                "articles/contact.html",
-                {
-                    "success": (
-                        "お問い合わせを送信しました。"
-                        "ありがとうございます。"
-                    ),
-                    "clear_form": True,
-                },
-            )
+                return render(
+                    request,
+                    "articles/contact.html",
+                    {
+                        "success": (
+                            "お問い合わせを送信しました。"
+                            "ありがとうございます。"
+                        ),
+                        "clear_form": True,
+                    },
+                )
 
             except Exception:
                 logger.exception(
@@ -848,20 +848,12 @@ def contact(request):
                         "error": (
                             "送信に失敗しました。"
                             "時間をおいて再度お試しください。"
-                        )
+                        ),
+                        "name": name,
+                        "email": email,
+                        "message": message,
                     },
                 )
-
-        # 最初の送信ではメールを送らず、確認画面へ進む
-        return render(
-            request,
-            "articles/contact_confirm.html",
-            {
-                "name": name,
-                "email": email,
-                "message": message,
-            },
-        )
 
     return render(request, "articles/contact.html")
 
