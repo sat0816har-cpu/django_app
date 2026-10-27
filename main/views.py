@@ -855,7 +855,7 @@ def contact(request):
                     },
                 )
 
-    return render(request, "articles/contact.html")
+ 
 
 
 
