@@ -790,40 +790,65 @@ def contact(request):
                 {"error": "入力できる文字数を超えています。"},
             )
 
-        try:
-            resend.api_key = os.environ["RESEND_API_KEY"]
+        # 確認画面からの最終送信
+        if request.POST.get("confirm") == "yes":
+            try:
+                resend.api_key = os.environ["RESEND_API_KEY"]
 
-            sender = os.environ.get(
-                "RESEND_FROM_EMAIL",
-                "onboarding@resend.dev",
-            )
+                sender = os.environ.get(
+                    "RESEND_FROM_EMAIL",
+                    "onboarding@resend.dev",
+                )
 
-            resend.Emails.send({
-                "from": sender,
-                "to": ["sat0816har@gmail.com"],
-                "reply_to": [email],
-                "subject": f"【すきつな】お問い合わせ：{name}",
-                "text": (
-                    f"お名前：{name}\n"
-                    f"メールアドレス：{email}\n\n"
-                    f"お問い合わせ内容：\n{message}"
-                ),
-            })
+                resend.Emails.send({
+                    "from": sender,
+                    "to": ["sat0816har@gmail.com"],
+                    "reply_to": [email],
+                    "subject": f"【すきつな】お問い合わせ：{name}",
+                    "text": (
+                        f"お名前：{name}\n"
+                        f"メールアドレス：{email}\n\n"
+                        f"お問い合わせ内容：\n{message}"
+                    ),
+                })
 
-            return render(
-                request,
-                "articles/contact.html",
-                {"success": "お問い合わせを送信しました。ありがとうございます。"},
-            )
+                return render(
+                    request,
+                    "articles/contact.html",
+                    {
+                        "success": (
+                            "お問い合わせを送信しました。"
+                            "ありがとうございます。"
+                        )
+                    },
+                )
 
-        except Exception:
-            logger.exception("お問い合わせメールの送信に失敗しました")
+            except Exception:
+                logger.exception(
+                    "お問い合わせメールの送信に失敗しました"
+                )
 
-            return render(
-                request,
-                "articles/contact.html",
-                {"error": "送信に失敗しました。時間をおいて再度お試しください。"},
-            )
+                return render(
+                    request,
+                    "articles/contact.html",
+                    {
+                        "error": (
+                            "送信に失敗しました。"
+                            "時間をおいて再度お試しください。"
+                        )
+                    },
+                )
+
+        # 最初の送信ではメールを送らず、確認画面へ進む
+        return render(
+            request,
+            "articles/contact_confirm.html",
+            {
+                "name": name,
+                "email": email,
+                "message": message,
+            },
+        )
 
     return render(request, "articles/contact.html")
 
