@@ -790,6 +790,18 @@ def contact(request):
                 {"error": "入力できる文字数を超えています。"},
             )
 
+        # 確認画面から入力画面に戻る
+        if request.POST.get("back") == "yes":
+            return render(
+                request,
+                "articles/contact.html",
+                {
+                    "name": name,
+                    "email": email,
+                    "message": message,
+                },
+            )
+
         # 確認画面からの最終送信
         if request.POST.get("confirm") == "yes":
             try:
