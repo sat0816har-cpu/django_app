@@ -627,6 +627,52 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const buttons = document.querySelectorAll(
+        ".desktop-sub-category-toggle"
+    );
+
+    buttons.forEach(function (button) {
+        button.addEventListener("click", function () {
+            const slug = button.dataset.categorySlug;
+
+            const subCategories = document.querySelector(
+                '.sidebar-sub-categories[data-category-slug="' +
+                slug +
+                '"]'
+            );
+
+            if (!subCategories) {
+                return;
+            }
+
+            const isExpanded =
+                subCategories.classList.toggle("is-expanded");
+
+            button.setAttribute(
+                "aria-expanded",
+                String(isExpanded)
+            );
+
+            const arrow = button.querySelector("span");
+
+            if (isExpanded) {
+                button.firstChild.textContent = "サブカテゴリーを閉じる ";
+                if (arrow) {
+                    arrow.textContent = "▴";
+                }
+            } else {
+                button.firstChild.textContent = "サブカテゴリーを表示 ";
+                if (arrow) {
+                    arrow.textContent = "▾";
+                }
+            }
+        });
+    });
+});
+</script>
+
 
 </body>
 </html>
