@@ -2248,4 +2248,49 @@ article {
     flex-shrink: 0;
 }
 
+/* PC用：サブカテゴリーの開閉 */
+@media (min-width: 651px) {
+
+    /* サブカテゴリー表示ボタン */
+    .desktop-sub-category-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin: 0 0 8px;
+        padding: 5px 10px;
+        border: 1px solid #e5e7eb;
+        border-radius: 7px;
+        background: #f8fafc;
+        color: #64748b;
+        font-size: 12px;
+        text-align: left;
+        cursor: pointer;
+        box-sizing: border-box;
+    }
+
+    .desktop-sub-category-toggle:hover {
+        border-color: #bfdbfe;
+        background: #eff6ff;
+        color: #2563eb;
+    }
+
+    /* 初期状態ではサブカテゴリーを隠す */
+    .sidebar > .sidebar-sub-categories {
+        display: none;
+    }
+
+    /* ボタンを押したときだけ表示 */
+    .sidebar > .sidebar-sub-categories.is-expanded {
+        display: block;
+    }
+}
+
+/* スマホではPC用ボタンを表示しない */
+@media (max-width: 650px) {
+    .desktop-sub-category-toggle {
+        display: none !important;
+    }
+}
+
 
