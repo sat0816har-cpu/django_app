@@ -771,6 +771,11 @@ article {
         font-size: 13px;
         padding: 8px;
     }
+
+    /* スマホ：「その他」の空のアイコン領域をなくす */
+.sidebar > a[href="/category/other/"] .menu-icon {
+    display: none;
+}
 }
 
 
