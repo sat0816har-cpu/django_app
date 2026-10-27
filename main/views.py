@@ -824,16 +824,17 @@ def contact(request):
                     ),
                 })
 
-                return render(
-                    request,
-                    "articles/contact.html",
-                    {
-                        "success": (
-                            "お問い合わせを送信しました。"
-                            "ありがとうございます。"
-                        )
-                    },
-                )
+            return render(
+                request,
+                "articles/contact.html",
+                {
+                    "success": (
+                        "お問い合わせを送信しました。"
+                        "ありがとうございます。"
+                    ),
+                    "clear_form": True,
+                },
+            )
 
             except Exception:
                 logger.exception(
