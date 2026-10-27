@@ -249,6 +249,46 @@
 
 {% endfor %}
 
+    <!-- スマホ用：サブカテゴリー選択ボタン -->
+<button
+    type="button"
+    id="mobile-sub-category-open"
+    class="mobile-sub-category-open"
+>
+    サブカテゴリーから探す
+    <span aria-hidden="true">›</span>
+</button>
+
+<!-- スマホ用：サブカテゴリー選択画面 -->
+<div
+    id="mobile-sub-category-modal"
+    class="mobile-sub-category-modal"
+    aria-hidden="true"
+>
+    <div
+        class="mobile-sub-category-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="mobile-sub-category-title"
+    >
+        <div class="mobile-sub-category-modal-header">
+            <h3 id="mobile-sub-category-title">
+                サブカテゴリーを選択
+            </h3>
+
+            <button
+                type="button"
+                id="mobile-sub-category-close"
+                aria-label="閉じる"
+            >
+                ×
+            </button>
+        </div>
+
+        <div id="mobile-sub-category-modal-content"></div>
+    </div>
+</div>
+
 
 </aside>
 
