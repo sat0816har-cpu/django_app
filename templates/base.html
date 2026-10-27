@@ -530,5 +530,105 @@ document.addEventListener("click", async function(event) {
 </script>
 
 
+    <script>
+document.addEventListener("DOMContentLoaded", function () {
+    const openButton = document.getElementById(
+        "mobile-sub-category-open"
+    );
+    const modal = document.getElementById(
+        "mobile-sub-category-modal"
+    );
+    const closeButton = document.getElementById(
+        "mobile-sub-category-close"
+    );
+    const content = document.getElementById(
+        "mobile-sub-category-modal-content"
+    );
+
+    if (!openButton || !modal || !closeButton || !content) {
+        return;
+    }
+
+    const categoryNames = {
+        music: "音楽",
+        movie: "映画",
+        book: "読書",
+        photo: "写真",
+        travel: "旅行",
+        cooking: "料理",
+        other: "その他"
+    };
+
+    // 既存のサブカテゴリーを選択画面に複製する
+    const subCategorySections = document.querySelectorAll(
+        ".sidebar-sub-categories[data-category-slug]"
+    );
+
+    subCategorySections.forEach(function (section) {
+        const slug = section.dataset.categorySlug;
+        const grid = section.querySelector(
+            ".sidebar-sub-category-grid"
+        );
+
+        if (!grid || !grid.querySelector(".sidebar-sub-category")) {
+            return;
+        }
+
+        const heading = document.createElement("h4");
+        heading.className = "mobile-sub-category-heading";
+        heading.textContent = categoryNames[slug] || slug;
+
+        content.appendChild(heading);
+        content.appendChild(grid.cloneNode(true));
+    });
+
+    // サブカテゴリーがなければボタンを隠す
+    if (!content.children.length) {
+        openButton.style.display = "none";
+        return;
+    }
+
+    function openModal() {
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        closeButton.focus();
+    }
+
+    function closeModal() {
+        modal.classList.remove("is-open");
+        modal.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+        openButton.focus();
+    }
+
+    openButton.addEventListener("click", function () {
+        if (window.matchMedia("(max-width: 650px)").matches) {
+            openModal();
+        }
+    });
+
+    closeButton.addEventListener("click", closeModal);
+
+    // 背景部分をタップした場合も閉じる
+    modal.addEventListener("click", function (event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Escapeキーでも閉じる
+    document.addEventListener("keydown", function (event) {
+        if (
+            event.key === "Escape" &&
+            modal.classList.contains("is-open")
+        ) {
+            closeModal();
+        }
+    });
+});
+</script>
+
+
 </body>
 </html>
