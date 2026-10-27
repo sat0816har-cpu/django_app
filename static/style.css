@@ -674,6 +674,7 @@ article {
     /* サブカテゴリー選択ボタン */
     .mobile-sub-category-open {
         display: flex;
+        order: 3;
         align-items: center;
         justify-content: space-between;
         width: 100%;
