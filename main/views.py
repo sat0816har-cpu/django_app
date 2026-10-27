@@ -824,6 +824,7 @@ def contact(request):
                     ),
                 })
 
+                # 送信成功
                 return render(
                     request,
                     "articles/contact.html",
@@ -841,6 +842,7 @@ def contact(request):
                     "お問い合わせメールの送信に失敗しました"
                 )
 
+                # 送信失敗時は入力内容を残す
                 return render(
                     request,
                     "articles/contact.html",
@@ -855,7 +857,21 @@ def contact(request):
                     },
                 )
 
-    return render(request, "articles/contact.html")
+        # 最初の送信では、メールを送らず確認画面を表示
+        return render(
+            request,
+            "articles/contact_confirm.html",
+            {
+                "name": name,
+                "email": email,
+                "message": message,
+            },
+        )
+
+    return render(
+        request,
+        "articles/contact.html",
+    )
  
 
 
