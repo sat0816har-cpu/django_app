@@ -161,7 +161,7 @@
                 name="name"
                 maxlength="100"
                 required
-                value="{{ request.POST.name|default:'' }}"
+                value="{% if not clear_form %}{{ request.POST.name|default:'' }}{% endif %}"
             >
         </div>
 
@@ -173,7 +173,7 @@
                 name="email"
                 maxlength="254"
                 required
-                value="{{ request.POST.email|default:'' }}"
+                value="{% if not clear_form %}{{ request.POST.email|default:'' }}{% endif %}"
             >
         </div>
 
@@ -185,7 +185,7 @@
                 rows="7"
                 maxlength="5000"
                 required
-            >{{ request.POST.message|default:'' }}</textarea>
+            >{% if not clear_form %}{{ request.POST.message|default:'' }}{% endif %}</textarea>
         </div>
 
         <div class="contact-submit-wrap">
