@@ -212,9 +212,24 @@
     {% endif %}
 </span></a>
 
+    {% if category.sub_categories %}
+<button
+    type="button"
+    class="mobile-sub-category-trigger"
+    data-category-slug="{{ category.slug }}"
+    data-category-name="{{ category.name }}"
+>
+    サブカテゴリーを選ぶ
+    <span aria-hidden="true">›</span>
+</button>
+{% endif %}
+
     <!-- サブカテゴリー -->
     {% if category.sub_categories %}
-        <div class="sidebar-sub-categories">
+        <div
+    class="sidebar-sub-categories"
+    data-category-slug="{{ category.slug }}"
+>
 
            
 
