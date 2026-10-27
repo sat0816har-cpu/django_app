@@ -657,6 +657,123 @@ article {
     }
 }
 
+/* サブカテゴリー選択画面：共通 */
+.mobile-sub-category-open,
+.mobile-sub-category-modal {
+    display: none;
+}
+
+/* スマートフォン専用 */
+@media (max-width: 650px) {
+
+    /* サブカテゴリーを通常画面では隠す */
+    .sidebar-sub-categories {
+        display: none !important;
+    }
+
+    /* サブカテゴリー選択ボタン */
+    .mobile-sub-category-open {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin: 8px 0 12px;
+        padding: 12px 14px;
+        border: 1px solid #dbe3ed;
+        border-radius: 9px;
+        background: #f8fafc;
+        color: #374151;
+        font-size: 13px;
+        text-align: left;
+        cursor: pointer;
+        box-sizing: border-box;
+    }
+
+    .mobile-sub-category-open span {
+        color: #64748b;
+        font-size: 22px;
+        line-height: 1;
+    }
+
+    /* 画面全体を覆う背景 */
+    .mobile-sub-category-modal.is-open {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        z-index: 10000;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        background: rgba(15, 23, 42, 0.45);
+        box-sizing: border-box;
+    }
+
+    /* 選択画面本体 */
+    .mobile-sub-category-dialog {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 440px;
+        max-height: 80vh;
+        overflow: hidden;
+        border-radius: 14px;
+        background: #ffffff;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* タイトルと閉じるボタン */
+    .mobile-sub-category-modal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 16px;
+        border-bottom: 1px solid #e5e7eb;
+    }
+
+    .mobile-sub-category-modal-header h3 {
+        margin: 0;
+        color: #333333;
+        font-size: 16px;
+    }
+
+    #mobile-sub-category-close {
+        flex-shrink: 0;
+        width: 34px;
+        height: 34px;
+        border: none;
+        border-radius: 50%;
+        background: #f3f4f6;
+        color: #374151;
+        font-size: 24px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    /* 選択肢だけをスクロール */
+    #mobile-sub-category-modal-content {
+        min-height: 0;
+        padding: 12px;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    /* 選択画面内のカテゴリー見出し */
+    #mobile-sub-category-modal-content .mobile-sub-category-heading {
+        margin: 10px 0 8px;
+        color: #475569;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    /* 選択肢のリンク */
+    #mobile-sub-category-modal-content .sidebar-sub-category {
+        min-height: 40px;
+        font-size: 13px;
+        padding: 8px;
+    }
+}
+
 
 
 /* フッター */
