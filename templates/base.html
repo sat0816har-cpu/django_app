@@ -683,6 +683,45 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
+<script>
+document.addEventListener("click", function (event) {
+    const link = event.target.closest("a[href]");
+
+    if (!link) {
+        return;
+    }
+
+    let targetUrl;
+
+    try {
+        targetUrl = new URL(link.href, window.location.origin);
+    } catch (error) {
+        return;
+    }
+
+    // 同じサイト内の記事詳細ページだけを対象にする
+    if (targetUrl.origin !== window.location.origin) {
+        return;
+    }
+
+    if (!/^\/articles\/\d+\/?$/.test(targetUrl.pathname)) {
+        return;
+    }
+
+    // 記事を開く前のページを記録する
+    targetUrl.searchParams.set(
+        "return_to",
+        window.location.pathname +
+        window.location.search +
+        window.location.hash
+    );
+
+    link.href =
+        targetUrl.pathname +
+        targetUrl.search +
+        targetUrl.hash;
+});
+</script>
 
 </body>
 </html>
