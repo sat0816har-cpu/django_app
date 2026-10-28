@@ -190,10 +190,12 @@
             width: 100%;
         }
 
-                /* スマホの本文入力欄を縦に広げる */
-        .article-form-rich-editor .ql-editor {
-        min-height: 400px;
-        }
+                /* スマホの本文入力欄 */
+.article-form-rich-editor .ql-editor {
+    min-height: 400px;
+    font-size: 17px;
+    line-height: 1.9;
+}
 
         
     }
@@ -266,6 +268,12 @@
             resize: vertical;
         }
     }
+
+    /* 本文入力欄の文字サイズを記事詳細ページに合わせる */
+.article-form-rich-editor .ql-editor {
+    font-size: 18px;
+    line-height: 2;
+}
 
   /* Quillのツールバー：左にスタイル、中央にアイコン */
 #article-quill-toolbar {
