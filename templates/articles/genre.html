@@ -3,9 +3,20 @@
 
 {% block content %}
 <div class="feed-header">
-    <h2 class="feed-title">{{ genre_name }}</h2>
+    <h2 class="feed-title">
+        {% if genre_slug == "other" %}
+            ジャンルその他
+        {% else %}
+            {{ genre_name }}
+        {% endif %}
+    </h2>
+
     <p class="feed-description">
-        {{ genre_name }}の投稿を見てみましょう。
+        {% if genre_slug == "other" %}
+            ジャンル「その他」の投稿を見てみましょう。
+        {% else %}
+            {{ genre_name }}の投稿を見てみましょう。
+        {% endif %}
     </p>
 </div>
 
