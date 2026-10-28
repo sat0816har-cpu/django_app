@@ -429,8 +429,8 @@ def article_create(request):
         ]
 
         valid_genres = [
-            "hobby", "people", "life",
-            "learning", "creative", "other",
+            "hobby", "people", "life", "science",
+            "business", "nature", "creative", "other",
         ]
 
         if category not in valid_categories:
