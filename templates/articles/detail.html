@@ -530,19 +530,33 @@
 
             {% endif %}
 
-          <button
+<button
     class="detail-button detail-back"
     type="button"
     onclick="
+        const params = new URLSearchParams(window.location.search);
+        const returnTo = params.get('return_to');
+
+        if (
+            returnTo &&
+            returnTo.startsWith('/') &&
+            !returnTo.startsWith('//')
+        ) {
+            window.location.href = returnTo;
+            return;
+        }
+
         if (document.referrer) {
             try {
                 const previous = new URL(document.referrer);
+
                 if (previous.origin === window.location.origin) {
                     window.history.back();
                     return;
                 }
             } catch (e) {}
         }
+
         {% if from_my_articles %}
             window.location.href = '/my-articles/';
         {% else %}
