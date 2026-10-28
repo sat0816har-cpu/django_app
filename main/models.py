@@ -5,13 +5,15 @@ from django.db import models
 
 class Article(models.Model):
     GENRE_CHOICES = [
-        ("hobby", "趣味・エンタメ"),
-        ("people", "人・社会"),
-        ("life", "暮らし"),
-        ("learning", "学び・仕事"),
-        ("creative", "創作・表現"),
-        ("other", "その他"),
-    ]
+    ("hobby", "趣味・エンタメ"),
+    ("people", "人・社会"),
+    ("life", "生活・暮らし"),
+    ("science", "科学・技術"),
+    ("business", "経済・ビジネス"),
+    ("nature", "自然・環境"),
+    ("creative", "創作・表現"),
+    ("other", "その他"),
+]
 
     CATEGORY_CHOICES = [
         ("music", "音楽"),
