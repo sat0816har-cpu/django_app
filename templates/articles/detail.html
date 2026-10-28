@@ -438,20 +438,21 @@
 <div class="article-detail-meta">
 
     <a class="article-detail-tag"
-       href="/?genre={{ article.genre }}">
-        {{ article.get_genre_display }}
-    </a>
+   href="/genre/{{ article.genre }}/">
+    {{ article.get_genre_display }}
+</a>
 
     <a class="article-detail-tag"
-       href="/?category={{ article.category }}">
-        {{ article.get_category_display }}
-    </a>
+   href="/category/{{ article.category }}/">
+    {{ article.get_category_display }}
+</a>
 
     {% if article.sub_category %}
-        <span class="article-detail-tag">
-            {{ article.sub_category }}
-        </span>
-    {% endif %}
+    <a class="article-detail-tag"
+       href="/category/{{ article.category }}/?sub_category={{ article.sub_category|urlencode }}">
+        {{ article.sub_category }}
+    </a>
+{% endif %}
 
 </div>
 
