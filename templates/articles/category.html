@@ -6,7 +6,7 @@
 <div class="feed-header">
     <h2 class="feed-title">
         {% if category_name == "その他" %}
-            カテゴリその他
+            カテゴリーその他
         {% else %}
             {{ category_name }}
         {% endif %}
@@ -21,13 +21,13 @@
     <p class="feed-description">
         {% if sub_category %}
             {% if category_name == "その他" %}
-                カテゴリその他の「{{ sub_category }}」の投稿を見てみましょう。
+                カテゴリーその他の「{{ sub_category }}」の投稿を見てみましょう。
             {% else %}
                 {{ category_name }}の「{{ sub_category }}」の投稿を見てみましょう。
             {% endif %}
         {% else %}
             {% if category_name == "その他" %}
-                カテゴリその他の投稿を見てみましょう。
+                カテゴリーその他の投稿を見てみましょう。
             {% else %}
                 {{ category_name }}の投稿を見てみましょう。
             {% endif %}
