@@ -483,8 +483,8 @@ def article_edit(request, article_id):
         )
 
         valid_genres = [
-            "hobby", "people", "life",
-            "learning", "creative", "other",
+            "hobby", "people", "life", "science",
+            "business", "nature", "creative", "other",
         ]
 
         if genre in valid_genres:
