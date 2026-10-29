@@ -2308,3 +2308,16 @@ article {
 .sidebar a.menu-item.active .menu-icon {
     color: #FFFFFF !important;
 }
+
+
+/* マイページのスマホ表示だけメニューを非表示 */
+@media (max-width: 650px) {
+    .user-menu-section.my-articles-page ~ .menu-section-title,
+    .user-menu-section.my-articles-page ~ .genre-item,
+    .user-menu-section.my-articles-page ~ a[href^="/category/"],
+    .user-menu-section.my-articles-page ~ .desktop-sub-category-toggle,
+    .user-menu-section.my-articles-page ~ .sidebar-sub-categories,
+    .user-menu-section.my-articles-page ~ .mobile-sub-category-open {
+        display: none !important;
+    }
+}
