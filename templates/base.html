@@ -95,7 +95,7 @@
 
 <div class="page-layout">
 
-<aside class="sidebar {% if request.path == '/my-articles/' or request.path == '/profile/edit/' or request.path == '/articles/new/' or request.path == '/login/' or request.path == '/register/' or own_article %}hide-discovery-menu{% endif %}">
+<aside class="sidebar {% if request.path == '/my-articles/' or request.path == '/profile/edit/' or request.path == '/articles/new/' or request.path == '/login/' or request.path == '/register/' or own_article or hide_discovery_menu %}hide-discovery-menu{% endif %}">
     
     {% if user.is_authenticated %}
         <div class="user-menu-section {% if request.path == '/my-articles/' %}my-articles-page{% endif %}">
