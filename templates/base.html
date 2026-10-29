@@ -97,7 +97,7 @@
 
     
 
-<aside class="sidebar {% if request.path == '/my-articles/' or request.path == '/profile/edit/' %}hide-discovery-menu{% endif %}">
+<aside class="sidebar {% if request.path == '/my-articles/' or request.path == '/profile/edit/' or request.path == '/articles/new/' %}hide-discovery-menu{% endif %}">
 
     {% if user.is_authenticated %}
         <div class="user-menu-section {% if request.path == '/my-articles/' %}my-articles-page{% endif %}">
