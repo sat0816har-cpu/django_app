@@ -569,7 +569,10 @@ def article_delete(request, article_id):
     return render(
         request,
         "articles/delete.html",
-        {"article": article}
+        {
+            "article": article,
+            "hide_discovery_menu": True,
+        }
     )
 
 
