@@ -2301,3 +2301,8 @@ article {
     background-color: #347F91;
     color: #FFFFFF;
 }
+
+/* 選択中のアイコンも白くする */
+.sidebar .menu-item.active .menu-icon {
+    color: #FFFFFF;
+}
