@@ -2321,4 +2321,7 @@ article {
     .sidebar.hide-discovery-menu .mobile-sub-category-modal {
         display: none !important;
     }
+    .sidebar.hide-discovery-menu > a.menu-item[href="/"] {
+    display: none !important;
+}
 }
