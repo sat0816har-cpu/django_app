@@ -102,7 +102,7 @@
     {% if user.is_authenticated %}
         <div class="user-menu-section">
 
-            <a href="/my-articles/" class="menu-item">
+            <a href="/my-articles/" class="menu-item {% if request.path == '/my-articles/' %}active{% endif %}">
                 <span class="menu-icon">▤</span>
                 <span>{{ user.username }}さんの<br>投稿一覧</span>
             </a>
