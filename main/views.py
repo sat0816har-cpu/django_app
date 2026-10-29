@@ -536,14 +536,14 @@ def article_edit(request, article_id):
 
         return redirect("/my-articles/?status=draft")
 
-return render(
-    request,
-    "articles/form.html",
-    {
-        "article": article,
-        "hide_discovery_menu": True,
-    }
-)
+    return render(
+        request,
+        "articles/form.html",
+        {
+            "article": article,
+            "hide_discovery_menu": True,
+        }
+    )
 
 
 
