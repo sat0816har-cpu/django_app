@@ -654,10 +654,7 @@ article {
         order: 2;
     }
 
-        /* マイページのスマホ表示だけ、ジャンル・カテゴリーを非表示 */
-    .my-articles-page ~ .menu-section-title {
-        display: none;
-    }
+
 }
 
 /* サブカテゴリー選択画面：共通 */
