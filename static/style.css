@@ -2310,14 +2310,15 @@ article {
 }
 
 
-/* マイページのスマホ表示だけメニューを非表示 */
+/* スマホではマイ記事一覧・プロフィール編集ページのメニューを非表示 */
 @media (max-width: 650px) {
-    .user-menu-section.my-articles-page ~ .menu-section-title,
-    .user-menu-section.my-articles-page ~ .genre-item,
-    .user-menu-section.my-articles-page ~ a[href^="/category/"],
-    .user-menu-section.my-articles-page ~ .desktop-sub-category-toggle,
-    .user-menu-section.my-articles-page ~ .sidebar-sub-categories,
-    .user-menu-section.my-articles-page ~ .mobile-sub-category-open {
+    .sidebar.hide-discovery-menu .menu-section-title,
+    .sidebar.hide-discovery-menu .genre-item,
+    .sidebar.hide-discovery-menu a[href^="/category/"],
+    .sidebar.hide-discovery-menu .desktop-sub-category-toggle,
+    .sidebar.hide-discovery-menu .sidebar-sub-categories,
+    .sidebar.hide-discovery-menu .mobile-sub-category-open,
+    .sidebar.hide-discovery-menu .mobile-sub-category-modal {
         display: none !important;
     }
 }
