@@ -100,7 +100,7 @@
 <aside class="sidebar">
 
     {% if user.is_authenticated %}
-        <div class="user-menu-section">
+        <div class="user-menu-section {% if request.path == '/my-articles/' %}my-articles-page{% endif %}">
 
             <a href="/my-articles/" class="menu-item {% if request.path == '/my-articles/' %}active{% endif %}">
                 <span class="menu-icon">▤</span>
