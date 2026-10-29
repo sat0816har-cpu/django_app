@@ -480,7 +480,7 @@ def article_edit(request, article_id):
         article.title = request.POST["title"]
         article.content = sanitize_article_content(
             request.POST.get("content", "")
-    )
+        )
 
         genre = request.POST.get(
             "genre", article.genre
