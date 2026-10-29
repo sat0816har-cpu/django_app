@@ -396,6 +396,10 @@ def article_detail(request, article_id):
             "from_my_articles": (
                 request.GET.get("from") == "my-articles"
             ),
+            "own_article": (
+                request.user.is_authenticated
+                and request.user == article.author
+            ),
         }
     )
 
