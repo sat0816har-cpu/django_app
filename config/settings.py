@@ -23,6 +23,8 @@ DEBUG = (
 # 公開サイトのドメイン
 ALLOWED_HOSTS = [
     "django-app-crtr.onrender.com",
+    "sukitsuna.com",
+    "www.sukitsuna.com",
 ]
 
 # HTTPSで利用する場合のCookie保護
