@@ -90,12 +90,13 @@ urlpatterns = [
 
     path(
         "register/",
+        views.register
+    ),
+
     path(
         "verify-email/<uidb64>/<token>/",
         views.verify_email,
         name="verify_email"
-    ),
-        views.register
     ),
 
     
