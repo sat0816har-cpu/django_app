@@ -985,17 +985,49 @@ def contact(request):
                     "onboarding@resend.dev",
                 )
 
-                resend.Emails.send({
-                    "from": sender,
-                    "to": ["sukitsuna.info@gmail.com"],
-                    "reply_to": [email],
-                    "subject": f"【すきつな】お問い合わせ：{name}",
-                    "text": (
-                        f"お名前：{name}\n"
-                        f"メールアドレス：{email}\n\n"
-                        f"お問い合わせ内容：\n{message}"
-                    ),
-                })
+# ① 運営者への通知メール
+resend.Emails.send({
+    "from": sender,
+    "to": ["sukitsuna.info@gmail.com"],
+    "reply_to": [email],
+    "subject": f"【すきつな】お問い合わせ：{name}",
+    "text": (
+        f"すきつなにお問い合わせが届きました。\n\n"
+        f"お名前：{name}\n"
+        f"メールアドレス：{email}\n\n"
+        f"お問い合わせ内容：\n{message}\n\n"
+        f"すきつな運営チーム"
+    ),
+})
+
+# ② お問い合わせした人への自動返信メール
+try:
+    resend.Emails.send({
+        "from": sender,
+        "to": [email],
+        "subject": "【すきつな】お問い合わせを受け付けました",
+        "text": (
+            f"{name} 様\n\n"
+            "お問い合わせいただき、ありがとうございます。\n\n"
+            "このメールは、すきつなのお問い合わせフォームから"
+            "送信された内容を受け付けたことをお知らせする"
+            "自動返信メールです。\n\n"
+            "以下の内容でお問い合わせを受け付けました。\n\n"
+            "━━━━━━━━━━━━━━━━━━\n\n"
+            f"お名前：{name}\n\n"
+            f"お問い合わせ内容：\n{message}\n\n"
+            "━━━━━━━━━━━━━━━━━━\n\n"
+            "内容を確認のうえ、必要に応じて"
+            "運営チームよりご連絡いたします。\n\n"
+            "今後とも「すきつな」をよろしくお願いいたします。\n\n"
+            "すきつな運営チーム\n"
+            "好きでつながる。世界が広がる。\n\n"
+            "※このメールは自動送信です。"
+        ),
+    })
+
+except Exception:
+    logger.exception("お問い合わせ自動返信メールの送信に失敗しました")
 
                 # 送信成功
                 return render(
