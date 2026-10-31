@@ -679,6 +679,31 @@ def register(request):
         "articles/register.html"
     )
 
+def verify_email(request, uidb64, token):
+
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User.objects.get(pk=uid)
+
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        return HttpResponse("認証リンクが正しくありません。")
+
+    if user.is_active:
+        return HttpResponse("このメールアドレスはすでに認証済みです。")
+
+    if default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+
+        return HttpResponse(
+            "メールアドレスの認証が完了しました。"
+            "ログインして、すきつなをご利用ください。"
+        )
+
+    return HttpResponse(
+        "認証リンクの有効期限が切れているか、無効です。"
+    )
+
 
 
 
