@@ -775,8 +775,16 @@ def login_view(request):
             return redirect("my_articles")
 
         # ログイン失敗時のメッセージ
-        if not User.objects.filter(username=username).exists():
+        existing_user = User.objects.filter(
+            username=username
+        ).first()
+
+        if existing_user and not existing_user.is_active:
+            error = "メールアドレスの認証が完了していません。認証メールをご確認ください。"
+
+        elif existing_user is None:
             error = "ユーザー名が間違っています。"
+
         else:
             error = "パスワードが間違っています。"
 
