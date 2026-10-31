@@ -827,7 +827,10 @@ def resend_verification(request):
     return render(
         request,
         "articles/resend_verification.html",
-        {"message": message}
+        {
+            "message": message,
+            "hide_discovery_menu": True,
+        }
     )
 
 
