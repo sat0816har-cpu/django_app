@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="form-card">
+
+    <h2>認証メールの再送</h2>
+
+    <p>
+        登録したメールアドレスを入力してください。
+        認証メールを再送します。
+    </p>
+
+    <form method="post">
+
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="email">メールアドレス</label>
+
+            <input
+                type="email"
+                id="email"
+                name="email"
+                required
+            >
+        </div>
+
+        <button type="submit" class="btn">
+            認証メールを再送する
+        </button>
+
+    </form>
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}
