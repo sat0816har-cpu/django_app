@@ -1537,14 +1537,6 @@ def recent_ranking(request):
 def withdrawal(request):
     return render(request, "articles/withdrawal.html")
     
-# 退会の確認ページ
-@login_required
-def withdrawal_confirm_page(request):
-    return render(
-        request,
-        "articles/withdrawal_confirm.html"
-    )
-
 # 退会処理
 @login_required
 @require_POST
@@ -1559,6 +1551,36 @@ def withdrawal_confirm(request):
             {"withdrawal_error": "パスワードが正しくありません。"}
         )
 
+    # 退会完了メールを送信
+    try:
+        resend.api_key = os.environ["RESEND_API_KEY"]
+
+        sender = os.environ.get(
+            "RESEND_FROM_EMAIL",
+            "noreply@sukitsuna.com",
+        )
+
+        resend.Emails.send({
+            "from": sender,
+            "to": [user.email],
+            "subject": "【すきつな】退会手続きが完了しました",
+            "text": (
+                f"{user.username} 様\n\n"
+                "このたびは、「すきつな」の退会手続きが完了しました。\n\n"
+                "これまで「すきつな」をご利用いただき、"
+                "ありがとうございました。\n\n"
+                "またいつかご利用いただける日がありましたら、"
+                "心よりお待ちしております。\n\n"
+                "すきつな運営チーム\n"
+                "好きでつながる。世界が広がる。\n\n"
+                "※このメールは自動送信です。"
+            ),
+        })
+
+    except Exception:
+        logger.exception("退会完了メールの送信に失敗しました")
+
+    # アカウントを無効化
     user.is_active = False
     user.save(update_fields=["is_active"])
 
