@@ -99,6 +99,12 @@ urlpatterns = [
         name="verify_email"
     ),
 
+    path(
+        "resend-verification/",
+        views.resend_verification,
+        name="resend_verification"
+    ),
+
     
     path(
         "login/",
