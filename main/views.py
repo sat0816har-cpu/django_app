@@ -1340,6 +1340,9 @@ def password_reset_request(request):
     return render(
         request,
         "articles/password_reset_form.html",
+        {
+            "hide_discovery_menu": True,
+        }
     )
 
 
