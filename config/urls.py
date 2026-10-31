@@ -2,8 +2,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
+from django.contrib.sitemaps.views import sitemap
 
 from main import views
+from main.sitemaps import ArticleSitemap
 from django.contrib.auth import views as auth_views
 
 
