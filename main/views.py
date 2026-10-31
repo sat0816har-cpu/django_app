@@ -754,6 +754,70 @@ def verify_email(request, uidb64, token):
         "認証リンクの有効期限が切れているか、無効です。"
     )
 
+def resend_verification(request):
+
+    message = ""
+
+    if request.method == "POST":
+
+        email = request.POST.get("email", "").strip()
+
+        user = User.objects.filter(
+            email__iexact=email,
+            is_active=False
+        ).first()
+
+        if user:
+
+            try:
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
+                token = default_token_generator.make_token(user)
+
+                verify_url = request.build_absolute_uri(
+                    reverse(
+                        "verify_email",
+                        kwargs={
+                            "uidb64": uid,
+                            "token": token,
+                        }
+                    )
+                )
+
+                resend.api_key = os.environ["RESEND_API_KEY"]
+
+                sender = os.environ.get(
+                    "RESEND_FROM_EMAIL",
+                    "noreply@sukitsuna.com",
+                )
+
+                resend.Emails.send({
+                    "from": sender,
+                    "to": [user.email],
+                    "subject": "すきつな｜メールアドレスの確認",
+                    "text": (
+                        f"{user.username} 様\n\n"
+                        "すきつなへのご登録ありがとうございます。\n\n"
+                        "以下のリンクをクリックして、"
+                        "メールアドレスの認証を完了してください。\n\n"
+                        f"{verify_url}\n\n"
+                        "すきつな運営チーム"
+                    ),
+                })
+
+            except Exception:
+                logger.exception("認証メールの再送に失敗しました")
+
+        message = (
+            "該当するアカウントがある場合は、"
+            "認証メールを送信しました。メールをご確認ください。"
+        )
+
+    return render(
+        request,
+        "articles/resend_verification.html",
+        {"message": message}
+    )
+
 
 
 
