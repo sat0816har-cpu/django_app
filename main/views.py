@@ -1536,6 +1536,11 @@ def recent_ranking(request):
 # 退会について
 def withdrawal(request):
     return render(request, "articles/withdrawal.html")
+
+# 退会の最終確認画面
+@login_required
+def withdrawal_confirm_page(request):
+    return render(request, "articles/withdrawal_confirm.html")
     
 # 退会処理
 @login_required
