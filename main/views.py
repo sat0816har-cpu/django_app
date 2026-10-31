@@ -745,9 +745,9 @@ def verify_email(request, uidb64, token):
         except Exception:
             logger.exception("登録完了メールの送信に失敗しました")
 
-        return HttpResponse(
-            "メールアドレスの認証が完了しました。"
-            "ログインして、すきつなをご利用ください。"
+        return render(
+            request,
+            "articles/email_verified.html"
         )
 
     return HttpResponse(
