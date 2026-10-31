@@ -2,45 +2,164 @@
 
 {% block content %}
 
-<div class="form-card">
+<style>
+    .resend-card {
+        max-width: 480px;
+        margin: 40px auto;
+        padding: 28px 24px;
+        background: #ffffff;
+        border: 1px solid #e5e7eb;
+        border-radius: 16px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        box-sizing: border-box;
+    }
 
-    <h2>認証メールの再送</h2>
+    .resend-card h2 {
+        margin: 0 0 20px;
+        text-align: center;
+        font-size: 24px;
+        color: #172033;
+    }
 
-    <p>
-        登録したメールアドレスを入力してください。
+    .resend-description {
+        margin-bottom: 24px;
+        text-align: center;
+        line-height: 1.8;
+        color: #475569;
+    }
+
+    .resend-notice {
+        margin-bottom: 24px;
+        padding: 14px;
+        background: #eff6ff;
+        border-radius: 10px;
+        color: #1e40af;
+        line-height: 1.7;
+        font-size: 14px;
+    }
+
+    .resend-card label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #172033;
+    }
+
+    .resend-card input[type="email"] {
+        width: 100%;
+        padding: 13px;
+        margin-bottom: 20px;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+
+    .resend-submit {
+        width: 100%;
+        padding: 14px;
+        background: #2563eb;
+        color: #ffffff;
+        border: none;
+        border-radius: 9px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .resend-submit:hover {
+        background: #1d4ed8;
+    }
+
+    .resend-message {
+        margin-top: 20px;
+        padding: 12px;
+        background: #f0fdf4;
+        border-radius: 8px;
+        color: #166534;
+        line-height: 1.7;
+        text-align: center;
+    }
+
+    .resend-login {
+        margin-top: 24px;
+        padding-top: 22px;
+        border-top: 1px solid #e2e8f0;
+        text-align: center;
+    }
+
+    .resend-login a {
+        display: block;
+        padding: 14px;
+        background: #eff6ff;
+        border-radius: 10px;
+        color: #2563eb;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    .resend-login a:hover {
+        background: #dbeafe;
+    }
+
+    @media (max-width: 600px) {
+        .resend-card {
+            margin: 20px 12px;
+            padding: 24px 18px;
+        }
+
+        .resend-card h2 {
+            font-size: 22px;
+        }
+    }
+</style>
+
+<div class="resend-card">
+
+    <h2>✉ 認証メールの再送</h2>
+
+    <p class="resend-description">
+        登録されたメールアドレスに、<br>
         認証メールを再送します。
     </p>
+
+    <div class="resend-notice">
+        60秒以内に再送することはできません。
+    </div>
 
     <form method="post">
 
         {% csrf_token %}
 
-        <div class="form-group">
+        <div>
             <label for="email">メールアドレス</label>
 
             <input
                 type="email"
                 id="email"
                 name="email"
+                placeholder="登録したメールアドレスを入力してください"
                 required
             >
         </div>
 
-        <button type="submit" class="btn">
+        <button type="submit" class="resend-submit">
             認証メールを再送する
         </button>
 
     </form>
 
     {% if message %}
-        <p>{{ message }}</p>
+        <div class="resend-message">
+            {{ message }}
+        </div>
     {% endif %}
 
-<div style="margin-top: 20px; text-align: center;">
-    <a href="{% url 'login' %}">
-        ログイン画面へ
-    </a>
-</div>
+    <div class="resend-login">
+        <a href="{% url 'login' %}">
+            ログイン画面へ
+        </a>
+    </div>
 
 </div>
 
