@@ -10,6 +10,12 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": {"articles": ArticleSitemap}},
+        name="django.contrib.sitemaps.views.sitemap"
+    ),
 
     path(
         "admin/",
