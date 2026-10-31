@@ -1471,24 +1471,77 @@ def genre_ranking(request, genre_slug):
 
 
 def category_ranking(request, category_slug):
+    sub_categories = {
+        "music": [
+            "ジャズ", "クラシック", "ロック", "R&B/ソウル",
+            "ポップス", "ヒップホップ", "ボサノヴァ", "その他"
+        ],
+        "movie": [
+            "邦画アクション", "邦画コメディ", "邦画ロマンス",
+            "邦画ミステリー", "邦画ホラー", "洋画アクション",
+            "洋画コメディ", "洋画ロマンス", "洋画ミステリー",
+            "洋画ホラー", "ミュージカル", "アニメ", "SF", "その他"
+        ],
+        "book": [
+            "小説", "エッセイ", "ミステリー", "SF",
+            "ビジネス", "漫画", "その他"
+        ],
+        "photo": [
+            "風景", "人物", "動物", "花・植物", "街並み", "その他"
+        ],
+        "travel": [
+            "国内旅行", "海外旅行", "街歩き", "自然・風景", "その他"
+        ],
+        "cooking": [
+            "和食", "洋食", "中華", "お菓子",
+            "コーヒー・飲み物", "その他"
+        ],
+        "other": ["その他"],
+    }
+
+    category_name = dict(
+        Article.CATEGORY_CHOICES
+    ).get(category_slug)
+
+    if category_name is None:
+        return HttpResponse(
+            "カテゴリーが見つかりません。",
+            status=404
+        )
+
+    selected_sub_category = request.GET.get(
+        "sub_category", ""
+    ).strip()
+
     articles = Article.objects.filter(
         category=category_slug,
         is_published=True,
         author__is_active=True
-    ).order_by(
+    )
+
+    if selected_sub_category in sub_categories.get(category_slug, []):
+        articles = articles.filter(
+            sub_category=selected_sub_category
+        )
+    else:
+        selected_sub_category = ""
+
+    articles = articles.order_by(
         "-view_count",
         "-created_at"
     )[:10]
 
-    category_name = dict(
-        Article.CATEGORY_CHOICES
-    ).get(category_slug, "カテゴリー別")
-
     context = {
         "articles": articles,
-        "ranking_title": f"{category_name}ランキング",
+        "ranking_title": (
+            f"{category_name}ランキング"
+            if not selected_sub_category
+            else f"{category_name}・{selected_sub_category}ランキング"
+        ),
         "selected_category": category_slug,
         "category_choices": Article.CATEGORY_CHOICES,
+        "sub_category_choices": sub_categories.get(category_slug, []),
+        "selected_sub_category": selected_sub_category,
     }
 
     return render(
