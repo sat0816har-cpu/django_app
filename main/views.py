@@ -649,7 +649,7 @@ def register(request):
 
             sender = os.environ.get(
                 "RESEND_FROM_EMAIL",
-                "onboarding@resend.dev",
+                "noreply@sukitsuna.com",
             )
 
             resend.Emails.send({
