@@ -1,4 +1,3 @@
-
 {% extends "base.html" %}
 
 {% block content %}
@@ -39,6 +38,34 @@
         border-color: #3478D4;
     }
 
+    /* サブカテゴリー選択 */
+    .subcategory-ranking-form {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 24px;
+    }
+
+    .subcategory-ranking-form select {
+        padding: 9px 12px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        background: #fff;
+        font-size: 14px;
+        min-width: 180px;
+    }
+
+    .subcategory-ranking-form button {
+        padding: 9px 18px;
+        border: none;
+        border-radius: 8px;
+        background: #3478D4;
+        color: #fff;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
     /* トップページへ戻るボタン */
     .category-ranking-page .ranking-back {
         text-align: center;
@@ -64,6 +91,7 @@
 
     <h2>{{ ranking_title }}</h2>
 
+    <!-- カテゴリー選択 -->
     <div class="category-ranking-menu">
         {% for slug, name in category_choices %}
             <a
@@ -74,6 +102,30 @@
             </a>
         {% endfor %}
     </div>
+
+    <!-- サブカテゴリー選択 -->
+    <form
+        method="get"
+        action="{% url 'category_ranking' category_slug=selected_category %}"
+        class="subcategory-ranking-form"
+    >
+        <select name="sub_category">
+            <option value="">すべてのサブカテゴリー</option>
+
+            {% for sub_category in sub_category_choices %}
+                <option
+                    value="{{ sub_category }}"
+                    {% if selected_sub_category == sub_category %}selected{% endif %}
+                >
+                    {{ sub_category }}
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">
+            ランキングを見る
+        </button>
+    </form>
 
     {% if articles %}
         {% include "articles/_ranking_cards.html" with articles=articles %}
