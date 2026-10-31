@@ -586,7 +586,6 @@ def register(request):
         email = request.POST.get("email", "").strip()
         password = request.POST.get("password", "")
 
-        # 入力チェック
         if not username:
             return render(
                 request,
@@ -608,7 +607,6 @@ def register(request):
                 {"error": "パスワードを入力してください。"}
             )
 
-        # ユーザー名の重複チェック
         if User.objects.filter(username=username).exists():
             return render(
                 request,
@@ -616,7 +614,6 @@ def register(request):
                 {"error": "このユーザー名はすでに使用されています。"}
             )
 
-        # メールアドレスの重複チェック
         if User.objects.filter(email__iexact=email).exists():
             return render(
                 request,
@@ -624,7 +621,6 @@ def register(request):
                 {"error": "このメールアドレスはすでに登録されています。"}
             )
 
-        # パスワードの強度チェック
         new_user = User(username=username, email=email)
 
         try:
@@ -636,15 +632,28 @@ def register(request):
                 {"error": e.messages}
             )
 
-        # ユーザー登録
-        User.objects.create_user(
+        # 仮登録（メール認証が終わるまでログイン不可）
+        user = User.objects.create_user(
             username=username,
             email=email,
-            password=password
+            password=password,
+            is_active=False
         )
 
-                        # Resendを使って登録完了メールを送信
         try:
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = default_token_generator.make_token(user)
+
+            verify_url = request.build_absolute_uri(
+                reverse(
+                    "verify_email",
+                    kwargs={
+                        "uidb64": uid,
+                        "token": token,
+                    }
+                )
+            )
+
             resend.api_key = os.environ["RESEND_API_KEY"]
 
             sender = os.environ.get(
@@ -655,24 +664,39 @@ def register(request):
             resend.Emails.send({
                 "from": sender,
                 "to": [email],
-                "subject": "すきつなへのご登録ありがとうございます",
+                "subject": "すきつな｜メールアドレスの確認",
                 "text": (
                     f"{username} 様\n\n"
                     "すきつなへのご登録ありがとうございます。\n\n"
-                    "すきつなは、「好きでつながる。世界が広がる。」をテーマにしたコミュニティサイトです。\n\n"
-                    "あなたの好きなことを投稿したり、ほかのユーザーの投稿を読んだりしながら、新しいつながりを見つけてみてください。\n\n"
-                    "これから、すきつなをどうぞよろしくお願いいたします。\n\n"
+                    "以下のリンクをクリックして、"
+                    "メールアドレスの認証を完了してください。\n\n"
+                    f"{verify_url}\n\n"
+                    "このメールに心当たりがない場合は、"
+                    "メールを破棄してください。\n\n"
                     "すきつな運営チーム"
                 ),
             })
 
         except Exception:
-            logger.exception(
-                "登録完了メールの送信に失敗しました"
+            logger.exception("メール認証メールの送信に失敗しました")
+
+            return render(
+                request,
+                "articles/register.html",
+                {"error": "認証メールを送信できませんでした。時間をおいて再度お試しください。"}
             )
 
-        # ログイン画面へ移動
-        return redirect("/login/")
+        return render(
+            request,
+            "articles/register.html",
+            {
+                "message": (
+                    "確認メールを送信しました。"
+                    "メールに記載されたリンクをクリックして、"
+                    "登録を完了してください。"
+                )
+            }
+        )
 
     return render(
         request,
