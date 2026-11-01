@@ -74,6 +74,7 @@ ARTICLE_CONTENT_TAGS = {
     "pre",
     "code",
     "a",
+    "span",
 }
 
 
