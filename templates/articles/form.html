@@ -781,21 +781,34 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    const quill = new Quill(editorElement, {
-        theme: "snow",
-        modules: {
-            toolbar: toolbarElement
-        },
-        formats: [
-            "bold",
-            "italic",
-            "underline",
-            "header",
-            "list",
-            "blockquote",
-            "link"
-        ]
-    });
+    // 使用するフォントを登録
+const Font = Quill.import("formats/font");
+
+Font.whitelist = [
+    "gothic",
+    "mincho",
+    "rounded",
+    "handwriting"
+];
+
+Quill.register(Font, true);
+
+const quill = new Quill(editorElement, {
+    theme: "snow",
+    modules: {
+        toolbar: toolbarElement
+    },
+    formats: [
+        "bold",
+        "italic",
+        "underline",
+        "header",
+        "list",
+        "blockquote",
+        "link",
+        "font"
+    ]
+});
 
         // 本文ボタンで見出しを通常の文字に戻す
     const normalTextButton = document.getElementById(
