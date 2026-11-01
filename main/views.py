@@ -417,7 +417,9 @@ def article_create(request):
     if request.method == "POST":
 
         title = request.POST["title"]
-        content = request.POST["content"]
+        content = sanitize_article_content(
+            request.POST.get("content", "")
+        )
         genre = request.POST.get("genre", "other")
         category = request.POST.get("category", "other")
         sub_category = request.POST.get("sub_category", "").strip()
