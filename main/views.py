@@ -85,6 +85,7 @@ def sanitize_article_content(content):
         tags=ARTICLE_CONTENT_TAGS,
         attributes={
             "a": {"href", "title"},
+            "span": {"class"},
         },
         strip_comments=True,
         link_rel="noopener noreferrer",
