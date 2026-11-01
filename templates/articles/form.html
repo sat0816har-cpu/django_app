@@ -306,6 +306,15 @@
     box-sizing: border-box;
 }
 
+/* 編集ツールバーをスクロール中も画面上部に固定 */
+#article-quill-toolbar {
+    position: sticky;
+    top: 70px;
+    z-index: 100;
+    background: #ffffff;
+    padding: 8px 0;
+}
+
 /* 左端の文字スタイル */
 #article-quill-toolbar .article-quill-style-controls {
     display: flex;
