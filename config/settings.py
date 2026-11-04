@@ -211,3 +211,8 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 # 操作するたびにセッションの有効期限を更新する
 SESSION_SAVE_EVERY_REQUEST = True
 
+# エラー発生時の管理者通知
+ADMINS = [
+    ("管理者", "sukitsuna.info@gmail.com"),
+]
+
