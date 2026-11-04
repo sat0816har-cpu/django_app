@@ -1763,10 +1763,14 @@ def following_list(request, username):
     )
 
 # 共通エラーページ
+from django.template.loader import get_template
+
+
 def common_error_page(request, status_code):
-    return render(
-        request,
-        "errors/error.html",
+    template = get_template("errors/error.html")
+
+    return HttpResponse(
+        template.render({}),
         status=status_code
     )
 
