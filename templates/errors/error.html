@@ -1,0 +1,112 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メンテナンス中 | すきつな</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f5f7fa;
+            font-family: sans-serif;
+            color: #333;
+        }
+
+        .error-card {
+            width: 100%;
+            max-width: 520px;
+            padding: 45px 25px;
+            box-sizing: border-box;
+            text-align: center;
+            background: #fff;
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.05);
+        }
+
+        .site-name {
+            font-size: 25px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 15px;
+            line-height: 1.9;
+            color: #666;
+        }
+
+        .home-button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 13px 30px;
+            background: #4b83c3;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .home-button:hover {
+            opacity: 0.85;
+        }
+
+        .tagline {
+            margin-top: 30px;
+            font-size: 13px;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="error-card">
+
+    <div class="site-name">すきつな</div>
+
+    <h1>ただいまメンテナンス中です</h1>
+
+    <p>
+        いつも「すきつな」をご利用いただき、<br>
+        ありがとうございます。
+    </p>
+
+    <p>
+        現在、システムの調整または一時的な不具合により、
+        サービスをご利用いただけません。
+    </p>
+
+    <p>
+        ご不便をおかけしますが、<br>
+        しばらく時間をおいてから、<br>
+        もう一度アクセスしてください。
+    </p>
+
+    <a href="/" class="home-button">
+        トップページへ戻る
+    </a>
+
+    <div class="tagline">
+        好きでつながる。世界が広がる。
+    </div>
+
+</div>
+
+</body>
+</html>
