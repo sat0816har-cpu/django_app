@@ -1806,7 +1806,6 @@ def custom_500(request):
             "subject": "【すきつな】500エラーが発生しました",
             "text": (
                 "すきつなで500エラーが発生しました。\n\n"
-                f"発生日時：{request.META.get('REQUEST_TIME', '不明')}\n"
                 f"アクセス先：{request.path}\n"
                 f"メソッド：{request.method}\n\n"
                 "Renderのログを確認してください。"
