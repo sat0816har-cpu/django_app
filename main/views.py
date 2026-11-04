@@ -1817,13 +1817,7 @@ def custom_500(request):
 
     return common_error_page(request, 500)
 
-# 管理者用エラー通知テスト
-from django.contrib.admin.views.decorators import staff_member_required
 
-
-@staff_member_required
-def test_error_notification(request):
-    raise RuntimeError("500エラー通知のテストです")
 
 
 
