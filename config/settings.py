@@ -216,3 +216,5 @@ ADMINS = [
     ("管理者", "sukitsuna.info@gmail.com"),
 ]
 
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
