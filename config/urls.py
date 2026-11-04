@@ -218,12 +218,6 @@ urlpatterns = [
     path("withdrawal/confirm/", views.withdrawal_confirm_page, name="withdrawal_confirm_page"),
     path("withdrawal/submit/", views.withdrawal_confirm, name="withdrawal_confirm"),
 
-    path(
-    "test-error-notification/",
-    views.test_error_notification,
-    name="test_error_notification",
-    ),
-
     
 ]
 
