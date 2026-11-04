@@ -227,4 +227,10 @@ urlpatterns += static(
     document_root=settings.MEDIA_ROOT
 )
 
+# 共通エラーページ
+handler400 = views.custom_400
+handler403 = views.custom_403
+handler404 = views.custom_404
+handler500 = views.custom_500
+
 
