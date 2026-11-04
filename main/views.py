@@ -1762,6 +1762,34 @@ def following_list(request, username):
         context
     )
 
+# 共通エラーページ
+def common_error_page(request, status_code):
+    return render(
+        request,
+        "errors/error.html",
+        status=status_code
+    )
+
+
+# 400エラー
+def custom_400(request, exception):
+    return common_error_page(request, 400)
+
+
+# 403エラー
+def custom_403(request, exception):
+    return common_error_page(request, 403)
+
+
+# 404エラー
+def custom_404(request, exception):
+    return common_error_page(request, 404)
+
+
+# 500エラー
+def custom_500(request):
+    return common_error_page(request, 500)
+
 
 
 
