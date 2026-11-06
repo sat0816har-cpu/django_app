@@ -35,6 +35,13 @@ ALLOWED_HOSTS = [
 SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
 
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://sukitsuna.com",
+    "https://www.sukitsuna.com",
+]
+
 
 # アプリケーション
 
