@@ -1293,18 +1293,9 @@ def password_reset_request(request):
                     )
                 )
 
-                resend.api_key = os.environ["RESEND_API_KEY"]
-
-                sender = os.environ.get(
-                    "RESEND_FROM_EMAIL",
-                    "onboarding@resend.dev",
-                )
-
-                resend.Emails.send({
-                    "from": sender,
-                    "to": [user.email],
-                    "subject": "すきつな：パスワード再設定",
-                    "text": (
+                send_mail(
+                    subject="すきつな：パスワード再設定",
+                    message=(
                         f"{user.username} 様\n\n"
                         "パスワード再設定のリクエストを受け付けました。\n"
                         "次のリンクから、新しいパスワードを設定してください。\n\n"
@@ -1313,7 +1304,10 @@ def password_reset_request(request):
                         "このメールを無視してください。\n"
                         "このリンクには有効期限があります。"
                     ),
-                })
+                    from_email=None,
+                    recipient_list=[user.email],
+                    fail_silently=False,
+                )
 
             except Exception:
                 logger.exception(
