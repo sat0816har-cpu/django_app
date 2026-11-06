@@ -1,10 +1,14 @@
 import os
 
+from dotenv import load_dotenv
+
 from pathlib import Path
 
 from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(BASE_DIR.parent / ".env")
 
 
 # セキュリティキーはRenderの環境変数から取得
