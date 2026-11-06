@@ -786,18 +786,9 @@ def resend_verification(request):
                         )
                     )
 
-                    resend.api_key = os.environ["RESEND_API_KEY"]
-
-                    sender = os.environ.get(
-                        "RESEND_FROM_EMAIL",
-                        "noreply@sukitsuna.com",
-                    )
-
-                    resend.Emails.send({
-                        "from": sender,
-                        "to": [user.email],
-                        "subject": "すきつな｜メールアドレスの確認",
-                        "text": (
+                    send_mail(
+                        subject="すきつな｜メールアドレスの確認",
+                        message=(
                             f"{user.username} 様\n\n"
                             "すきつなへのご登録ありがとうございます。\n\n"
                             "以下のリンクをクリックして、"
@@ -805,7 +796,10 @@ def resend_verification(request):
                             f"{verify_url}\n\n"
                             "すきつな運営チーム"
                         ),
-                    })
+                        from_email=None,
+                        recipient_list=[user.email],
+                        fail_silently=False,
+                    )
 
                 except Exception:
                     logger.exception("認証メールの再送に失敗しました")
