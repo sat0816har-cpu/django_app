@@ -22,7 +22,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import SetPasswordForm
-from django.core.mail import send_mail
+from django.core.mail import EmailMessage, send_mail
 from django.views.decorators.http import require_http_methods
 
 
