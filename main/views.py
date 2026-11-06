@@ -1587,18 +1587,9 @@ def withdrawal_confirm(request):
 
     # 退会完了メールを送信
     try:
-        resend.api_key = os.environ["RESEND_API_KEY"]
-
-        sender = os.environ.get(
-            "RESEND_FROM_EMAIL",
-            "noreply@sukitsuna.com",
-        )
-
-        resend.Emails.send({
-            "from": sender,
-            "to": [user.email],
-            "subject": "【すきつな】退会手続きが完了しました",
-            "text": (
+        send_mail(
+            subject="【すきつな】退会手続きが完了しました",
+            message=(
                 f"{user.username} 様\n\n"
                 "このたびは、「すきつな」の退会手続きが完了しました。\n\n"
                 "これまで「すきつな」をご利用いただき、"
@@ -1609,7 +1600,10 @@ def withdrawal_confirm(request):
                 "好きでつながる。世界が広がる。\n\n"
                 "※このメールは自動送信です。"
             ),
-        })
+            from_email=None,
+            recipient_list=[user.email],
+            fail_silently=False,
+        )
 
     except Exception:
         logger.exception("退会完了メールの送信に失敗しました")
