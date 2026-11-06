@@ -1758,25 +1758,20 @@ def custom_404(request, exception):
 
 # 500エラー
 def custom_500(request):
+
     try:
-        resend.api_key = os.environ["RESEND_API_KEY"]
-
-        sender = os.environ.get(
-            "RESEND_FROM_EMAIL",
-            "noreply@sukitsuna.com",
-        )
-
-        resend.Emails.send({
-            "from": sender,
-            "to": ["sukitsuna.info@gmail.com"],
-            "subject": "【すきつな】500エラーが発生しました",
-            "text": (
+        send_mail(
+            subject="【すきつな】500エラーが発生しました",
+            message=(
                 "すきつなで500エラーが発生しました。\n\n"
                 f"アクセス先：{request.path}\n"
                 f"メソッド：{request.method}\n\n"
-                "Renderのログを確認してください。"
+                "サーバーのログを確認してください。"
             ),
-        })
+            from_email=None,
+            recipient_list=["sukitsuna.info@gmail.com"],
+            fail_silently=False,
+        )
 
     except Exception:
         logging.exception("500エラー通知メールの送信に失敗しました")
