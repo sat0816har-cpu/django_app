@@ -968,9 +968,9 @@ def contact(request):
             try:
 
                 # ① 運営者への通知メール
-                send_mail(
+                EmailMessage(
                     subject=f"【すきつな】お問い合わせ：{name}",
-                    message=(
+                    body=(
                         f"すきつなにお問い合わせが届きました。\n\n"
                         f"お名前：{name}\n"
                         f"メールアドレス：{email}\n\n"
@@ -978,11 +978,10 @@ def contact(request):
                         "すきつな運営チーム"
                     ),
                     from_email=None,
-                    recipient_list=["sukitsuna.info@gmail.com"],
-                    fail_silently=False,
+                    to=["sukitsuna.info@gmail.com"],
                     headers={"Reply-To": email},
-                )
-
+                ).send(fail_silently=False)
+                
                 # ② お問い合わせした人への自動返信メール
                 try:
                     send_mail(
