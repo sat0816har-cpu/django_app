@@ -721,18 +721,9 @@ def verify_email(request, uidb64, token):
         user.save()
 
         try:
-            resend.api_key = os.environ["RESEND_API_KEY"]
-
-            sender = os.environ.get(
-                "RESEND_FROM_EMAIL",
-                "noreply@sukitsuna.com",
-            )
-
-            resend.Emails.send({
-                "from": sender,
-                "to": [user.email],
-                "subject": "すきつなへのご登録ありがとうございます",
-                "text": (
+            send_mail(
+                subject="すきつなへのご登録ありがとうございます",
+                message=(
                     f"{user.username} 様\n\n"
                     "すきつなへのご登録ありがとうございます。\n\n"
                     "すきつなは、「好きでつながる。世界が広がる。」をテーマにしたコミュニティサイトです。\n\n"
@@ -740,8 +731,10 @@ def verify_email(request, uidb64, token):
                     "これから、すきつなをどうぞよろしくお願いいたします。\n\n"
                     "すきつな運営チーム"
                 ),
-            })
-
+                from_email=None,
+                recipient_list=[user.email],
+                fail_silently=False,
+            )
         except Exception:
             logger.exception("登録完了メールの送信に失敗しました")
 
