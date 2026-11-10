@@ -29,6 +29,7 @@ ALLOWED_HOSTS = [
     "django-app-crtr.onrender.com",
     "sukitsuna.com",
     "www.sukitsuna.com",
+    "133.242.178.186",
 ]
 
 # HTTPSで利用する場合のCookie保護
