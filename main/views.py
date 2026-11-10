@@ -1748,6 +1748,9 @@ def custom_400(request, exception):
 # 403エラー
 def custom_403(request, exception):
     return common_error_page(request, 403)
+# CSRFエラー
+def custom_csrf_failure(request, reason=""):
+    return common_error_page(request, 403)
 
 
 # 404エラー
