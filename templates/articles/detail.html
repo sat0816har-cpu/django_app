@@ -5,7 +5,7 @@
 
 {% block title %}{{ article.title }}｜すきつな{% endblock %}
 
-{% block meta_description %}{{ article.title }}。{{ article.get_genre_display }}・{{ article.get_category_display }}に関する記事です。{{ article_content|striptags|truncatechars:120 }}{% endblock %}
+{% block meta_description %}{{ article.title }}。{{ article.get_genre_display }}・{{ article.get_category_display }}に関する記事です。{{ article_content|plain_text|truncatechars:120 }}{% endblock %}
 
 {% block content %}
 
