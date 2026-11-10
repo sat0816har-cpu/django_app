@@ -42,6 +42,8 @@ CSRF_TRUSTED_ORIGINS = [
     "https://www.sukitsuna.com",
 ]
 
+CSRF_FAILURE_VIEW = "main.views.custom_csrf_failure"
+
 
 # アプリケーション
 
