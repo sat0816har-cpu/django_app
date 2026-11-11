@@ -1,6 +1,24 @@
 
 {% extends "base.html" %}
 
+
+{% block title %}
+{% if sub_category %}
+{{ category_name }}・{{ sub_category }}の投稿一覧｜すきつな
+{% else %}
+{{ category_name }}の投稿一覧｜すきつな
+{% endif %}
+{% endblock %}
+
+{% block meta_description %}
+{% if sub_category %}
+すきつなの「{{ category_name }}」カテゴリーにある「{{ sub_category }}」の投稿一覧です。好きなことを共有し、新しい趣味や人とのつながりを見つけてみましょう。
+{% else %}
+すきつなの「{{ category_name }}」カテゴリーの投稿一覧です。音楽・映画・本・写真・旅行・料理など、好きなことを共有して新しいつながりを見つけましょう。
+{% endif %}
+{% endblock %}
+
+
 {% block content %}
 
 <div class="feed-header">
