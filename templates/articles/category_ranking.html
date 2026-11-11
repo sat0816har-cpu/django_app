@@ -1,5 +1,23 @@
 {% extends "base.html" %}
 
+
+{% block title %}
+{% if selected_sub_category %}
+{{ ranking_title }}・{{ selected_sub_category }}｜すきつな
+{% else %}
+{{ ranking_title }}｜すきつな
+{% endif %}
+{% endblock %}
+
+{% block meta_description %}
+{% if selected_sub_category %}
+すきつなのカテゴリー別ランキングです。「{{ selected_sub_category }}」に関する人気の記事をランキング形式で紹介します。
+{% else %}
+すきつなのカテゴリー別ランキングです。音楽・映画・本・写真・旅行・料理など、カテゴリーごとの人気記事を紹介します。
+{% endif %}
+{% endblock %}
+
+
 {% block content %}
 
 <style>
