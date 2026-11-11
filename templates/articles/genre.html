@@ -1,6 +1,24 @@
 
 {% extends "base.html" %}
 
+
+{% block title %}
+{% if genre_slug == "other" %}
+ジャンルその他の投稿一覧｜すきつな
+{% else %}
+{{ genre_name }}の投稿一覧｜すきつな
+{% endif %}
+{% endblock %}
+
+{% block meta_description %}
+{% if genre_slug == "other" %}
+すきつなのジャンル「その他」の投稿一覧です。さまざまな好きなことを共有して、新しい趣味や人とのつながりを見つけてみましょう。
+{% else %}
+すきつなの「{{ genre_name }}」ジャンルの投稿一覧です。好きなことや興味のあることを共有して、新しい発見や人とのつながりを見つけてみましょう。
+{% endif %}
+{% endblock %}
+
+
 {% block content %}
 <div class="feed-header">
     <h2 class="feed-title">
