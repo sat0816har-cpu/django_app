@@ -1,4 +1,15 @@
 {% extends "base.html" %}
+
+
+{% block title %}
+{{ profile_user.username }}さんのプロフィール｜すきつな
+{% endblock %}
+
+{% block meta_description %}
+{{ profile_user.username }}さんのプロフィールページです。好きなことや趣味、自己紹介、Webサイト・SNS、投稿記事を紹介しています。すきつなで好きなことを通じた新しいつながりを見つけましょう。
+{% endblock %}
+
+
 {% load static %}
 {% block content %}
 
