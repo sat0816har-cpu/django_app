@@ -157,10 +157,13 @@ def article_list(request):
 
     # タイトルまたは本文を検索
     if keyword:
-        articles = articles.filter(
-            Q(title__icontains=keyword) |
-            Q(content__icontains=keyword)
-        )
+        keywords = keyword.split()
+
+        for word in keywords:
+            articles = articles.filter(
+                Q(title__icontains=word) |
+                Q(content__icontains=word)
+            )
 
     articles = articles.order_by("-created_at")
 
