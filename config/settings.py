@@ -175,25 +175,26 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
-# Gmailによるメール送信設定
+# さくらのメールサーバーによるメール送信設定
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
-EMAIL_HOST = os.environ.get("EMAIL_HOST", "smtp.gmail.com")
-EMAIL_PORT = int(os.environ.get("EMAIL_PORT", "587"))
+EMAIL_HOST = "siennaseal6.sakura.ne.jp"
+EMAIL_PORT = 587
 
-EMAIL_USE_TLS = (
-    os.environ.get("EMAIL_USE_TLS", "True").lower() == "true"
-)
+# STARTTLSによる暗号化
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 
-EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER", "")
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "")
+# さくらのメールアカウント
+EMAIL_HOST_USER = "info@sukitsuna.com"
 
-DEFAULT_FROM_EMAIL = os.environ.get(
-    "DEFAULT_FROM_EMAIL",
-    EMAIL_HOST_USER
-)
+# メールパスワードはVPSの環境変数から取得
+EMAIL_HOST_PASSWORD = os.environ.get("SAKURA_EMAIL_PASSWORD", "")
 
-# メール送信のタイムアウトを10秒に設定
+# メールの差出人
+DEFAULT_FROM_EMAIL = "info@sukitsuna.com"
+
+# メール送信のタイムアウト
 EMAIL_TIMEOUT = 10
 
 
