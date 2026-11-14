@@ -1684,7 +1684,7 @@ def follower_list(request, username):
         follower__is_active=True
     ).select_related("follower").order_by("-created_at")
 
-    paginator = Paginator(follows, 3)
+    paginator = Paginator(follows, 20)
     page_obj = paginator.get_page(request.GET.get("page"))
 
     followers = [
@@ -1716,7 +1716,7 @@ def following_list(request, username):
         following__is_active=True
     ).select_related("following").order_by("-created_at")
 
-    paginator = Paginator(follows, 3)
+    paginator = Paginator(follows, 20)
     page_obj = paginator.get_page(request.GET.get("page"))
 
     following_users = [
