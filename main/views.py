@@ -1673,7 +1673,6 @@ def unfollow_user(request, username):
     )
 
 
-
 def follower_list(request, username):
     profile_user = get_object_or_404(
         User,
@@ -1685,14 +1684,18 @@ def follower_list(request, username):
         follower__is_active=True
     ).select_related("follower").order_by("-created_at")
 
+    paginator = Paginator(follows, 3)
+    page_obj = paginator.get_page(request.GET.get("page"))
+
     followers = [
         follow.follower
-        for follow in follows
+        for follow in page_obj.object_list
     ]
 
     context = {
         "profile_user": profile_user,
         "followers": followers,
+        "page_obj": page_obj,
     }
 
     return render(
@@ -1702,7 +1705,6 @@ def follower_list(request, username):
     )
 
 
-
 def following_list(request, username):
     profile_user = get_object_or_404(
         User,
@@ -1710,18 +1712,22 @@ def following_list(request, username):
     )
 
     follows = Follow.objects.filter(
-    follower=profile_user,
-    following__is_active=True
+        follower=profile_user,
+        following__is_active=True
     ).select_related("following").order_by("-created_at")
+
+    paginator = Paginator(follows, 3)
+    page_obj = paginator.get_page(request.GET.get("page"))
 
     following_users = [
         follow.following
-        for follow in follows
+        for follow in page_obj.object_list
     ]
 
     context = {
         "profile_user": profile_user,
         "following_users": following_users,
+        "page_obj": page_obj,
     }
 
     return render(
@@ -1729,6 +1735,7 @@ def following_list(request, username):
         "articles/following_list.html",
         context
     )
+
 
 # 共通エラーページ
 from django.template.loader import get_template
