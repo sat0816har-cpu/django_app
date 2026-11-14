@@ -17,10 +17,16 @@
             grid-template-columns: repeat(3, minmax(0, 1fr));
         }
     }
+
+    @media (max-width: 650px) {
+    .user-list-title {
+        font-size: 18px;
+    }
+}
 </style>
 
 
-<h2>{{ profile_user.username }} さんのフォロワー</h2>
+<h2 class="user-list-title">{{ profile_user.username }} さんのフォロワー</h2>
 
 {% if followers %}
     <div class="user-list-grid">
