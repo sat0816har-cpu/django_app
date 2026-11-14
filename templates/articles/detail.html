@@ -663,9 +663,9 @@
     <div style="display: flex; justify-content: center; align-items: center; gap: 18px; margin: 24px 0;">
 
         {% if page_obj.has_previous %}
-            <a href="?page={{ page_obj.previous_page_number }}{% if from_my_articles %}&from=my-articles{% endif %}">
-                前へ
-            </a>
+            <a href="?page={{ page_obj.previous_page_number }}{% if from_my_articles %}&from=my-articles{% endif %}#comments">
+    前へ
+</a>
         {% endif %}
 
         <span>
@@ -673,9 +673,9 @@
         </span>
 
         {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}{% if from_my_articles %}&from=my-articles{% endif %}">
-                次へ
-            </a>
+           <a href="?page={{ page_obj.next_page_number }}{% if from_my_articles %}&from=my-articles{% endif %}#comments">
+    次へ
+</a>
         {% endif %}
 
     </div>
