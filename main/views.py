@@ -368,8 +368,8 @@ def article_detail(request, article_id):
         article=article
     ).order_by("-created_at")
 
-    # コメントを3件ずつページング
-    paginator = Paginator(comments_queryset, 3)
+    # コメントを10件ずつページング
+    paginator = Paginator(comments_queryset, 10)
     page_obj = paginator.get_page(request.GET.get("page"))
     comments = page_obj.object_list
 
