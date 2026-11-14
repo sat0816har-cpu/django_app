@@ -2326,14 +2326,16 @@ article {
 }
 }
 
-/* フォロー一覧・フォロワー一覧では探索メニューを非表示 */
-.sidebar.hide-follow-discovery-menu > a[href="/"],
-.sidebar.hide-follow-discovery-menu > .menu-section-title,
-.sidebar.hide-follow-discovery-menu > .genre-item,
-.sidebar.hide-follow-discovery-menu > a[href^="/category/"],
-.sidebar.hide-follow-discovery-menu > .desktop-sub-category-toggle,
-.sidebar.hide-follow-discovery-menu > .sidebar-sub-categories,
-.sidebar.hide-follow-discovery-menu > .mobile-sub-category-open,
-.sidebar.hide-follow-discovery-menu > .mobile-sub-category-modal {
-    display: none !important;
+/* スマホ：フォロー一覧・フォロワー一覧では探索メニューを非表示 */
+@media (max-width: 650px) {
+    .sidebar.hide-follow-discovery-menu > a[href="/"],
+    .sidebar.hide-follow-discovery-menu > .menu-section-title,
+    .sidebar.hide-follow-discovery-menu > .genre-item,
+    .sidebar.hide-follow-discovery-menu > a[href^="/category/"],
+    .sidebar.hide-follow-discovery-menu > .desktop-sub-category-toggle,
+    .sidebar.hide-follow-discovery-menu > .sidebar-sub-categories,
+    .sidebar.hide-follow-discovery-menu > .mobile-sub-category-open,
+    .sidebar.hide-follow-discovery-menu > .mobile-sub-category-modal {
+        display: none !important;
+    }
 }
