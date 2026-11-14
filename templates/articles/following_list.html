@@ -57,13 +57,29 @@
     <p>まだ誰もフォローしていません。</p>
 {% endif %}
 
+{% if page_obj.has_other_pages %}
+    <div style="display: flex; justify-content: center; align-items: center; gap: 18px; margin-top: 24px;">
 
-<p style="margin-top: 24px;">
-    <a href="{% url 'public_profile' profile_user.username %}"
-       style="display: inline-block; padding: 9px 14px; border: 1px solid #cccccc; border-radius: 8px; background-color: #f5f5f5; color: #333333; text-decoration: none; font-size: 14px;">
-        プロフィールに戻る
-    </a>
-</p>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}"
+               style="padding: 8px 14px; border: 1px solid #cccccc; border-radius: 8px; text-decoration: none; color: #333333;">
+                前へ
+            </a>
+        {% endif %}
+
+        <span>
+            {{ page_obj.number }} / {{ page_obj.paginator.num_pages }} ページ
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}"
+               style="padding: 8px 14px; border: 1px solid #cccccc; border-radius: 8px; text-decoration: none; color: #333333;">
+                次へ
+            </a>
+        {% endif %}
+
+    </div>
+{% endif %}
 
 
 {% endblock %}
