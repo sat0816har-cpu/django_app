@@ -319,53 +319,36 @@ def genre_list(request, genre_slug):
 
 def article_detail(request, article_id):
     article = get_object_or_404(
-    Article,
-    id=article_id,
-    is_published=True,
-    author__is_active=True
-)
-
-    
-    
-    # 記事の閲覧日時を記録
-    ArticleView.objects.create(
-        article=article
+        Article,
+        id=article_id,
+        is_published=True,
+        author__is_active=True
     )
+
+    # 記事の閲覧日時を記録
+    ArticleView.objects.create(article=article)
 
     # 累計閲覧数を1増やす
     article.view_count += 1
     article.save(update_fields=["view_count"])
 
-
-
     error = ""
 
     # コメント投稿処理
     if request.method == "POST":
-
-        name = request.POST.get(
-            "name", ""
-        ).strip()
-
-        content = request.POST.get(
-            "content", ""
-        ).strip()
+        name = request.POST.get("name", "").strip()
+        content = request.POST.get("content", "").strip()
 
         # 入力チェック
         if not name:
             error = "お名前を入力してください。"
-
         elif not content:
             error = "コメントを入力してください。"
-
         elif len(name) > 50:
             error = "お名前は50文字以内で入力してください。"
-
         elif len(content) > 1000:
             error = "コメントは1000文字以内で入力してください。"
-
         else:
-            # コメントをデータベースに保存
             Comment.objects.create(
                 article=article,
                 user=request.user if request.user.is_authenticated else None,
@@ -376,32 +359,30 @@ def article_detail(request, article_id):
 
             # 保存後、記事詳細画面に戻る
             if request.GET.get("from") == "my-articles":
-                return redirect(
-                    f"/articles/{article.id}/?from=my-articles"
-                )
+                return redirect(f"/articles/{article.id}/?from=my-articles")
 
-            return redirect(
-                f"/articles/{article.id}/"
-            )
+            return redirect(f"/articles/{article.id}/")
 
-    # この記事に投稿されたコメントを取得
-    comments = Comment.objects.filter(
+    # コメントを新しい順に取得
+    comments_queryset = Comment.objects.filter(
         article=article
     ).order_by("-created_at")
+
+    # コメントを3件ずつページング
+    paginator = Paginator(comments_queryset, 3)
+    page_obj = paginator.get_page(request.GET.get("page"))
+    comments = page_obj.object_list
 
     return render(
         request,
         "articles/detail.html",
         {
             "article": article,
-            "article_content": sanitize_article_content(
-                article.content
-            ),
+            "article_content": sanitize_article_content(article.content),
             "comments": comments,
+            "page_obj": page_obj,
             "error": error,
-            "from_my_articles": (
-                request.GET.get("from") == "my-articles"
-            ),
+            "from_my_articles": request.GET.get("from") == "my-articles",
             "own_article": (
                 request.user.is_authenticated
                 and request.user == article.author
