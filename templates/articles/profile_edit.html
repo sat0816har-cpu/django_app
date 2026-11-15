@@ -159,6 +159,21 @@
             ほかのユーザーとのつながりを広げましょう。
         </p>
 
+                {% if error %}
+            <div style="
+                margin-bottom: 20px;
+                padding: 12px 16px;
+                border: 1px solid #f5c2c7;
+                border-radius: 8px;
+                background: #f8d7da;
+                color: #842029;
+                font-size: 14px;
+                line-height: 1.7;
+            ">
+                {{ error }}
+            </div>
+        {% endif %}
+
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
 
