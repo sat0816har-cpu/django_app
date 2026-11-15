@@ -1868,7 +1868,7 @@ def ai_article_assistant(request):
         response = client.responses.create(
             model=os.environ.get(
                 "OPENAI_MODEL",
-                "gpt-5.5"
+                "gpt-6-luna"
             ),
             instructions=instructions[action],
             input=user_input,
