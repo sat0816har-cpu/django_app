@@ -283,6 +283,31 @@ class Follow(models.Model):
         return f"{self.follower.username} → {self.following.username}"
 
 
+class AIUsage(models.Model):
+    # 利用した会員
+    user = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name="ai_usages"
+    )
+
+    # 利用日時
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+    class Meta:
+        ordering = ["-created_at"]
+        indexes = [
+            models.Index(
+                fields=["user", "created_at"]
+            )
+        ]
+
+    def __str__(self):
+        return f"{self.user.username} - {self.created_at}"
+
+
 
 
 
