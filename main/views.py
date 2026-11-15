@@ -49,6 +49,9 @@ from django.urls import reverse
 from datetime import timedelta
 from django.db.models import Count, Q
 from openai import OpenAI
+from io import BytesIO
+from PIL import Image, ImageOps, UnidentifiedImageError
+from django.core.files.base import ContentFile
 
 
 
