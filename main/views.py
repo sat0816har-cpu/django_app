@@ -1776,6 +1776,131 @@ def custom_500(request):
 
 
 
+@login_required
+@require_POST
+def ai_article_assistant(request):
+    """記事作成AIアシスタント"""
+
+    api_key = os.environ.get("OPENAI_API_KEY")
+
+    if not api_key:
+        return JsonResponse(
+            {"error": "AI機能は現在準備中です。"},
+            status=503
+        )
+
+    action = request.POST.get("action", "").strip()
+    prompt = request.POST.get("prompt", "").strip()[:1000]
+    title = request.POST.get("title", "").strip()[:200]
+    content = request.POST.get("content", "").strip()[:10000]
+
+    instructions = {
+        "title": (
+            "あなたは日本語の記事編集者です。"
+            "入力された情報をもとに、魅力的な記事タイトルを"
+            "5個提案してください。"
+        ),
+        "generate": (
+            "あなたは日本語の記事作成アシスタントです。"
+            "入力されたキーワードや指示をもとに、"
+            "初心者にも読みやすい記事本文を作成してください。"
+        ),
+        "improve": (
+            "あなたは日本語の文章編集者です。"
+            "元の意味や書き手の意図を保ちながら、"
+            "読みやすく自然な文章に改善してください。"
+        ),
+        "proofread": (
+            "あなたは日本語の校正者です。"
+            "誤字脱字、不自然な表現、文法の誤りを確認し、"
+            "修正した文章を提示してください。"
+        ),
+    }
+
+    if action not in instructions:
+        return JsonResponse(
+            {"error": "無効な操作です。"},
+            status=400
+        )
+
+    if action in ["improve", "proofread"] and not content:
+        return JsonResponse(
+            {"error": "文章を入力してください。"},
+            status=400
+        )
+
+    if action in ["title", "generate"] and not (
+        prompt or title or content
+    ):
+        return JsonResponse(
+            {"error": "キーワードなどを入力してください。"},
+            status=400
+        )
+
+    user_input = (
+        f"記事タイトル：{title}\n\n"
+        f"指示・キーワード：{prompt}\n\n"
+        f"記事本文：{content}"
+    )
+
+    today = timezone.localdate()
+
+    # 1日3回までの利用制限
+    usage_count = AIUsage.objects.filter(
+        user=request.user,
+        created_at__date=today
+    ).count()
+
+    if usage_count >= 3:
+        return JsonResponse(
+            {"error": "本日のAI利用回数は3回までです。"},
+            status=429
+        )
+
+    # 利用履歴を記録
+    usage = AIUsage.objects.create(
+        user=request.user
+    )
+
+    try:
+        client = OpenAI(api_key=api_key)
+
+        response = client.responses.create(
+            model=os.environ.get(
+                "OPENAI_MODEL",
+                "gpt-5.5"
+            ),
+            instructions=instructions[action],
+            input=user_input,
+            max_output_tokens=1200,
+        )
+
+        result = response.output_text.strip()
+
+        if not result:
+            raise ValueError("AIから回答が返されませんでした。")
+
+        return JsonResponse({
+            "result": result,
+            "remaining": 2 - usage_count,
+        })
+
+    except Exception:
+        # 失敗した場合は利用回数を戻す
+        usage.delete()
+
+        logging.exception(
+            "AI記事アシスタントでエラーが発生しました"
+        )
+
+        return JsonResponse(
+            {"error": "AIの処理に失敗しました。時間をおいて再度お試しください。"},
+            status=502
+        )
+
+
+
+
 
 
 
