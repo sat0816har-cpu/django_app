@@ -23,6 +23,7 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import SetPasswordForm
 from django.core.mail import EmailMessage, send_mail
 from django.views.decorators.http import require_http_methods
+from django.template.loader import get_template
 
 
 from .models import (
@@ -32,6 +33,7 @@ from .models import (
     Profile,
     Comment,
     Follow,
+    AIUsage,
 )
 
 from django.core.paginator import Paginator
