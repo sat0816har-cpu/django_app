@@ -1270,7 +1270,20 @@ def profile_edit(request):
         ).strip()
 
         image = request.FILES.get("image")
+
         if image:
+            try:
+                image = process_uploaded_image(image, 1)
+            except ValidationError as e:
+                return render(
+                    request,
+                    "articles/profile_edit.html",
+                    {
+                        "profile": profile,
+                        "error": e.messages[0],
+                    }
+                )
+
             profile.image = image
 
         profile.save()
