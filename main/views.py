@@ -83,6 +83,85 @@ ARTICLE_CONTENT_TAGS = {
 }
 
 
+def process_uploaded_image(uploaded_file, max_size_mb):
+    """
+    画像の形式・容量を確認し、長辺1920px以内に縮小する。
+    """
+    if not uploaded_file:
+        return None
+
+    max_size = max_size_mb * 1024 * 1024
+
+    if uploaded_file.size > max_size:
+        raise ValidationError(
+            f"画像は{max_size_mb}MB以下にしてください。"
+        )
+
+    try:
+        image = Image.open(uploaded_file)
+        image_format = image.format
+
+        if image_format not in ("JPEG", "PNG", "WEBP"):
+            raise ValidationError(
+                "JPEG・PNG・WebP形式の画像を選択してください。"
+            )
+
+        image.verify()
+        uploaded_file.seek(0)
+
+        image = Image.open(uploaded_file)
+        image = ImageOps.exif_transpose(image)
+
+        if image.width > 1920 or image.height > 1920:
+            image.thumbnail((1920, 1920), Image.Resampling.LANCZOS)
+
+        output = BytesIO()
+
+        if image_format == "JPEG":
+            if image.mode not in ("RGB", "L"):
+                image = image.convert("RGB")
+
+            image.save(
+                output,
+                format="JPEG",
+                quality=85,
+                optimize=True
+            )
+            extension = "jpg"
+
+        elif image_format == "PNG":
+            image.save(
+                output,
+                format="PNG",
+                optimize=True
+            )
+            extension = "png"
+
+        else:
+            image.save(
+                output,
+                format="WEBP",
+                quality=85,
+                method=6
+            )
+            extension = "webp"
+
+        uploaded_file.seek(0)
+
+        return ContentFile(
+            output.getvalue(),
+            name=f"upload.{extension}"
+        )
+
+    except ValidationError:
+        raise
+
+    except (UnidentifiedImageError, OSError, ValueError):
+        raise ValidationError(
+            "画像を正しく読み込めませんでした。別の画像を選択してください。"
+        )
+
+
 # 記事本文のHTMLを安全に整える
 def sanitize_article_content(content):
     return nh3.clean(
