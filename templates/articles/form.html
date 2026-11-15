@@ -423,6 +423,90 @@
             </div>
 
             <div class="article-form-group">
+                <div id="ai-assistant" style="
+                    margin: 20px 0 28px;
+                    padding: 20px;
+                    border: 1px solid #dbeafe;
+                    border-radius: 12px;
+                    background: #f8fbff;
+                ">
+                    <h3 style="margin: 0 0 8px; color: #1e40af;">
+                        ✨ AI記事作成アシスタント
+                    </h3>
+
+                    <p style="font-size: 13px; color: #64748b; margin-bottom: 16px;">
+                        タイトルや本文の作成、文章の改善をAIがお手伝いします。
+                    </p>
+
+                    <label for="ai-prompt" class="article-form-label">
+                        キーワード・指示
+                    </label>
+
+                    <textarea
+                        id="ai-prompt"
+                        class="article-form-textarea"
+                        style="min-height: 90px;"
+                        maxlength="1000"
+                        placeholder="例：ジャズの魅力、初心者におすすめの楽しみ方"
+                    ></textarea>
+
+                    <div style="
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 8px;
+                        margin-top: 14px;
+                    ">
+                        <button type="button" class="article-form-back" data-ai-action="title">
+                            タイトル提案
+                        </button>
+
+                        <button type="button" class="article-form-back" data-ai-action="generate">
+                            本文を作成
+                        </button>
+
+                        <button type="button" class="article-form-back" data-ai-action="improve">
+                            文章を改善
+                        </button>
+
+                        <button type="button" class="article-form-back" data-ai-action="proofread">
+                            誤字脱字チェック
+                        </button>
+                    </div>
+
+                    <p id="ai-status" style="margin: 14px 0 0; font-size: 13px;"></p>
+
+                    <div id="ai-result" style="
+                        display: none;
+                        margin-top: 14px;
+                        padding: 14px;
+                        background: #ffffff;
+                        border: 1px solid #e5e7eb;
+                        border-radius: 8px;
+                        white-space: pre-wrap;
+                        overflow-wrap: anywhere;
+                    "></div>
+
+                    <button
+                        type="button"
+                        id="ai-insert-title"
+                        class="article-form-back"
+                        style="display: none; margin-top: 10px;"
+                    >
+                        タイトル欄に反映
+                    </button>
+
+                    <button
+                        type="button"
+                        id="ai-insert-content"
+                        class="article-form-back"
+                        style="display: none; margin-top: 10px;"
+                    >
+                        本文に反映
+                    </button>
+                </div>
+            </div>
+
+            <div class="article-form-group">
                 <label class="article-form-label" for="article-content-editor">
     本文
 </label>
