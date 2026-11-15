@@ -601,7 +601,21 @@ def article_edit(request, article_id):
         ).strip()
 
         image = request.FILES.get("image")
+
         if image:
+            try:
+                image = process_uploaded_image(image, 2)
+            except ValidationError as e:
+                return render(
+                    request,
+                    "articles/form.html",
+                    {
+                        "article": article,
+                        "hide_discovery_menu": True,
+                        "error": e.messages[0],
+                    }
+                )
+
             article.image = image
 
         action = request.POST.get("action", "publish")
