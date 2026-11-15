@@ -46,6 +46,7 @@ from django.utils import timezone
 from django.urls import reverse
 from datetime import timedelta
 from django.db.models import Count, Q
+from openai import OpenAI
 
 
 
