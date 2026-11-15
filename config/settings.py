@@ -224,3 +224,21 @@ ADMINS = [
 
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
+# エラー詳細をGunicornのログに記録
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": True,
+        },
+    },
+}
+
