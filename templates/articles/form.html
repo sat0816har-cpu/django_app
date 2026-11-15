@@ -977,6 +977,130 @@ const quill = new Quill(editorElement, {
             quill.getLength()
         );
     });
+
+    // AIアシスタント
+    const aiButtons = document.querySelectorAll("[data-ai-action]");
+    const aiPrompt = document.getElementById("ai-prompt");
+    const aiStatus = document.getElementById("ai-status");
+    const aiResult = document.getElementById("ai-result");
+    const insertTitleButton = document.getElementById("ai-insert-title");
+    const insertContentButton = document.getElementById("ai-insert-content");
+
+    let latestAIResult = "";
+    let latestAIAction = "";
+
+    aiButtons.forEach(function (button) {
+        button.addEventListener("click", async function () {
+
+            const action = button.dataset.aiAction;
+
+            const data = new FormData();
+            data.append("action", action);
+            data.append("prompt", aiPrompt.value);
+            data.append(
+                "title",
+                document.getElementById("article-title").value
+            );
+            data.append("content", quill.getText());
+
+            const csrfToken = form.querySelector(
+                '[name="csrfmiddlewaretoken"]'
+            ).value;
+
+            aiButtons.forEach(function (item) {
+                item.disabled = true;
+            });
+
+            aiStatus.textContent = "AIが文章を作成しています...";
+            aiResult.style.display = "none";
+            insertTitleButton.style.display = "none";
+            insertContentButton.style.display = "none";
+
+            try {
+                const response = await fetch(
+                    "{% url 'ai_article_assistant' %}",
+                    {
+                        method: "POST",
+                        headers: {
+                            "X-CSRFToken": csrfToken
+                        },
+                        body: data
+                    }
+                );
+
+                const result = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        result.error || "AIの処理に失敗しました。"
+                    );
+                }
+
+                latestAIResult = result.result;
+                latestAIAction = action;
+
+                aiResult.textContent = latestAIResult;
+                aiResult.style.display = "block";
+
+                if (action === "title") {
+                    insertTitleButton.style.display = "inline-flex";
+                } else {
+                    insertContentButton.style.display = "inline-flex";
+                }
+
+                aiStatus.textContent =
+                    "AIの回答ができました。内容を確認してください。"
+                    + " 本日の残り利用回数：" + result.remaining + "回";
+
+            } catch (error) {
+                aiStatus.textContent = error.message;
+
+            } finally {
+                aiButtons.forEach(function (item) {
+                    item.disabled = false;
+                });
+            }
+        });
+    });
+
+    // タイトルを反映
+    insertTitleButton.addEventListener("click", function () {
+
+        const firstLine = latestAIResult
+            .split("\n")
+            .map(line => line.trim())
+            .find(line => line.length > 0);
+
+        if (!firstLine) {
+            return;
+        }
+
+        const title = firstLine.replace(
+            /^\s*(?:\d+[.．、)）]|[-・])\s*/,
+            ""
+        ).replace(/^["「『]|["」』]$/g, "").trim();
+
+        document.getElementById("article-title").value =
+            title.slice(0, 200);
+    });
+
+    // 本文を反映
+    insertContentButton.addEventListener("click", function () {
+
+        if (!latestAIResult) {
+            return;
+        }
+
+        if (!confirm("現在の本文をAIの文章に置き換えますか？")) {
+            return;
+        }
+
+        quill.setText(latestAIResult);
+        contentInput.value = quill.getSemanticHTML();
+
+        quill.focus();
+    });
+    
 });
 </script>
 
