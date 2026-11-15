@@ -70,6 +70,12 @@ urlpatterns = [
     ),
 
     path(
+        "ai/article-assistant/",
+        views.ai_article_assistant,
+        name="ai_article_assistant"
+    ),
+
+    path(
         "articles/new/",
         views.article_create
     ),
