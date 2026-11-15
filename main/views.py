@@ -494,15 +494,15 @@ def article_create(request):
 
         image = request.FILES.get("image")
 
-if image:
-    try:
-        image = process_uploaded_image(image, 2)
-    except ValidationError as e:
-        return render(
-            request,
-            "articles/form.html",
-            {"error": e.messages[0]}
-        )
+        if image:
+            try:
+                image = process_uploaded_image(image, 2)
+            except ValidationError as e:
+                return render(
+                    request,
+                    "articles/form.html",
+                    {"error": e.messages[0]}
+                )
         youtube_url = request.POST.get(
             "youtube_url", ""
         ).strip()
