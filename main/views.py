@@ -802,7 +802,14 @@ def verify_email(request, uidb64, token):
         user = User.objects.get(pk=uid)
 
     except (TypeError, ValueError, OverflowError, User.DoesNotExist):
-        return HttpResponse("認証リンクが正しくありません。")
+        return render(
+            request,
+            "articles/email_verification_error.html",
+            {
+                "error_message": "認証リンクが正しくありません。",
+                "hide_discovery_menu": True,
+            }
+        )
 
     if user.is_active:
         return HttpResponse("このメールアドレスはすでに認証済みです。")
