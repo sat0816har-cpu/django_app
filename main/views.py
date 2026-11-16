@@ -849,10 +849,14 @@ def verify_email(request, uidb64, token):
             "articles/email_verified.html"
         )
 
-    return HttpResponse(
-        "認証リンクの有効期限が切れているか、無効です。"
+    return render(
+        request,
+        "articles/email_verification_error.html",
+        {
+            "error_message": "認証リンクの有効期限が切れているか、無効です。",
+            "hide_discovery_menu": True,
+        }
     )
-
 
 def resend_verification(request):
 
