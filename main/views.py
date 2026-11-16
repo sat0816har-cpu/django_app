@@ -812,7 +812,14 @@ def verify_email(request, uidb64, token):
         )
 
     if user.is_active:
-        return HttpResponse("このメールアドレスはすでに認証済みです。")
+        return render(
+            request,
+            "articles/email_verification_error.html",
+            {
+                "error_message": "このメールアドレスはすでに認証済みです。",
+                "hide_discovery_menu": True,
+            }
+        )
 
     if default_token_generator.check_token(user, token):
 
