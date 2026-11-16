@@ -1,0 +1,35 @@
+
+{% extends "base.html" %}
+
+{% block title %}メール認証エラー｜すきつな{% endblock %}
+
+{% block content %}
+
+<div class="container" style="max-width: 600px; margin: 50px auto; padding: 25px; text-align: center;">
+
+    <h2>メール認証について</h2>
+
+    <p style="margin-top: 25px;">
+        {{ error_message }}
+    </p>
+
+    <p style="margin-top: 20px;">
+        お手数ですが、新しい認証メールを再送信してください。
+    </p>
+
+    <div style="margin-top: 30px;">
+        <a href="{% url 'resend_verification' %}"
+           class="btn btn-primary">
+            認証メールを再送信する
+        </a>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <a href="{% url 'login' %}">
+            ログイン画面へ戻る
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
