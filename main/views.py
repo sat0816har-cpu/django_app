@@ -1731,8 +1731,13 @@ def withdrawal_confirm(request):
     except Exception:
         logger.exception("退会完了メールの送信に失敗しました")
 
-    # アカウントを無効化
+    # アカウントを退会済みにする
     user.is_active = False
+
+    profile, created = Profile.objects.get_or_create(user=user)
+    profile.is_withdrawn = True
+    profile.save(update_fields=["is_withdrawn"])
+
     user.save(update_fields=["is_active"])
 
     logout(request)
