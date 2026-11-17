@@ -1758,7 +1758,10 @@ def withdrawal_confirm(request):
 
     logout(request)
 
-    return redirect("/")
+    return render(
+    request,
+    "articles/withdrawal_complete.html"
+    )
 
 
 @login_required
