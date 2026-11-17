@@ -969,7 +969,13 @@ def login_view(request):
             username=username
         ).first()
 
-        if existing_user and not existing_user.is_active:
+        if existing_user and Profile.objects.filter(
+            user=existing_user,
+            is_withdrawn=True
+        ).exists():
+            error = "このアカウントは退会済みです。ログインすることはできません。"
+
+        elif existing_user and not existing_user.is_active:
             error = "メールアドレスの認証が完了していません。認証メールをご確認ください。"
 
         elif existing_user is None:
