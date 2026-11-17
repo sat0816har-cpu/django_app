@@ -878,6 +878,8 @@ def resend_verification(request):
             user = User.objects.filter(
                 email__iexact=email,
                 is_active=False
+            ).exclude(
+                profile__is_withdrawn=True
             ).first()
 
             if user:
