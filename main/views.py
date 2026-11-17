@@ -811,6 +811,20 @@ def verify_email(request, uidb64, token):
             }
         )
 
+    # 退会済みアカウントは認証させない
+    if Profile.objects.filter(
+        user=user,
+        is_withdrawn=True
+    ).exists():
+        return render(
+            request,
+            "articles/email_verification_error.html",
+            {
+                "error_message": "このアカウントは退会済みのため、メール認証できません。",
+                "hide_discovery_menu": True,
+            }
+        )
+
     if user.is_active:
         return render(
             request,
