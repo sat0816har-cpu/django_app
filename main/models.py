@@ -150,6 +150,9 @@ class Profile(models.Model):
         default=""
     )
 
+    # 退会済みかどうか
+    is_withdrawn = models.BooleanField(default=False)
+
     def __str__(self):
         return f"{self.user.username}のプロフィール"
 
