@@ -401,7 +401,6 @@ def genre_list(request, genre_slug):
 
 
 
-
 def article_detail(request, article_id):
     article = get_object_or_404(
         Article,
@@ -419,39 +418,98 @@ def article_detail(request, article_id):
 
     error = ""
 
-    # コメント投稿処理
+    # コメント・返信投稿処理
     if request.method == "POST":
-        name = request.POST.get("name", "").strip()
-        content = request.POST.get("content", "").strip()
 
-        # 入力チェック
-        if not name:
-            error = "お名前を入力してください。"
-        elif not content:
-            error = "コメントを入力してください。"
-        elif len(name) > 50:
-            error = "お名前は50文字以内で入力してください。"
-        elif len(content) > 1000:
-            error = "コメントは1000文字以内で入力してください。"
+        # 返信投稿の場合
+        reply_to = request.POST.get("reply_to", "").strip()
+        reply_content = request.POST.get("reply_content", "").strip()
+
+        if reply_to:
+
+            # ログインしていない場合
+            if not request.user.is_authenticated:
+                error = "ログインすると返信できます。"
+
+            else:
+                # 返信先のコメントを取得
+                parent_comment = Comment.objects.filter(
+                    id=reply_to,
+                    article=article,
+                    parent__isnull=True
+                ).first()
+
+                if parent_comment is None:
+                    error = "返信先のコメントが見つかりません。"
+
+                # 返信できる人か確認
+                elif (
+                    request.user != article.author
+                    and request.user != parent_comment.user
+                ):
+                    error = "このコメントに返信する権限がありません。"
+
+                elif not reply_content:
+                    error = "返信内容を入力してください。"
+
+                elif len(reply_content) > 1000:
+                    error = "返信は1000文字以内で入力してください。"
+
+                else:
+                    # 返信を保存
+                    Comment.objects.create(
+                        article=article,
+                        parent=parent_comment,
+                        user=request.user,
+                        user_was_registered=True,
+                        name=request.user.username,
+                        content=reply_content
+                    )
+
+                    # 保存後、記事詳細画面に戻る
+                    if request.GET.get("from") == "my-articles":
+                        return redirect(
+                            f"/articles/{article.id}/?from=my-articles"
+                        )
+
+                    return redirect(f"/articles/{article.id}/")
+
+        # 通常コメント投稿の場合
         else:
-            Comment.objects.create(
-                article=article,
-                user=request.user if request.user.is_authenticated else None,
-                user_was_registered=request.user.is_authenticated,
-                name=name,
-                content=content
-            )
+            name = request.POST.get("name", "").strip()
+            content = request.POST.get("content", "").strip()
 
-            # 保存後、記事詳細画面に戻る
-            if request.GET.get("from") == "my-articles":
-                return redirect(f"/articles/{article.id}/?from=my-articles")
+            # 入力チェック
+            if not name:
+                error = "お名前を入力してください。"
+            elif not content:
+                error = "コメントを入力してください。"
+            elif len(name) > 50:
+                error = "お名前は50文字以内で入力してください。"
+            elif len(content) > 1000:
+                error = "コメントは1000文字以内で入力してください。"
+            else:
+                Comment.objects.create(
+                    article=article,
+                    user=request.user if request.user.is_authenticated else None,
+                    user_was_registered=request.user.is_authenticated,
+                    name=name,
+                    content=content
+                )
 
-            return redirect(f"/articles/{article.id}/")
+                # 保存後、記事詳細画面に戻る
+                if request.GET.get("from") == "my-articles":
+                    return redirect(
+                        f"/articles/{article.id}/?from=my-articles"
+                    )
 
-    # コメントを新しい順に取得
+                return redirect(f"/articles/{article.id}/")
+
+    # 親コメントのみ取得（返信は親コメントの下に表示）
     comments_queryset = Comment.objects.filter(
-        article=article
-    ).order_by("-created_at")
+        article=article,
+        parent__isnull=True
+    ).order_by("-created_at").prefetch_related("replies")
 
     # コメントを10件ずつページング
     paginator = Paginator(comments_queryset, 10)
@@ -474,7 +532,7 @@ def article_detail(request, article_id):
             ),
         }
     )
-
+    
 
 
 
