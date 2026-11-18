@@ -165,6 +165,15 @@ class Comment(models.Model):
         related_name="comments"
     )
 
+    # 返信先のコメント（通常のコメントはNULL）
+    parent = models.ForeignKey(
+        "self",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name="replies"
+    )
+
     user = models.ForeignKey(
         User,
         on_delete=models.SET_NULL,
