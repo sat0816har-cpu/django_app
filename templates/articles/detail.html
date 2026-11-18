@@ -627,37 +627,83 @@
     コメント
 </h3>
 
-        {% for comment in comments %}
-
-            <div class="article-comment-item">
+{% for comment in comments %}
+  <div class="article-comment-item">
 
     <p class="article-comment-date">
-        {{ comment.created_at|date:"Y年n月j日 H:i" }}
+      {{ comment.created_at|date:"Y年n月j日 H:i" }}
     </p>
 
     <p class="article-comment-name">
-    {% if comment.user and comment.user.is_active %}
-        <a href="/users/{{ comment.user.username }}/">
-            {{ comment.name }}
-        </a>
-    {% elif comment.user_was_registered %}
+      {% if comment.user and comment.user.is_active %}
+        <a href="/users/{{ comment.user.username }}/">{{ comment.name }}</a>
+      {% elif comment.user_was_registered %}
         退会したユーザー
-    {% else %}
+      {% else %}
         {{ comment.name }}
+      {% endif %}
+    </p>
+
+    <p class="article-comment-content">
+      {{ comment.content }}
+    </p>
+
+    {# 返信表示 #}
+    {% for reply in comment.replies.all %}
+      <div class="article-comment-reply">
+
+        <p class="article-comment-date">
+          {{ reply.created_at|date:"Y年n月j日 H:i" }}
+        </p>
+
+        <p class="article-comment-name">
+          {% if reply.user and reply.user.is_active %}
+            <a href="/users/{{ reply.user.username }}/">{{ reply.name }}</a>
+          {% elif reply.user_was_registered %}
+            退会したユーザー
+          {% else %}
+            {{ reply.name }}
+          {% endif %}
+        </p>
+
+        <p class="article-comment-content">
+          {{ reply.content }}
+        </p>
+
+      </div>
+    {% endfor %}
+
+    {# 返信フォーム：記事投稿者またはコメント投稿者のみ #}
+    {% if user.is_authenticated %}
+      {% if user == article.author or user == comment.user %}
+        <form method="post" class="article-comment-reply-form">
+          {% csrf_token %}
+
+          <input
+            type="hidden"
+            name="reply_to"
+            value="{{ comment.id }}"
+          >
+
+          <textarea
+            name="reply_content"
+            maxlength="1000"
+            rows="3"
+            placeholder="このコメントに返信する..."
+            required
+          ></textarea>
+
+          <button type="submit">返信する</button>
+        </form>
+      {% endif %}
     {% endif %}
-</p>
 
-    <p class="article-comment-content">{{ comment.content }}</p>
-
-</div>
-
-        {% empty %}
-
-            <p class="article-comment-empty">
-                まだコメントはありません。最初のコメントを投稿してみましょう！
-            </p>
-
-        {% endfor %}
+  </div>
+{% empty %}
+  <p class="article-comment-empty">
+    まだコメントはありません。最初のコメントを投稿してみましょう！
+  </p>
+{% endfor %}
 
         {% if page_obj.has_other_pages %}
     <div style="display: flex; justify-content: center; align-items: center; gap: 18px; margin: 24px 0;">
