@@ -348,6 +348,60 @@ def validate_article_body_images(content, user, article=None):
         allowed_image_urls=set(image_urls)
     )
 
+# 一時画像を記事の正式な画像として保存する
+def save_article_body_images(article, content, user):
+
+    storage, temp_images = get_user_temp_article_images(user)
+
+    image_urls = get_article_body_image_urls(content)
+
+    existing_images = {
+        image.image.url: image
+        for image in article.extra_images.all()
+        if image.image
+    }
+
+    for url in image_urls:
+
+        # 既存画像ならそのまま維持
+        if url in existing_images:
+            continue
+
+        # 本人の一時画像以外は拒否
+        if url not in temp_images:
+            raise ValidationError(
+                "使用できない画像が含まれています。"
+            )
+
+        filename = temp_images[url]
+
+        # 一時画像を読み込んで正式保存
+        with storage.open(filename, "rb") as image_file:
+            image_data = ContentFile(
+                image_file.read(),
+                name=os.path.basename(filename)
+            )
+
+        article_image = ArticleImage(article=article)
+        article_image.image.save(
+            os.path.basename(filename),
+            image_data,
+            save=False
+        )
+        article_image.save()
+
+        # 正式保存できた一時画像を削除
+        storage.delete(filename)
+
+    # 本文から削除された既存画像を整理
+    for url, article_image in existing_images.items():
+
+        if url not in image_urls:
+            if article_image.image:
+                article_image.image.delete(save=False)
+
+            article_image.delete()
+
 
 
 @require_POST
