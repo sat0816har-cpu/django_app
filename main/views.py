@@ -308,6 +308,14 @@ def get_user_temp_article_images(user):
 
     return storage, image_urls
 
+# 記事本文の画像URLを取得する
+def get_article_body_image_urls(content):
+
+    parser = ArticleImageParser()
+    parser.feed(content or "")
+
+    return list(dict.fromkeys(parser.image_urls))
+
 
 
 @require_POST
