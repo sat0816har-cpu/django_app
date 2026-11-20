@@ -252,7 +252,7 @@ def article_list(request):
 
     articles = articles.order_by("-created_at")
 
-    paginator = Paginator(articles, 12)
+    paginator = Paginator(articles, 16)
     page_obj = paginator.get_page(
         request.GET.get("page", 1)
     )
