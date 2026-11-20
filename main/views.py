@@ -177,6 +177,76 @@ def sanitize_article_content(content):
         link_rel="noopener noreferrer",
     )
 
+# 記事本文用画像の一時アップロード
+@login_required
+@require_POST
+def article_body_image_upload(request):
+
+    uploaded_file = request.FILES.get("image")
+
+    if not uploaded_file:
+        return JsonResponse(
+            {"error": "画像が選択されていません。"},
+            status=400
+        )
+
+    # ユーザーごとの一時保存先
+    temp_root = (
+        settings.ARTICLE_TEMP_ROOT / str(request.user.id)
+    )
+
+    storage = FileSystemStorage(
+        location=temp_root,
+        base_url=(
+            settings.MEDIA_URL
+            + "article_temp/"
+            + str(request.user.id)
+            + "/"
+        )
+    )
+
+    # 一時保存中の画像数を確認
+    if os.path.isdir(temp_root):
+        image_count = len([
+            name for name in os.listdir(temp_root)
+            if os.path.isfile(temp_root / name)
+        ])
+    else:
+        image_count = 0
+
+    if image_count >= 5:
+        return JsonResponse(
+            {"error": "本文画像は最大5枚までです。"},
+            status=400
+        )
+
+    try:
+        processed_image = process_uploaded_image(
+            uploaded_file,
+            2
+        )
+
+        filename = (
+            secrets.token_hex(16)
+            + "."
+            + processed_image.name.rsplit(".", 1)[-1]
+        )
+
+        saved_name = storage.save(
+            filename,
+            processed_image
+        )
+
+        return JsonResponse({
+            "url": storage.url(saved_name)
+        })
+
+    except ValidationError as e:
+        return JsonResponse(
+            {"error": e.messages[0]},
+            status=400
+        )
+
 
 
 @require_POST
