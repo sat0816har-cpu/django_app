@@ -758,7 +758,14 @@ def article_detail(request, article_id):
         "articles/detail.html",
         {
             "article": article,
-            "article_content": sanitize_article_content(article.content),
+            "article_content": sanitize_article_content(
+                article.content,
+                allowed_image_urls={
+                    image.image.url
+                    for image in article.extra_images.all()
+                    if image.image
+                }
+            ),
             "comments": comments,
             "page_obj": page_obj,
             "error": error,
