@@ -166,14 +166,29 @@ def process_uploaded_image(uploaded_file, max_size_mb):
 
 
 # 記事本文のHTMLを安全に整える
-def sanitize_article_content(content):
+def sanitize_article_content(content, allowed_image_urls=None):
+    allowed_image_urls = set(allowed_image_urls or [])
+
+    def filter_attribute(tag, attribute, value):
+        if tag == "img" and attribute == "src":
+            if value in allowed_image_urls:
+                return value
+            return None
+
+        if tag == "img" and attribute == "alt":
+            return value[:200]
+
+        return value
+
     return nh3.clean(
         content,
         tags=ARTICLE_CONTENT_TAGS,
         attributes={
             "a": {"href", "title"},
             "span": {"class"},
+            "img": {"src", "alt"},
         },
+        attribute_filter=filter_attribute,
         strip_comments=True,
         link_rel="noopener noreferrer",
     )
