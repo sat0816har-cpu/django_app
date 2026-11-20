@@ -896,10 +896,43 @@ def article_edit(request, article_id):
 
     if request.method == "POST":
 
+        raw_content = request.POST.get("content", "")
+
+        try:
+            content = validate_article_body_images(
+                raw_content,
+                request.user,
+                article=article
+            )
+        except ValidationError as e:
+            return render(
+                request,
+                "articles/form.html",
+                {
+                    "article": article,
+                    "hide_discovery_menu": True,
+                    "error": e.messages[0],
+                }
+            )
+
+        image = request.FILES.get("image")
+
+        if image:
+            try:
+                image = process_uploaded_image(image, 2)
+            except ValidationError as e:
+                return render(
+                    request,
+                    "articles/form.html",
+                    {
+                        "article": article,
+                        "hide_discovery_menu": True,
+                        "error": e.messages[0],
+                    }
+                )
+
         article.title = request.POST["title"]
-        article.content = sanitize_article_content(
-            request.POST.get("content", "")
-        )
+        article.content = content
 
         genre = request.POST.get(
             "genre", article.genre
@@ -935,32 +968,33 @@ def article_edit(request, article_id):
             article.youtube_url
         ).strip()
 
-        image = request.FILES.get("image")
-
         if image:
-            try:
-                image = process_uploaded_image(image, 2)
-            except ValidationError as e:
-                return render(
-                    request,
-                    "articles/form.html",
-                    {
-                        "article": article,
-                        "hide_discovery_menu": True,
-                        "error": e.messages[0],
-                    }
-                )
-
             article.image = image
 
         action = request.POST.get("action", "publish")
 
-        if action == "draft":
-            article.is_published = False
-        else:
-            article.is_published = True
+        article.is_published = (action != "draft")
 
         article.save()
+
+        try:
+            article.content = save_article_body_images(
+                article,
+                content,
+                request.user
+            )
+            article.save(update_fields=["content"])
+
+        except ValidationError as e:
+            return render(
+                request,
+                "articles/form.html",
+                {
+                    "article": article,
+                    "hide_discovery_menu": True,
+                    "error": e.messages[0],
+                }
+            )
 
         if article.is_published:
             return redirect(
@@ -977,7 +1011,6 @@ def article_edit(request, article_id):
             "hide_discovery_menu": True,
         }
     )
-
 
 
 
