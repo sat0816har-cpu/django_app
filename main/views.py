@@ -264,6 +264,21 @@ def article_body_image_upload(request):
             status=400
         )
 
+# 記事本文から画像URLを取り出す
+class ArticleImageParser(HTMLParser):
+
+    def __init__(self):
+        super().__init__()
+        self.image_urls = []
+
+    def handle_starttag(self, tag, attrs):
+        if tag.lower() == "img":
+            attributes = dict(attrs)
+            src = attributes.get("src")
+
+            if src:
+                self.image_urls.append(src)
+
 
 
 @require_POST
