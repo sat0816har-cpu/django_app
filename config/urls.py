@@ -81,6 +81,12 @@ urlpatterns = [
     ),
 
     path(
+        "articles/upload-body-image/",
+        views.article_body_image_upload,
+        name="article_body_image_upload"
+    ),
+
+    path(
         "articles/<int:article_id>/",
         views.article_detail
     ),
