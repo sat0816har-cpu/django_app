@@ -279,6 +279,35 @@ class ArticleImageParser(HTMLParser):
             if src:
                 self.image_urls.append(src)
 
+# ログインユーザーの一時画像を取得する
+def get_user_temp_article_images(user):
+
+    temp_root = (
+        settings.ARTICLE_TEMP_ROOT / str(user.id)
+    )
+
+    storage = FileSystemStorage(
+        location=temp_root,
+        base_url=(
+            settings.MEDIA_URL
+            + "article_temp/"
+            + str(user.id)
+            + "/"
+        )
+    )
+
+    image_urls = {}
+
+    if os.path.isdir(temp_root):
+        for filename in os.listdir(temp_root):
+
+            file_path = temp_root / filename
+
+            if os.path.isfile(file_path):
+                image_urls[storage.url(filename)] = filename
+
+    return storage, image_urls
+
 
 
 @require_POST
