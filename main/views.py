@@ -361,6 +361,8 @@ def save_article_body_images(article, content, user):
         if image.image
     }
 
+    url_replacements = {}
+
     for url in image_urls:
 
         # 既存画像ならそのまま維持
@@ -375,7 +377,6 @@ def save_article_body_images(article, content, user):
 
         filename = temp_images[url]
 
-        # 一時画像を読み込んで正式保存
         with storage.open(filename, "rb") as image_file:
             image_data = ContentFile(
                 image_file.read(),
@@ -390,8 +391,15 @@ def save_article_body_images(article, content, user):
         )
         article_image.save()
 
+        # 新しい正式保存先のURLを記録
+        url_replacements[url] = article_image.image.url
+
         # 正式保存できた一時画像を削除
         storage.delete(filename)
+
+    # 本文の画像URLを正式保存先に置き換える
+    for old_url, new_url in url_replacements.items():
+        content = content.replace(old_url, new_url)
 
     # 本文から削除された既存画像を整理
     for url, article_image in existing_images.items():
@@ -401,6 +409,8 @@ def save_article_body_images(article, content, user):
                 article_image.image.delete(save=False)
 
             article_image.delete()
+
+    return content
 
 
 
