@@ -321,7 +321,7 @@ def category_list(request, category_slug):
 
     articles = articles.order_by("-created_at")
 
-    paginator = Paginator(articles, 12)
+    paginator = Paginator(articles, 16)
     page_obj = paginator.get_page(
         request.GET.get("page", 1)
     )
@@ -373,7 +373,7 @@ def genre_list(request, genre_slug):
         author__is_active=True
     ).order_by("-created_at")
 
-    paginator = Paginator(articles, 12)
+    paginator = Paginator(articles, 16)
     page_obj = paginator.get_page(
         request.GET.get("page", 1)
     )
