@@ -53,6 +53,7 @@ from openai import OpenAI
 from io import BytesIO
 from PIL import Image, ImageOps, UnidentifiedImageError
 from django.core.files.base import ContentFile
+from django.core.files.storage import FileSystemStorage
 
 
 
