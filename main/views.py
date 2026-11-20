@@ -316,6 +316,38 @@ def get_article_body_image_urls(content):
 
     return list(dict.fromkeys(parser.image_urls))
 
+# 本文画像の所有者と枚数を確認する
+def validate_article_body_images(content, user, article=None):
+
+    storage, temp_images = get_user_temp_article_images(user)
+
+    image_urls = get_article_body_image_urls(content)
+
+    if len(image_urls) > 5:
+        raise ValidationError(
+            "本文画像は最大5枚までです。"
+        )
+
+    existing_urls = set()
+
+    if article:
+        for article_image in article.extra_images.all():
+            if article_image.image:
+                existing_urls.add(article_image.image.url)
+
+    allowed_urls = existing_urls | set(temp_images.keys())
+
+    for url in image_urls:
+        if url not in allowed_urls:
+            raise ValidationError(
+                "使用できない画像が本文に含まれています。画像を選び直してください。"
+            )
+
+    return sanitize_article_content(
+        content,
+        allowed_image_urls=set(image_urls)
+    )
+
 
 
 @require_POST
