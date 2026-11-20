@@ -34,6 +34,7 @@ from .models import (
     Comment,
     Follow,
     AIUsage,
+    ArticleImage,
 )
 
 from django.core.paginator import Paginator
