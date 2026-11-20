@@ -780,12 +780,29 @@ def article_create(request):
     if request.method == "POST":
 
         title = request.POST["title"]
-        content = sanitize_article_content(
-            request.POST.get("content", "")
-        )
+
+        raw_content = request.POST.get("content", "")
+
+        try:
+            content = validate_article_body_images(
+                raw_content,
+                request.user
+            )
+        except ValidationError as e:
+            return render(
+                request,
+                "articles/form.html",
+                {
+                    "error": e.messages[0],
+                    "hide_discovery_menu": True,
+                }
+            )
+
         genre = request.POST.get("genre", "other")
         category = request.POST.get("category", "other")
-        sub_category = request.POST.get("sub_category", "").strip()
+        sub_category = request.POST.get(
+            "sub_category", ""
+        ).strip()
 
         image = request.FILES.get("image")
 
@@ -796,8 +813,12 @@ def article_create(request):
                 return render(
                     request,
                     "articles/form.html",
-                    {"error": e.messages[0]}
+                    {
+                        "error": e.messages[0],
+                        "hide_discovery_menu": True,
+                    }
                 )
+
         youtube_url = request.POST.get(
             "youtube_url", ""
         ).strip()
@@ -822,7 +843,7 @@ def article_create(request):
         if genre not in valid_genres:
             genre = "other"
 
-        Article.objects.create(
+        article = Article.objects.create(
             author=request.user,
             title=title,
             content=content,
@@ -834,13 +855,32 @@ def article_create(request):
             is_published=is_published,
         )
 
+        try:
+            article.content = save_article_body_images(
+                article,
+                content,
+                request.user
+            )
+            article.save(update_fields=["content"])
+
+        except ValidationError as e:
+            article.delete()
+
+            return render(
+                request,
+                "articles/form.html",
+                {
+                    "error": e.messages[0],
+                    "hide_discovery_menu": True,
+                }
+            )
+
         return redirect("my_articles")
 
     return render(
         request,
         "articles/form.html"
     )
-
 
 
 
