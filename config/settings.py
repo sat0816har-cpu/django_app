@@ -161,6 +161,7 @@ STATIC_URL = "static/"
 # アップロードした画像など
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
+ARTICLE_TEMP_ROOT = MEDIA_ROOT / "article_temp"
 
 
 # デフォルトの主キー
