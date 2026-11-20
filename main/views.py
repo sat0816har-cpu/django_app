@@ -81,6 +81,7 @@ ARTICLE_CONTENT_TAGS = {
     "pre",
     "code",
     "a",
+    "img",
     "span",
 }
 
