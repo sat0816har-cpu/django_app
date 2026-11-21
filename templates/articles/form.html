@@ -917,6 +917,12 @@ const quill = new Quill(editorElement, {
             container: toolbarElement,
             handlers: {
                 bodyImage: function () {
+                    const imageCount = quill.root.querySelectorAll("img").length;
+
+                    if (imageCount >= 5) {
+                        alert("本文画像は最大5枚までです。");
+                        return;
+                    }
                     const range = quill.getSelection(true);
 
                     if (!range) {
