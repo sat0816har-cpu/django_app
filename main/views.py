@@ -869,7 +869,10 @@ def article_create(request):
                 }
             )
 
-        return redirect("my_articles")
+        if article.is_published:
+            return redirect("my_articles")
+
+        return redirect("/my-articles/?status=draft")
 
     return render(
         request,
