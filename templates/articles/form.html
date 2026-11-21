@@ -390,6 +390,33 @@
     align-items: center;
     justify-content: center;
 }
+
+/* AI記事作成アシスタントの横揺れ防止 */
+#ai-assistant {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+/* AIの回答表示部分 */
+#ai-result {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+/* AIアシスタント内の入力欄 */
+#ai-assistant textarea {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
 </style>
 
 <div class="article-form-container">
