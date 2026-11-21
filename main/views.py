@@ -222,20 +222,7 @@ def article_body_image_upload(request):
         )
     )
 
-    # 一時保存中の画像数を確認
-    if os.path.isdir(temp_root):
-        image_count = len([
-            name for name in os.listdir(temp_root)
-            if os.path.isfile(temp_root / name)
-        ])
-    else:
-        image_count = 0
 
-    if image_count >= 5:
-        return JsonResponse(
-            {"error": "本文画像は最大5枚までです。"},
-            status=400
-        )
 
     try:
         processed_image = process_uploaded_image(
