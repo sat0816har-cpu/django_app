@@ -377,21 +377,8 @@
     #article-quill-toolbar .article-quill-icon-groups {
         justify-content: center;
     }
-}
 
-#article-quill-toolbar .ql-bodyImage {
-    writing-mode: horizontal-tb;
-    text-orientation: mixed;
-    white-space: nowrap;
-    width: auto;
-    min-width: 40px;
-    padding: 3px 8px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* AI記事作成アシスタントの横揺れ防止 */
+    /* AI記事作成アシスタントの横揺れ防止 */
 #ai-assistant {
     width: 100%;
     max-width: 100%;
@@ -417,6 +404,40 @@
     min-width: 0;
     box-sizing: border-box;
 }
+
+/* AIアシスタント内部の横幅を制限 */
+#ai-assistant * {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+}
+
+/* AIの処理状況メッセージ */
+#ai-status {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+/* 横方向へのはみ出しを防ぐ */
+#ai-assistant {
+    overflow-x: clip;
+}
+
+
+}
+
+#article-quill-toolbar .ql-bodyImage {
+    writing-mode: horizontal-tb;
+    text-orientation: mixed;
+    white-space: nowrap;
+    width: auto;
+    min-width: 40px;
+    padding: 3px 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
 </style>
 
 <div class="article-form-container">
