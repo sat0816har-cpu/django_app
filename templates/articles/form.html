@@ -378,52 +378,6 @@
         justify-content: center;
     }
 
-    /* AI記事作成アシスタントの横揺れ防止 */
-#ai-assistant {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-    overflow: hidden;
-}
-
-/* AIの回答表示部分 */
-#ai-result {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-    overflow-wrap: anywhere;
-    word-break: break-word;
-}
-
-/* AIアシスタント内の入力欄 */
-#ai-assistant textarea {
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
-    box-sizing: border-box;
-}
-
-/* AIアシスタント内部の横幅を制限 */
-#ai-assistant * {
-    box-sizing: border-box;
-    min-width: 0;
-    max-width: 100%;
-}
-
-/* AIの処理状況メッセージ */
-#ai-status {
-    overflow-wrap: anywhere;
-    word-break: break-word;
-}
-
-/* 横方向へのはみ出しを防ぐ */
-#ai-assistant {
-    overflow-x: clip;
-}
-
-
 }
 
 #article-quill-toolbar .ql-bodyImage {
@@ -436,6 +390,24 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+}
+
+/* スマホで記事投稿画面全体の横揺れを防止 */
+@media (max-width: 600px) {
+    html,
+    body {
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    .article-form-container,
+    .article-form-card,
+    .article-form-layout,
+    .article-form-writing-card,
+    .article-form-group {
+        min-width: 0;
+        max-width: 100%;
+    }
 }
 
 </style>
