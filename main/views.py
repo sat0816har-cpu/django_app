@@ -1569,6 +1569,10 @@ def contact(request):
 def guide(request):
     return render(request, "articles/guide.html")
 
+# 提携・協力について
+def partnership(request):
+    return render(request, "articles/partnership.html")
+
 
 
 
