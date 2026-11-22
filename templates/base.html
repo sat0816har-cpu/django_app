@@ -372,18 +372,19 @@
 </div>
 
 
-        <nav class="footer-links">
-            <a href="/privacy/">プライバシーポリシー</a>
-            <a href="/terms/">利用規約</a>
-            <a href="/about/">このサイトについて</a>
-            <a href="/contact/">お問い合わせ</a>
-            <a href="/guide/">ご利用ガイド</a>
-            <a href="/withdrawal/">退会について</a>
+    <nav class="footer-links">
+    <a href="/privacy/">プライバシーポリシー</a>
+    <a href="/terms/">利用規約</a>
+    <a href="/about/">このサイトについて</a>
+    <a href="/contact/">お問い合わせ</a>
+    <a href="/guide/">ご利用ガイド</a>
+    <a href="/partnership/">提携・協力について</a>
+    <a href="/withdrawal/">退会について</a>
 
-            {% if user.is_authenticated and user.is_staff %}
-                <a href="/private-users/">登録ユーザー一覧</a>
-            {% endif %}
-        </nav>
+    {% if user.is_authenticated and user.is_staff %}
+        <a href="/private-users/">登録ユーザー一覧</a>
+    {% endif %}
+    </nav>
 
         <p class="footer-copy">
             &copy; 2026 すきつな
