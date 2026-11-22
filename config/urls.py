@@ -226,6 +226,7 @@ urlpatterns = [
     path("about/", views.about, name="about"),
     path("contact/", views.contact, name="contact"),
     path("guide/", views.guide, name="guide"),
+    path("partnership/", views.partnership, name="partnership"),
     path("withdrawal/", views.withdrawal, name="withdrawal"),
     path("withdrawal/confirm/", views.withdrawal_confirm_page, name="withdrawal_confirm_page"),
     path("withdrawal/submit/", views.withdrawal_confirm, name="withdrawal_confirm"),
