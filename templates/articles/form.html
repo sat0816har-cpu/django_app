@@ -340,6 +340,13 @@
     padding: 8px 0;
 }
 
+/* スマホでは編集ツールバーの固定を解除 */
+@media (max-width: 600px) {
+    #article-quill-toolbar {
+        position: static;
+    }
+}
+
 /* 左端の文字スタイル */
 #article-quill-toolbar .article-quill-style-controls {
     display: flex;
